@@ -38,15 +38,16 @@ namespace Farm_ASPCore_Webapi.Controllers
                 return BadRequest(ModelState);
             }
 
+            if(!await _context.Farms.AnyAsync(f => f.Id == farm.Id))
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Entry(farm).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
             return Ok();
         }
 
-        private bool FarmExists(int id)
-        {
-            return _context.Farms.Any(e => e.Id == id);
-        }
     }
 }
