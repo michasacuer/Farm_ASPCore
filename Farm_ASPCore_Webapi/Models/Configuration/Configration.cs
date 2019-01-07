@@ -11,24 +11,30 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            int countOfDrivers = 0;
-            int countOfFarmer = 0;
-            for (int i = 0; i < countOfDrivers; i++)
-            {
-                modelBuilder.Entity<Driver>().HasData(
-               new Driver
-               {
+            int countOfDrivers = 10;
+            int countOfFarmer = 10;
 
-               });
-            }
-            for (int i = 0; i < countOfFarmer; i++)
-            {
-                modelBuilder.Entity<Farmer>().HasData(
-               new Farmer
-               {
+            //modelBuilder.Entity<Farm>().HasData(
+            //    new Farm()
+            //    {
+            //        Id = 1,
+            //        Name = "Farma"
+            //    });
 
-               });
-            }
+            modelBuilder.Entity<Driver>().HasData(
+            new Driver
+            {
+                Id = 1,
+                FarmId = 1
+            });
+            
+            modelBuilder.Entity<Farmer>().HasData(
+            new Farmer
+            {
+               Id = 2,
+               FarmId = 1
+            });
+            
         }
     }
 }
