@@ -21,6 +21,14 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IActionResult GetFarms() => Ok(_context.Farms.SingleOrDefault());
 
+        //Get: api//Farm/All
+        [HttpGet("All")]
+        public IActionResult GetFarmsAll() => Ok(_context.Farms.Include(w => w.Workers)
+                                                               .Include(m => m.Machines)
+                                                               .Include(c => c.Cultivations)
+                                                               .Include(s => s.Stables)
+                                                               .SingleOrDefault());
+
         // PUT: api/Farm/5
         [HttpPut]
         public async Task<IActionResult> PutFarm([FromBody] Farm farm)
