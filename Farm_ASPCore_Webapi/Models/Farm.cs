@@ -9,8 +9,8 @@ namespace Farm_ASPCore_Webapi.Models
     public class Farm
     {
         [Key]
-        public int Id { get; set; } 
-        public string Name { get; set; }
+        public int Id { get; set; } = 1;
+        public string Name { get; set; } = "farma";
 
         public virtual List<Stable> Stables { get; set; }
         public virtual List<Machine> Machines { get; set; }
@@ -20,9 +20,9 @@ namespace Farm_ASPCore_Webapi.Models
         //public virtual List<Farmer> Farmers { get; set; }
         private string state;
 
-        public Farm GetFarm() => farm;
+        public static Farm GetFarm() => farm;
 
-        private Farm farm = new Farm();
+        private static readonly Farm farm = new Farm();
         private Farm() { }
         
         public void saveState(string state)

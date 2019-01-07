@@ -14,27 +14,23 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             int countOfDrivers = 10;
             int countOfFarmer = 10;
 
-            //modelBuilder.Entity<Farm>().HasData(
-            //    new Farm()
-            //    {
-            //        Id = 1,
-            //        Name = "Farma"
-            //    });
+            modelBuilder.Entity<Farm>().HasData(
+                Farm.GetFarm());
 
             modelBuilder.Entity<Driver>().HasData(
             new Driver
             {
                 Id = 1,
-                FarmId = 1
+                //FarmId = 1
             });
-            
+
             modelBuilder.Entity<Farmer>().HasData(
             new Farmer
             {
-               Id = 2,
-               FarmId = 1
+                Id = 2,
+                //FarmId = 1
             });
-            
+
         }
     }
 }
