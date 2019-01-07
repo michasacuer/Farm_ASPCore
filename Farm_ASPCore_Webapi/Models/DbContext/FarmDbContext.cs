@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
+using Farm_ASPCore_Webapi.Models.Configuration;
 
 namespace Farm_ASPCore_Webapi.Models
 {
@@ -11,15 +12,16 @@ namespace Farm_ASPCore_Webapi.Models
         public DbSet<Machine> Machines { get; set; }
         public DbSet<Stable> Stables { get; set; }
         public DbSet<Worker> Workers { get; set; }
-        public DbSet<Farmer> Farmers { get; set; }
-        public DbSet<Driver> Drivers { get; set; }
+        //public DbSet<Farmer> Farmers { get; set; }
+        //public DbSet<Driver> Drivers { get; set; }
         public DbSet<Cultivation> Cultivations { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Driver>();
             builder.Entity<Farmer>();
-
+            builder.Seed();
             base.OnModelCreating(builder);
         }
     }
