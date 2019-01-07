@@ -19,7 +19,7 @@ namespace Farm_ASPCore_Webapi.Models
 
         public Farm GetFarm() => farm;
 
-        private Farm farm;
+        private Farm farm = new Farm();
         private Farm() { }
     }
 }
