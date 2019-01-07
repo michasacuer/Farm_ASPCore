@@ -13,6 +13,5 @@ namespace Farm_ASPCore_Webapi.Models
         //public DbSet<Farmer> Farmers { get; set; }
         //public DbSet<Driver> Drivers { get; set; }
         public DbSet<Cultivation> Cultivations { get; set; }
-
     }
 }
