@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Farm_ASPCore_Webapi.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,27 +17,39 @@ namespace Farm_ASPCore_Webapi.Models.Cultivation
         public int FarmId { get; }
         public Farm Farm { get; }
 
-        public CultivationLeaf()
+        [ForeignKey("Grain")]
+        public int GrainId { get; private set; }
+        public Grain Grain { get; private set; }
+
+        private readonly ICultivation parent;
+
+        public CultivationLeaf(ICultivation parent)
         {
-            //Id = Farm.GetFarm().Cultivations.Count;
+            Id = Farm.GetFarm().Cultivations.Count;
+            Farm = Farm.GetFarm();
+            Grain = null;
+            this.parent = parent;
         }
 
-        public void Add()
+        public void Add(ICultivation cultivations)
         {
-            throw new NotImplementedException();
+            CultivationComposite cultivationComposite = new CultivationComposite();
+            cultivationComposite.Add(this);
+            parent.Remove(this);
+            parent.Add(cultivationComposite);
         }
 
         public void Harvest()
         {
-            throw new NotImplementedException();
+            Grain = null;
         }
 
-        public void Plow()
+        public void Sow(Grain grain)
         {
-            throw new NotImplementedException();
+            Grain = grain;
         }
 
-        public void Sow()
+        public void Remove(ICultivation cultivation)
         {
             throw new NotImplementedException();
         }
