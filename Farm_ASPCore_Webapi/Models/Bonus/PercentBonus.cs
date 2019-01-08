@@ -7,9 +7,8 @@ namespace Farm_ASPCore_Webapi.Models.Bonus
 {
     public class PercentBonus : Bonus
     {
-        public override float CountSalary()
-        {
-            throw new NotImplementedException();
-        }
+        public PercentBonus(Worker worker) : base(worker: worker) { }
+
+        public override float CountSalary() => base.worker.CountSalary();
     }
 }

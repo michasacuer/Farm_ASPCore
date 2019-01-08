@@ -18,16 +18,9 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual List<Cultivation> Cultivations { get; set; }
 
         public static Farm GetFarm() => farm;
+        public void SaveState(string state) => this.state = state;
+        public Memento Save() => new Memento(state);
 
-        public void saveState(string state)
-        {
-            this.state = state;
-        }
-
-        public Memento save()
-        {
-            return new Memento(state);
-        }
 
         public void restore(Memento m)
         {

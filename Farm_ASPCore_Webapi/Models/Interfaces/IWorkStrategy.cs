@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Farm_ASPCore_Webapi.Models.Interfaces
+﻿namespace Farm_ASPCore_Webapi.Models.Interfaces
 {   
     public interface IWorkStrategy
     {

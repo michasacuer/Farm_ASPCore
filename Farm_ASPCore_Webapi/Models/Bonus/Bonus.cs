@@ -7,9 +7,9 @@ namespace Farm_ASPCore_Webapi.Models.Bonus
 {
     public abstract class Bonus : Worker
     {
-        public Bonus() { }
-        public Bonus(Worker worker) => worker = this.worker;
-        
-        private Worker worker { get; set; }
+        public Bonus(Worker worker) => this.worker = worker;
+        public override float CountSalary() => worker.CountSalary();
+
+        protected Worker worker { get; private set; }
     }
 }
