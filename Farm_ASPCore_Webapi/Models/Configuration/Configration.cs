@@ -12,8 +12,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            Worker w = new PercentBonus(new AmountBonus(new Driver()));
-
+            
             int countOfDrivers = 10;
             int countOfFarmer = 10;
 
@@ -25,7 +24,8 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             {
                 Id = 1,
                 FarmId = 1,
-                FirstName = "Czarek"
+                FirstName = "Czarek",
+                Salary = 1000
             });
 
             modelBuilder.Entity<Farmer>().HasData(
@@ -33,7 +33,8 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             {
                 Id = 2,
                 FarmId = 1,
-                FirstName = "Michał"
+                FirstName = "Michał",
+                Salary = 15000
             });
 
         }

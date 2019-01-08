@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
+using Farm_ASPCore_Webapi.Models.Bonus;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {

@@ -21,7 +21,9 @@ namespace Farm_ASPCore_Webapi.Models
         public float UsdPerHour { get; set; }
         public int HoursPerDay { get; set; }
         public int DaysOfWork { get; set; }
+        public abstract float Salary { get; set; }
+        public virtual float BaseSalary { get; set; }
 
-        public abstract float CountSalary();
+        //public abstract float CountSalary();
     }
 }

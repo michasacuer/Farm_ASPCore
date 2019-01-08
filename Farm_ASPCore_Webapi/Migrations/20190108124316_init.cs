@@ -92,6 +92,8 @@ namespace Farm_ASPCore_Webapi.Migrations
                     UsdPerHour = table.Column<float>(nullable: false),
                     HoursPerDay = table.Column<int>(nullable: false),
                     DaysOfWork = table.Column<int>(nullable: false),
+                    Salary = table.Column<float>(nullable: false),
+                    BaseSalary = table.Column<float>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -112,13 +114,13 @@ namespace Farm_ASPCore_Webapi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Workers",
-                columns: new[] { "Id", "DaysOfWork", "Discriminator", "EndOfContract", "FarmId", "FirstName", "HoursPerDay", "LastName", "StartOfContract", "UsdPerHour" },
-                values: new object[] { 1, 0, "Driver", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, 0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0f });
+                columns: new[] { "Id", "BaseSalary", "DaysOfWork", "Discriminator", "EndOfContract", "FarmId", "FirstName", "HoursPerDay", "LastName", "Salary", "StartOfContract", "UsdPerHour" },
+                values: new object[] { 1, 0f, 0, "Driver", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Czarek", 0, null, 1000f, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0f });
 
             migrationBuilder.InsertData(
                 table: "Workers",
-                columns: new[] { "Id", "DaysOfWork", "Discriminator", "EndOfContract", "FarmId", "FirstName", "HoursPerDay", "LastName", "StartOfContract", "UsdPerHour" },
-                values: new object[] { 2, 0, "Farmer", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, 0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0f });
+                columns: new[] { "Id", "BaseSalary", "DaysOfWork", "Discriminator", "EndOfContract", "FarmId", "FirstName", "HoursPerDay", "LastName", "Salary", "StartOfContract", "UsdPerHour" },
+                values: new object[] { 2, 0f, 0, "Farmer", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Michał", 0, null, 15000f, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0f });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cultivations_FarmId",
