@@ -4,9 +4,10 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Farmer : Worker
     {
-        public float UsdPerHour = 9;
-        public int HoursPerDay = 8;
-        public int DaysOfWork = 20;
+        public float UsdPerHour { get; set; }
+        public int HoursPerDay { get; set; }
+        public int DaysOfWork { get; set; }
+        public float Salary { get; set; }
 
         public override float CountSalary()
         {

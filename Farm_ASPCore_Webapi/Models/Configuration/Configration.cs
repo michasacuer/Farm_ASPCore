@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
+using Farm_ASPCore_Webapi.Models.Bonus;
 
 namespace Farm_ASPCore_Webapi.Models.Configuration
 {
@@ -11,6 +12,8 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            Worker w = new PercentBonus(new AmountBonus(new Driver()));
+
             int countOfDrivers = 10;
             int countOfFarmer = 10;
 

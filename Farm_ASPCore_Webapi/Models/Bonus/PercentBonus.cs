@@ -9,6 +9,6 @@ namespace Farm_ASPCore_Webapi.Models.Bonus
     {
         public PercentBonus(Worker worker) : base(worker: worker) { }
 
-        public override float CountSalary() => base.worker.CountSalary();
+        public override float CountSalary() => base.worker.CountSalary() * (float)1.20;
     }
 }
