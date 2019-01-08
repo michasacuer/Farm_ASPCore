@@ -12,9 +12,9 @@ namespace Farm_ASPCore_Webapi.Models
         [Key]
         public int Id { get; set; }
 
-        //[ForeignKey("Farm")]
-        //public int FarmId { get; set; }
-        //public Farm Farm { get; set; }
+        [ForeignKey("Farm")]
+        public int FarmId { get; set; }
+        public Farm Farm { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

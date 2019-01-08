@@ -21,14 +21,14 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             new Driver
             {
                 Id = 1,
-                //FarmId = 1
+                FarmId = 1
             });
 
             modelBuilder.Entity<Farmer>().HasData(
             new Farmer
             {
                 Id = 2,
-                //FarmId = 1
+                FarmId = 1
             });
 
         }

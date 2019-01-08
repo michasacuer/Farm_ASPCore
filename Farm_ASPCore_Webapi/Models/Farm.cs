@@ -36,8 +36,8 @@ namespace Farm_ASPCore_Webapi.Models
             Console.WriteLine(state);
         }
 
-        private string state;
         private Farm() { }
-        private static readonly Farm farm = new Farm { Id = 1, Name = "Farm" };
+        private static readonly Farm farm = new Farm {  Name = "Farm" };
+        private string state;
     }
 }
