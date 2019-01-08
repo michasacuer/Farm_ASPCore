@@ -25,7 +25,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("All")]
         public IActionResult GetFarmsAll() => Ok(_context.Farms.Include(w => w.Workers)
                                                                .Include(m => m.Machines)
-                                                               .Include(c => c.Cultivations)
+                                                               //.Include(c => c.Cultivations)
                                                                .Include(s => s.Stables)
                                                                .SingleOrDefault());
 

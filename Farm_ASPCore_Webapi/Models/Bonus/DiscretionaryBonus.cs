@@ -8,8 +8,6 @@ namespace Farm_ASPCore_Webapi.Models.Bonus
     public class DiscretionaryBonus : Bonus
     {
         public DiscretionaryBonus(Worker worker) : base(worker: worker) { }
-        public override float Salary { get => worker.Salary + 1000; set { } }
-
-        //public override float CountSalary() => base.worker.CountSalary() + 1000;
+        public override double Salary { get => worker.Salary + 1000; set { } }
     }
 }
