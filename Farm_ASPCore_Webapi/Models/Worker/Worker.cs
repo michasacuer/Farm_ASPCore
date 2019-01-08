@@ -18,12 +18,12 @@ namespace Farm_ASPCore_Webapi.Models
         public string LastName { get; set; }
         public DateTime StartOfContract { get; set; }
         public DateTime EndOfContract { get; set; }
-        public float UsdPerHour { get; set; }
-        public int HoursPerDay { get; set; }
-        public int DaysOfWork { get; set; }
-        public abstract float Salary { get; set; }
-        public virtual float BaseSalary { get; set; }
+        public virtual double UsdPerHour { get; set; }
+        public virtual int HoursPerDay { get; set; }
+        public virtual int DaysOfWork { get; set; }
+        public virtual double BaseSalary { get; set; }
+        public abstract double Salary { get; set; }
 
-        //public abstract float CountSalary();
+        public virtual double CountBaseSalary() => throw new NotImplementedException();
     }
 }

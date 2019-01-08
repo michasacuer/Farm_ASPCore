@@ -18,7 +18,7 @@ namespace Farm_ASPCore_Webapi.Models.Cultivation
 
         public CultivationLeaf()
         {
-            Id = Farm.GetFarm().Cultivations.Count;
+            //Id = Farm.GetFarm().Cultivations.Count;
         }
 
         public void Add()

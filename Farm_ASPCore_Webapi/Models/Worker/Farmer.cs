@@ -4,15 +4,18 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Farmer : Worker
     {
-        public float UsdPerHour { get; set; }
-        public int HoursPerDay { get; set; }
-        public int DaysOfWork { get; set; }
-        public override float Salary { get; set; }
-        public override float BaseSalary { get; set; }
+        public Farmer() => BaseSalary = CountBaseSalary();
 
-        //public override float CountSalary()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override double UsdPerHour { get; set; }
+        public override int HoursPerDay { get; set; }
+        public override int DaysOfWork { get; set; }
+        public override double Salary { get; set; }
+        public override double BaseSalary { get; set; }
+
+        public override double CountBaseSalary()
+        {
+            int basicEquipmentCost = 2000;
+            return (UsdPerHour * HoursPerDay * DaysOfWork) - basicEquipmentCost;
+        }
     }
 }
