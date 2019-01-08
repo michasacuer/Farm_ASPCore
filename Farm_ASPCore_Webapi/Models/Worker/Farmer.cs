@@ -6,9 +6,6 @@ namespace Farm_ASPCore_Webapi.Models
     {
         public Farmer() => BaseSalary = CountBaseSalary();
 
-        public override double UsdPerHour { get; set; }
-        public override int HoursPerDay { get; set; }
-        public override int DaysOfWork { get; set; }
         public override double Salary { get; set; }
         public override double BaseSalary { get; set; }
 
