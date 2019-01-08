@@ -87,6 +87,8 @@ namespace Farm_ASPCore_Webapi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<float>("BaseSalary");
+
                     b.Property<int>("DaysOfWork");
 
                     b.Property<string>("Discriminator")
@@ -101,6 +103,8 @@ namespace Farm_ASPCore_Webapi.Migrations
                     b.Property<int>("HoursPerDay");
 
                     b.Property<string>("LastName");
+
+                    b.Property<float>("Salary");
 
                     b.Property<DateTime>("StartOfContract");
 
@@ -125,7 +129,7 @@ namespace Farm_ASPCore_Webapi.Migrations
                     b.HasDiscriminator().HasValue("Driver");
 
                     b.HasData(
-                        new { Id = 1, DaysOfWork = 0, EndOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FarmId = 1, HoursPerDay = 0, StartOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), UsdPerHour = 0f }
+                        new { Id = 1, BaseSalary = 0f, DaysOfWork = 0, EndOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FarmId = 1, FirstName = "Czarek", HoursPerDay = 0, Salary = 1000f, StartOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), UsdPerHour = 0f }
                     );
                 });
 
@@ -139,7 +143,7 @@ namespace Farm_ASPCore_Webapi.Migrations
                     b.HasDiscriminator().HasValue("Farmer");
 
                     b.HasData(
-                        new { Id = 2, DaysOfWork = 0, EndOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FarmId = 1, HoursPerDay = 0, StartOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), UsdPerHour = 0f }
+                        new { Id = 2, BaseSalary = 0f, DaysOfWork = 0, EndOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FarmId = 1, FirstName = "Michał", HoursPerDay = 0, Salary = 15000f, StartOfContract = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), UsdPerHour = 0f }
                     );
                 });
 
