@@ -2,9 +2,23 @@ import React, { Component } from "react";
 import "./TableRow.css";
 
 class TableRow extends Component {
-  state = {};
+  state = {
+    showDeleteForm: false,
+    showEditForm: false
+  };
+
+  renderRows() {}
+
   render() {
-    return <div className="table-row">{}</div>;
+    return (
+      <tr>
+        {this.renderRows}
+        <a href="#">EDYTUJ</a>
+        {/* FORM */}
+        <a href="#">USUŃ TO</a>
+        {/* FORM */}
+      </tr>
+    );
   }
 }
 
