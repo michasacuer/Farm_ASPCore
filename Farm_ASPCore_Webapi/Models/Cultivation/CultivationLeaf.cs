@@ -51,7 +51,7 @@ namespace Farm_ASPCore_Webapi.Models
 
         public override void Remove(Cultivation cultivation)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         }
     }
 }
