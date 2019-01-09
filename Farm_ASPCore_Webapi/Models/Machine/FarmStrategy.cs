@@ -13,6 +13,7 @@ namespace Farm_ASPCore_Webapi.Models
         public int TimeOfWork() => hours * hours;
         //to edit!
 
+        //dostep do pol z maszyny
         private int hours = 10;
     }
 }

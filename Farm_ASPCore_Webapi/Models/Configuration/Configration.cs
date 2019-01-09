@@ -31,7 +31,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     HoursPerDay = random.Next(1, 23),
                     DaysOfWork = random.Next(1, 31)
                 };
-                driver.BaseSalary = driver.CountBaseSalary();
+                //driver.BaseSalary = driver.CountBaseSalary();
                 modelBuilder.Entity<Driver>().HasData(driver);
             }
 
@@ -48,7 +48,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     HoursPerDay = random.Next(1, 23),
                     DaysOfWork = random.Next(1, 31)
                 };
-                farmer.BaseSalary = farmer.CountBaseSalary();
+                //farmer.BaseSalary = farmer.CountBaseSalary();
                 modelBuilder.Entity<Farmer>().HasData(farmer);
             }
 

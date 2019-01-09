@@ -25,12 +25,6 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IEnumerable<Driver> GetDriver()
         {
-            var driver = new Driver { FirstName = "zzz", Salary = 1000 };
-            Worker w = new AmountBonus(driver);
-
-            var a = w.FirstName;
-            var s = w.Salary;
-
             return _context.Workers.OfType<Driver>().ToList(); ;
         }
 

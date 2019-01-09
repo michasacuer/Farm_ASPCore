@@ -20,8 +20,9 @@ namespace Farm_ASPCore_Webapi.Models
         [NotMapped]
         public IWorkStrategy Strategy { get; set; }
 
-        public int Work() =>  Strategy.TimeOfWork();
+        public int Work() => Strategy.TimeOfWork();
         //ofc to edit!
+        //daje parametry do strategii
 
     }
 }
