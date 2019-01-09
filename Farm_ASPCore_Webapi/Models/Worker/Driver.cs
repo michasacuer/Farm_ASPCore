@@ -2,9 +2,8 @@
 {
     public class Driver : Worker
     {
-        public override double Salary     { get; set; }
-        public override double BaseSalary { get; set; }
-
+        public override double Salary { get; set; }
+     
         public override double GetTaxes()
         {
             double incomeTax = 1.15;

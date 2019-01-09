@@ -25,6 +25,6 @@ namespace Farm_ASPCore_Webapi.Models
         public abstract double   Salary          { get; set; }
         public abstract double   GetTaxes();
 
-        public double CountBaseSalary() => BaseSalary = Salary = UsdPerHour * HoursPerDay * DaysOfWork - GetTaxes();
+        public double CountBaseSalary() => Math.Round(BaseSalary = Salary = UsdPerHour * HoursPerDay * DaysOfWork - GetTaxes(), 2);
     }
 }

@@ -2,8 +2,7 @@
 {
     public class Farmer : Worker
     {
-        public override double Salary     { get; set; }
-        public override double BaseSalary { get; set; }
+        public override double Salary { get; set; }
 
         public override double GetTaxes()
         {
