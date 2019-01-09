@@ -13,7 +13,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
         public static void Seed(this ModelBuilder modelBuilder)
         {
             Random random = new Random();
-            int range = 20; // for doubles
+            int doubleRange = 20; // for doubles
 
             int countOfWorkers = 10;
 
@@ -28,7 +28,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     FarmId = 1,
                     FirstName = "name" + i,
                     LastName = "lastname" + i,
-                    UsdPerHour = Math.Round((random.NextDouble() * 20), 2),
+                    UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
                     HoursPerDay = random.Next(1, 23),
                     DaysOfWork = random.Next(1, 31)
                 });
@@ -43,7 +43,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     FarmId = 1,
                     FirstName = "name" + i,
                     LastName = "lastname" + i,
-                    UsdPerHour = Math.Round((random.NextDouble() * 20), 2),
+                    UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
                     HoursPerDay = random.Next(1, 23),
                     DaysOfWork = random.Next(1, 31)
                 });
