@@ -21,8 +21,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
 
             for (int i = 0; i < countOfWorkers; i++)
             {
-                modelBuilder.Entity<Driver>().HasData(
-                new Driver
+                var driver = new Driver
                 {
                     Id = i + 1,
                     FarmId = 1,
@@ -31,13 +30,15 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
                     HoursPerDay = random.Next(1, 23),
                     DaysOfWork = random.Next(1, 31)
-                });
+                };
+                driver.BaseSalary = driver.CountBaseSalary();
+                modelBuilder.Entity<Driver>().HasData(driver);
             }
 
             for (int i = countOfWorkers; i < countOfWorkers + countOfWorkers; i++)
             {
-                modelBuilder.Entity<Farmer>().HasData(
-                new Farmer
+
+                var farmer = new Farmer
                 {
                     Id = i + 1,
                     FarmId = 1,
@@ -46,7 +47,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
                     HoursPerDay = random.Next(1, 23),
                     DaysOfWork = random.Next(1, 31)
-                });
+                };
+                farmer.BaseSalary = farmer.CountBaseSalary();
+                modelBuilder.Entity<Farmer>().HasData(farmer);
             }
 
         }

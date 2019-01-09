@@ -23,7 +23,18 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual  int     DaysOfWork      { get; set; }
         public virtual  double  BaseSalary      { get; set; }
         public abstract double  Salary          { get; set; }
+        //public abstract double GetSalary();
 
-        public virtual double CountBaseSalary() => throw new NotImplementedException();
+
+        //public double CountBaseSalary()
+        //{
+        //    Salary = GetSalary();
+        //    var result = UsdPerHour * Salary;
+        //    return result;
+        //}
+
+        //w metodzie szablonowej, jedna metoda bazowa. W Workerze powinny byc abstracty edytujące metode bazową. 
+        //np metoda abstrakcyjna ktora cos zmienia w zmiennych, która jest wywolywana w metodzie bazowej
+
     }
 }
