@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Farm_ASPCore_Webapi.Models.Cultivation
+namespace Farm_ASPCore_Webapi.Models
 {
     public class CultivationLeaf : ICultivation
     {

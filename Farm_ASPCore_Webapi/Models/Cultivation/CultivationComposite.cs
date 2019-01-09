@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Farm_ASPCore_Webapi.Models.Cultivation
+namespace Farm_ASPCore_Webapi.Models
 {
     public class CultivationComposite : ICultivation
     {
