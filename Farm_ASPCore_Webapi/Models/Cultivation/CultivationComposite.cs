@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public class CultivationComposite : ICultivation
+    public class CultivationComposite : Cultivation
     {
         private List<ICultivation> cultivations;
 
@@ -15,22 +15,22 @@ namespace Farm_ASPCore_Webapi.Models
             cultivations = new List<ICultivation>();
         }
 
-        public void Add(ICultivation cultivation)
+        public override void Add(ICultivation cultivation)
         {
             cultivations.Add(cultivation);
         }
 
-        public void Harvest()
+        public override void Harvest()
         {
             cultivations.ForEach(c => c.Harvest());
         }
 
-        public void Remove(ICultivation cultivation)
+        public override void Remove(ICultivation cultivation)
         {
             throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         }
 
-        public void Sow(Grain grain)
+        public override void Sow(Grain grain)
         {
             cultivations.ForEach(c => c.Sow(grain));
         }

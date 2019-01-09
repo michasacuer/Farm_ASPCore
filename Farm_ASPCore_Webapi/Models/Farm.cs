@@ -16,7 +16,7 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual List<Stable> Stables { get; set; }
         public virtual List<Machine> Machines { get; set; }
         public virtual List<Worker> Workers { get; set; }
-        public virtual List<ICultivation> Cultivations { get; set; }
+        public virtual List<Cultivation> Cultivations { get; set; }
 
         public static Farm GetFarm() => farm;
         public void SaveState() => this.state = GetFarm();

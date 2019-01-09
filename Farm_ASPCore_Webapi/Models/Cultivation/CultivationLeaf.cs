@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public class CultivationLeaf : ICultivation
+    public class CultivationLeaf : Cultivation
     {
         [Key]
         public int Id { get; }
@@ -31,7 +31,7 @@ namespace Farm_ASPCore_Webapi.Models
             this.parent = parent;
         }
 
-        public void Add(ICultivation cultivations)
+        public override void Add(ICultivation cultivations)
         {
             CultivationComposite cultivationComposite = new CultivationComposite();
             cultivationComposite.Add(this);
@@ -39,17 +39,17 @@ namespace Farm_ASPCore_Webapi.Models
             parent.Add(cultivationComposite);
         }
 
-        public void Harvest()
+        public override void Harvest()
         {
             Grain = null;
         }
 
-        public void Sow(Grain grain)
+        public override void Sow(Grain grain)
         {
             Grain = grain;
         }
 
-        public void Remove(ICultivation cultivation)
+        public override void Remove(ICultivation cultivation)
         {
             throw new NotImplementedException();
         }
