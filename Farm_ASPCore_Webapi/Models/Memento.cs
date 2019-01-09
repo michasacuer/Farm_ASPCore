@@ -7,13 +7,13 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Memento
     {
-        private string state;
+        private Farm state;
 
-        public Memento(string state)
+        public Memento(Farm state)
         {
             this.state = state;
         }
-        public string getState()
+        public Farm getState()
         {
             return state;
         }
