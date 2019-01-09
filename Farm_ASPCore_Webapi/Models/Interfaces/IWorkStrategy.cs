@@ -2,6 +2,6 @@
 {   
     public interface IWorkStrategy
     {
-        int TimeOfWork();
+        double TimeOfWork(int hours);
     }
 }

@@ -1,21 +1,14 @@
-﻿using System;
-
-namespace Farm_ASPCore_Webapi.Models
+﻿namespace Farm_ASPCore_Webapi.Models
 {
     public class Farmer : Worker
     {
-        public Farmer() => BaseSalary = CountBaseSalary();
-
-        public override double UsdPerHour { get; set; }
-        public override int HoursPerDay { get; set; }
-        public override int DaysOfWork { get; set; }
         public override double Salary { get; set; }
-        public override double BaseSalary { get; set; }
 
-        public override double CountBaseSalary()
+        public override double GetTaxes()
         {
-            int basicEquipmentCost = 2000;
-            return (UsdPerHour * HoursPerDay * DaysOfWork) - basicEquipmentCost;
+            double incomeTax = 1.20;
+            double healthCare = -500;
+            return healthCare * incomeTax;
         }
     }
 }

@@ -10,9 +10,8 @@ namespace Farm_ASPCore_Webapi.Models
     [NotMapped]
     public class CultivationStrategy : IWorkStrategy
     {
-        public int TimeOfWork() => hours * hours;
-        //to edit!
-        
-        private int hours = 9;
+        public double TimeOfWork(int hours) => hours * hours - refuelTime;
+
+        private double refuelTime;
     }
 }

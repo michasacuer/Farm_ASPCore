@@ -25,7 +25,7 @@ namespace Farm_ASPCore_Webapi.Models.Cultivation
 
         public CultivationLeaf(ICultivation parent)
         {
-            Id = Farm.GetFarm().Cultivations.Count;
+            //Id = Farm.GetFarm().Cultivations.Count;
             Farm = Farm.GetFarm();
             Grain = null;
             this.parent = parent;

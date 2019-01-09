@@ -13,7 +13,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
         public static void Seed(this ModelBuilder modelBuilder)
         {
             Random random = new Random();
-            int range = 20; // for doubles
+            int doubleRange = 20; // for doubles
 
             int countOfWorkers = 10;
 
@@ -21,32 +21,39 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
 
             for (int i = 0; i < countOfWorkers; i++)
             {
-                modelBuilder.Entity<Driver>().HasData(
-                new Driver
+                var driver = new Driver
                 {
                     Id = i + 1,
                     FarmId = 1,
                     FirstName = "name" + i,
                     LastName = "lastname" + i,
-                    UsdPerHour = 7.2,
-                    HoursPerDay = 8,
-                    DaysOfWork = 31
-                });
+                    UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
+                    HoursPerDay = random.Next(1, 23),
+                    DaysOfWork = random.Next(1, 31),
+                    StartOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1),
+                    EndOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1)
+                };
+                driver.BaseSalary = driver.CountBaseSalary();
+                modelBuilder.Entity<Driver>().HasData(driver);
             }
 
             for (int i = countOfWorkers; i < countOfWorkers + countOfWorkers; i++)
             {
-                modelBuilder.Entity<Farmer>().HasData(
-                new Farmer
+
+                var farmer = new Farmer
                 {
                     Id = i + 1,
                     FarmId = 1,
                     FirstName = "name" + i,
                     LastName = "lastname" + i,
-                    UsdPerHour = 29.1,
-                    HoursPerDay = 7,
-                    DaysOfWork = 29
-                });
+                    UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
+                    HoursPerDay = random.Next(1, 23),
+                    DaysOfWork = random.Next(1, 31),
+                    StartOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1),
+                    EndOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1)
+                };
+                farmer.BaseSalary = farmer.CountBaseSalary();
+                modelBuilder.Entity<Farmer>().HasData(farmer);
             }
 
         }

@@ -18,7 +18,7 @@ namespace Farm_ASPCore_Webapi.Models
         //public virtual List<ICultivation> Cultivations { get; set; }
 
         public static Farm GetFarm() => farm;
-        public void SaveState(string state) => this.state = state;
+        public void SaveState() => this.state = GetFarm();
         public Memento Save() => new Memento(state);
 
 
@@ -31,6 +31,6 @@ namespace Farm_ASPCore_Webapi.Models
 
         private Farm() { }
         private static readonly Farm farm = new Farm {  Name = "Farm" };
-        private string state;
+        private Farm state;
     }
 }
