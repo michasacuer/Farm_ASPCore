@@ -21,9 +21,9 @@ namespace Farm_ASPCore_Webapi.Models
         public int GrainId { get; private set; }
         public Grain Grain { get; private set; }
 
-        private readonly ICultivation parent;
+        private readonly Cultivation parent;
 
-        public CultivationLeaf(ICultivation parent)
+        public CultivationLeaf(Cultivation parent)
         {
             //Id = Farm.GetFarm().Cultivations.Count;
             Farm = Farm.GetFarm();
@@ -31,7 +31,7 @@ namespace Farm_ASPCore_Webapi.Models
             this.parent = parent;
         }
 
-        public override void Add(ICultivation cultivations)
+        public override void Add(Cultivation cultivations)
         {
             CultivationComposite cultivationComposite = new CultivationComposite();
             cultivationComposite.Add(this);
@@ -49,7 +49,7 @@ namespace Farm_ASPCore_Webapi.Models
             Grain = grain;
         }
 
-        public override void Remove(ICultivation cultivation)
+        public override void Remove(Cultivation cultivation)
         {
             throw new NotImplementedException();
         }

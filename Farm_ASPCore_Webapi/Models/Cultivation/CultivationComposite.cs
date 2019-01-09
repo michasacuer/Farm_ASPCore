@@ -8,14 +8,14 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class CultivationComposite : Cultivation
     {
-        private List<ICultivation> cultivations;
+        private List<Cultivation> cultivations;
 
         public CultivationComposite()
         {
-            cultivations = new List<ICultivation>();
+            cultivations = new List<Cultivation>();
         }
 
-        public override void Add(ICultivation cultivation)
+        public override void Add(Cultivation cultivation)
         {
             cultivations.Add(cultivation);
         }
@@ -25,7 +25,7 @@ namespace Farm_ASPCore_Webapi.Models
             cultivations.ForEach(c => c.Harvest());
         }
 
-        public override void Remove(ICultivation cultivation)
+        public override void Remove(Cultivation cultivation)
         {
             throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         }
