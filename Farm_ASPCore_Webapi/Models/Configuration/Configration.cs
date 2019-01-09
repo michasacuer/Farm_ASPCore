@@ -29,7 +29,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     LastName = "lastname" + i,
                     UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
                     HoursPerDay = random.Next(1, 23),
-                    DaysOfWork = random.Next(1, 31)
+                    DaysOfWork = random.Next(1, 31),
+                    StartOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1),
+                    EndOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1)
                 };
                 driver.BaseSalary = driver.CountBaseSalary();
                 modelBuilder.Entity<Driver>().HasData(driver);
@@ -46,7 +48,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                     LastName = "lastname" + i,
                     UsdPerHour = Math.Round((random.NextDouble() * doubleRange), 2),
                     HoursPerDay = random.Next(1, 23),
-                    DaysOfWork = random.Next(1, 31)
+                    DaysOfWork = random.Next(1, 31),
+                    StartOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1),
+                    EndOfContract = new DateTime(random.Next(2015, 2018), random.Next(12) + 1, random.Next(25) + 1)
                 };
                 farmer.BaseSalary = farmer.CountBaseSalary();
                 modelBuilder.Entity<Farmer>().HasData(farmer);

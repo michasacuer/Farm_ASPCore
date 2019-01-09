@@ -3,6 +3,6 @@
     public class DiscretionaryBonus : Bonus
     {
         public DiscretionaryBonus(Worker worker) : base(worker: worker) { }
-        public override double Salary { get => worker.Salary + 1000; set { } }
+        public override double Salary { get => worker.Salary + 1000; set => worker.Salary = value; }
     }
 }

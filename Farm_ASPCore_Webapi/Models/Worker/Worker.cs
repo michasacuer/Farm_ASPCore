@@ -1,5 +1,4 @@
-﻿using Farm_ASPCore_Webapi.Models.Interfaces;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
