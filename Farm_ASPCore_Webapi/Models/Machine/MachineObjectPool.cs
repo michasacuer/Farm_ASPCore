@@ -8,11 +8,8 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class MachineObjectPool
     {
-        public MachineObjectPool Instance { get; } = new MachineObjectPool();
-        private readonly List<Machine> pool = new List<Machine>() { new Machine(), new Machine(), new Machine(), new Machine(), new Machine(), new Machine(), new Machine(), new Machine(), new Machine(), new Machine() };
-        private readonly int maxPoolSize = 10;
+        public MachineObjectPool Instance { get => new MachineObjectPool(); }
 
-        private MachineObjectPool() { }
         public Machine AcquireMachine()
         {
             if (pool.Count <= 0) throw new Exception("Pool empty");
@@ -20,10 +17,19 @@ namespace Farm_ASPCore_Webapi.Models
             pool.Remove(pool.First());
             return reusable;
         }
+
         public void ReleaseMachine(Machine reusable)
         {
             if (pool.Count >= maxPoolSize) throw new Exception("Pool full, PANIC");
             pool.Add(reusable);
         }
+
+        private MachineObjectPool()
+        {
+            pool = MachineHelper.GetPool(maxPoolSize);
+        }
+
+        private readonly List<Machine> pool;
+        private readonly int maxPoolSize = 10;
     }
 }
