@@ -7,15 +7,18 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Memento
     {
-        private Farm state;
+        private List<Worker> Workers { get; set; }
 
         public Memento(Farm state)
         {
-            this.state = state;
+            this.Workers = state.Workers;
         }
-        public Farm getState()
+        public Memento(List<Worker> Workers)
         {
-            return state;
+            this.Workers = Workers;
         }
+
+       
     }
+        
 }
