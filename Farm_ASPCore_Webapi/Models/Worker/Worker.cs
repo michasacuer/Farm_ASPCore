@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Farm_ASPCore_Webapi.Models.Enums;
 
 namespace Farm_ASPCore_Webapi.Models
 {
@@ -13,6 +14,7 @@ namespace Farm_ASPCore_Webapi.Models
         public int  FarmId { get; set; }
         public Farm Farm   { get; set; }
 
+        public          Job      Kind            { get; set; }
         public virtual  string   FirstName       { get; set; }
         public virtual  string   LastName        { get; set; }
         public virtual  DateTime StartOfContract { get; set; }
@@ -22,7 +24,6 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual  int      DaysOfWork      { get; set; }
         public virtual  double   BaseSalary      { get; set; }
         public abstract double   Salary          { get; set; }
-        public      Enums.Worker Kind            { get; set; }
         public abstract double   GetTaxes();
 
         public double CountBaseSalary() => Math.Round(BaseSalary = Salary = UsdPerHour * HoursPerDay * DaysOfWork - GetTaxes(), 2);

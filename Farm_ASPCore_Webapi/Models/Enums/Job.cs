@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models.Enums
 {
-    public enum Worker
+    public enum Job
     {
         Driver,
         Farmer
