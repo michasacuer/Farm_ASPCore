@@ -18,7 +18,7 @@ namespace Farm_ASPCore_Webapi
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+            WebHost.CreateDefaultBuilder(args).UseUrls("http://localhost:62573")
                 .UseStartup<Startup>();
     }
 }

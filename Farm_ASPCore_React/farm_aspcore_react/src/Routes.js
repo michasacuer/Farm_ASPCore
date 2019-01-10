@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import TableView from "./components/TableView";
 
-class Router extends Component {
+class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route />
+        <Route
+          exact
+          path="/"
+          render={props => <TableView {...props} data={this.props.data} />}
+        />
       </Switch>
     );
   }
 }
 
-export default Router;
+export default Routes;

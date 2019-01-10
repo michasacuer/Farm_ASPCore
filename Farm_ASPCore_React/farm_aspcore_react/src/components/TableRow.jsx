@@ -7,15 +7,29 @@ class TableRow extends Component {
     showEditForm: false
   };
 
-  renderRows() {}
+  renderRow() {
+    const { rowData } = this.props;
+    const rowKeys = Object.keys(rowData);
+    const cells = [];
+    rowKeys.forEach(key => {
+      cells.push(<td key={rowKeys.indexOf(key)}>{rowData[key]}</td>);
+    });
+    return cells;
+  }
 
   render() {
     return (
       <tr>
-        {this.renderRows}
-        <a href="#">EDYTUJ</a>
+        {this.renderRow()}
+        <td>
+          {/* eslint-disable-next-line */}
+          <a href="#">EDYTUJ</a>
+        </td>
         {/* FORM */}
-        <a href="#">USUŃ TO</a>
+        <td>
+          {/* eslint-disable-next-line */}
+          <a href="#">USUŃ</a>
+        </td>
         {/* FORM */}
       </tr>
     );
