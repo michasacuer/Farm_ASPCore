@@ -15,5 +15,8 @@ namespace Farm_ASPCore_Webapi.Models
         [ForeignKey("Farm")]
         public int FarmId { get; set; }
         public Farm Farm { get; set; }
+
+        [NotMapped]
+        public Animal Animals { get; set; }
     }
 }

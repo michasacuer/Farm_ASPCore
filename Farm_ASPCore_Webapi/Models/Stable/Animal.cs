@@ -10,13 +10,6 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Animal
     {
-        [Key]
-        public int Id { get; set; }
-
-        [ForeignKey("Stable")]
-        public int StableId { get; set; }
-        public Stable Stable { get; set; }
-
         public Species Species { get; set; }
         public Gender Sex { get; set; }
 
