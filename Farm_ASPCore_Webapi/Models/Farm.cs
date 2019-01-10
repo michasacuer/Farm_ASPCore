@@ -19,16 +19,19 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual List<Cultivation> Cultivations { get; set; }
 
         public static Farm GetFarm() => farm;
-        public void SaveState() => this.state = GetFarm();
-        public Memento Save() => new Memento(state);
-
-
-        public void restore(Memento m)
+       public Memento SaveWorkers()
         {
-            state = m.getState();
-            Console.WriteLine("Powrot do wersji poprzedniej");
-            Console.WriteLine(state);
+            return new Memento(Workers);
         }
+       // public Memento Save() => new Memento(state);
+
+
+       // public void restore(Memento m)
+       // {
+       //     state = m.getState();
+       //     Console.WriteLine("Powrot do wersji poprzedniej");
+       //     Console.WriteLine(state);
+       // }
 
         private Farm() { }
         private static readonly Farm farm = new Farm {  Name = "Farm" };
