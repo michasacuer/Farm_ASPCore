@@ -2,6 +2,7 @@
 {
     public class Driver : Worker
     {
+        public Driver() { Kind = Enums.Worker.Driver; }
         public override double Salary { get; set; }
      
         public override double GetTaxes()

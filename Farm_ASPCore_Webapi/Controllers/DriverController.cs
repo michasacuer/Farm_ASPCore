@@ -97,6 +97,8 @@ namespace Farm_ASPCore_Webapi.Controllers
             return CreatedAtAction("GetDriver", new { id = driver.Id }, driver);
         }
 
+
+
         // DELETE: api/Driver/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDriver([FromRoute] int id)

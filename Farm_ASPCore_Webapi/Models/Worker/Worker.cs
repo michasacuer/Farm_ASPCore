@@ -22,6 +22,7 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual  int      DaysOfWork      { get; set; }
         public virtual  double   BaseSalary      { get; set; }
         public abstract double   Salary          { get; set; }
+        public      Enums.Worker Kind            { get; set; }
         public abstract double   GetTaxes();
 
         public double CountBaseSalary() => Math.Round(BaseSalary = Salary = UsdPerHour * HoursPerDay * DaysOfWork - GetTaxes(), 2);

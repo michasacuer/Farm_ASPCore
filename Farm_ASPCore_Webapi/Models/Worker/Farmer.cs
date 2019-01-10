@@ -2,6 +2,7 @@
 {
     public class Farmer : Worker
     {
+        public Farmer() { Kind = Enums.Worker.Farmer; }
         public override double Salary { get; set; }
 
         public override double GetTaxes()
