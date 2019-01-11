@@ -20,8 +20,8 @@ namespace Farm_ASPCore_Webapi.Models
             builder.Entity<Driver>();
             builder.Entity<Farmer>();
 
-            builder.Entity<CultivationComposite>();
             builder.Entity<CultivationLeaf>();
+            builder.Entity<CultivationComposite>();
 
             builder.Seed();
             base.OnModelCreating(builder);
