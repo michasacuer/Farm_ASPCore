@@ -1,7 +1,8 @@
 ﻿namespace Farm_ASPCore_Webapi.Models.Enums
 {
-    public enum Stalk
+    public enum Grain
     {
+        None,
         Rice,
         Corn,
         Oats

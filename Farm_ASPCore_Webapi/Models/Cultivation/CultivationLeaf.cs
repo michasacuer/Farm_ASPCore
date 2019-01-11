@@ -1,4 +1,5 @@
-﻿using Farm_ASPCore_Webapi.Models.Interfaces;
+﻿using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,7 +18,7 @@ namespace Farm_ASPCore_Webapi.Models
         {
             //Id = Farm.GetFarm().Cultivations.Count;
             //farm = Farm.GetFarm();
-            grain = null;
+            grain = Grain.None;
             this.Parent = parent;
         }
 
@@ -31,7 +32,7 @@ namespace Farm_ASPCore_Webapi.Models
 
         public override void Harvest()
         {
-            grain = null;
+            grain = Grain.None;
         }
 
         public override void Sow(Grain grain)
