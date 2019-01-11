@@ -12,20 +12,37 @@ namespace Farm_ASPCore_Webapi.Models
     public class CultivationLeaf : Cultivation
     {
         public Cultivation Parent { get; set; }
+        public double Acreage { get; private set; } = 5D;
 
         public CultivationLeaf() { }
         public CultivationLeaf(Cultivation parent)
         {
             Grain = Grain.None;
-            this.Parent = parent;
+            Parent = parent;
         }
 
-        public override void Add(Cultivation cultivations)
+        public override void Split(double ratio)
         {
-            CultivationComposite cultivationComposite = new CultivationComposite();
-            cultivationComposite.Add(this);
-            Parent.Remove(this);
-            Parent.Add(cultivationComposite);
+            if(Parent != null)
+            {
+                CultivationLeaf leaf1 = new CultivationLeaf(Parent), leaf2 = new CultivationLeaf(Parent);
+                leaf1.Acreage = Acreage * ratio;
+                leaf2.Acreage = Acreage * (1 - ratio);
+                Parent.Add(leaf1);
+                Parent.Add(leaf2);
+                Parent.Remove(this);
+            }
+            else
+            {
+                var cultivationComposite = new CultivationComposite();
+                CultivationLeaf leaf1 = new CultivationLeaf(cultivationComposite), leaf2 = new CultivationLeaf(cultivationComposite);
+                leaf1.Acreage = Acreage * ratio;
+                leaf2.Acreage = Acreage * (1 - ratio);
+                cultivationComposite.Add(leaf1);
+                cultivationComposite.Add(leaf2);
+            }
+
+            // TODO: Wywalić thisa z bazy jeżeli trzeba i się da 
         }
 
         public override void Harvest()
@@ -35,12 +52,17 @@ namespace Farm_ASPCore_Webapi.Models
 
         public override void Sow(Grain grain)
         {
-            this.Grain = grain;
+            Grain = grain;
         }
 
         public override void Remove(Cultivation cultivation)
         {
             throw new InvalidOperationException("Can't remove child components from leaf cultivation");
+        }
+
+        public override void Add(Cultivation cultivation)
+        {
+            throw new InvalidOperationException("Can't add child components to leaf cultivation");
         }
     }
 }
