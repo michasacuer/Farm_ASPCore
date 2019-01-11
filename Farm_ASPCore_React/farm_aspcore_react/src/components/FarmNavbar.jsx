@@ -5,7 +5,7 @@ import { Navbar, Nav, NavItem } from "react-bootstrap";
 class FarmNavbar extends Component {
   render() {
     return (
-      <Navbar fixedTop>
+      <Navbar fixedTop inverse>
         <Navbar.Header>
           <Navbar.Brand>Farma</Navbar.Brand>
         </Navbar.Header>
