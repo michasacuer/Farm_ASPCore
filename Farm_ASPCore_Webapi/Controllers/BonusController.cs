@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Farm_ASPCore_Webapi.Helpers;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Bonus;
 using Microsoft.AspNetCore.Http;
@@ -32,17 +33,17 @@ namespace Farm_ASPCore_Webapi.Controllers
                 Bonus decorated;
                 switch (kind.ToLower())
                 {
-                    case "amount":
+                    case Routes.AmountBonus:
                         decorated = new AmountBonus(worker);
                         worker.Salary = decorated.Salary;
                         break;
 
-                    case "percent":
+                    case Routes.PercentBonus:
                         decorated = new PercentBonus(worker);
                         worker.Salary = decorated.Salary;
                         break;
 
-                    case "discretionary":
+                    case Routes.DiscretionaryBonus:
                         decorated = new PercentBonus(worker);
                         worker.Salary = decorated.Salary;
                         break;
