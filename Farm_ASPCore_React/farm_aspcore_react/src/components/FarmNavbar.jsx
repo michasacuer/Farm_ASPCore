@@ -21,7 +21,7 @@ class FarmNavbar extends Component {
           <NavItem
             eventKey={2}
             onSelect={() => {
-              this.props.fetchNewData("Animal");
+              this.props.fetchNewData("Stable");
             }}
           >
             Zwierzęta

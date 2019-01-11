@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FarmTable from "./FarmTable";
+import "./TableView.css";
 
 class TableView extends Component {
   render() {

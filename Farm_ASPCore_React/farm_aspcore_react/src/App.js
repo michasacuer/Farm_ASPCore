@@ -12,13 +12,42 @@ class App extends Component {
   componentDidMount() {
     fetch("http://localhost:62573/api/Worker")
       .then(response => response.json())
-      .then(data => this.setState({ data }));
+      .then(data => {
+        data.forEach(worker => {
+          delete worker["salary"];
+          delete worker["farmId"];
+          delete worker["farm"];
+          delete worker["startOfContract"];
+          delete worker["endOfContract"];
+          delete worker["usdPerHour"];
+          delete worker["hoursPerDay"];
+          delete worker["daysOfWork"];
+          delete worker["baseSalary"];
+          delete worker["kind"];
+        });
+        this.setState({ data });
+      });
   }
 
   fetchNewData = param => {
     fetch("http://localhost:62573/api/" + param)
       .then(response => response.json())
-      .then(data => this.setState({ data, currentlyLoaded: param }));
+      .then(data => {
+        if ((param = "Worker"))
+          data.forEach(worker => {
+            delete worker["salary"];
+            delete worker["farmId"];
+            delete worker["farm"];
+            delete worker["startOfContract"];
+            delete worker["endOfContract"];
+            delete worker["usdPerHour"];
+            delete worker["hoursPerDay"];
+            delete worker["daysOfWork"];
+            delete worker["baseSalary"];
+            delete worker["kind"];
+          });
+        this.setState({ data, currentlyLoaded: param });
+      });
   };
 
   render() {

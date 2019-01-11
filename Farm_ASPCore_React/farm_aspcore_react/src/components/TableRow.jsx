@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./TableRow.css";
+import { Glyphicon } from "react-bootstrap";
 
 class TableRow extends Component {
   state = {
@@ -23,12 +24,12 @@ class TableRow extends Component {
         {this.renderRow()}
         <td>
           {/* eslint-disable-next-line */}
-          <a href="#">EDYTUJ</a>
+          <Glyphicon glyph="glyphicon glyphicon-pencil" />
         </td>
         {/* FORM */}
         <td>
           {/* eslint-disable-next-line */}
-          <a href="#">USUŃ</a>
+          <Glyphicon glyph="glyphicon glyphicon-trash" />
         </td>
         {/* FORM */}
       </tr>

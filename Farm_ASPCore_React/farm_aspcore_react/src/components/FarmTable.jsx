@@ -24,7 +24,11 @@ class FarmTable extends Component {
       <div className="table">
         <Table>
           <thead>
-            <tr>{this.renderHeaders()}</tr>
+            <tr>
+              {this.renderHeaders()}
+              <th />
+              <th />
+            </tr>
           </thead>
           <tbody>
             {this.props.data.map(rowData => (

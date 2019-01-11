@@ -1,46 +1,34 @@
 export default function translate(key) {
-  let translation = "";
   switch (key) {
     case "salary":
-      translation = "Płaca";
-      break;
+      return "Płaca";
     case "id":
-      translation = "Id";
-      break;
+      return "Id";
     case "farmId":
-      translation = "Id farmy";
-      break;
+      return "Id farmy";
     case "farm":
-      translation = "Farma";
-      break;
+      return "Farma";
     case "firstName":
-      translation = "Imię";
-      break;
+      return "Imię";
     case "lastName":
-      translation = "Nazwisko";
-      break;
+      return "Nazwisko";
     case "startOfContract":
-      translation = "Początek umowy";
-      break;
+      return "Początek umowy";
     case "endOfContract":
-      translation = "Koniec umowy";
-      break;
+      return "Koniec umowy";
     case "usdPerHour":
-      translation = "Płaca (USD/H)";
-      break;
+      return "Płaca (USD/H)";
     case "hoursPerDay":
-      translation = "Godziny dziennie";
-      break;
+      return "Godziny dziennie";
     case "daysOfWork":
-      translation = "Ilość dni pracy w miesiącu";
-      break;
+      return "Ilość dni pracy w miesiącu";
     case "baseSalary":
-      translation = "Podstawowa płaca";
-      break;
-
+      return "Podstawowa płaca";
+    case "species":
+      return "Gatunek";
+    case "sex":
+      return "Płeć";
     default:
-      translation = key;
-      break;
+      return key;
   }
-  return translation;
 }
