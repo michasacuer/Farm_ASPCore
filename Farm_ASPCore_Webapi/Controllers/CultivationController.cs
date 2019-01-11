@@ -24,7 +24,14 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IActionResult GetCultivations()
         {
-            return Ok( _context.Cultivations.OfType<CultivationLeaf>());
+            var leafs = _context.Cultivations.OfType<CultivationLeaf>().Include(c => c.Parent);
+            var response = new List<CultivationViewModel>();
+            foreach(CultivationLeaf item in leafs)
+            {
+                response.Add(new CultivationViewModel { Id = item.Id, CompositeId = item.Parent.Id, Grain = item.Grain.ToString() });
+            }
+
+            return Ok(response);
         }
 
         // GET: api/Cultivation/5
