@@ -1,4 +1,5 @@
-﻿using Farm_ASPCore_Webapi.Models.Interfaces;
+﻿using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

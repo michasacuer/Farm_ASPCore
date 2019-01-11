@@ -6,6 +6,7 @@ namespace Farm_ASPCore_Webapi.Models.Bonus
     {
         public Bonus(Worker worker) => this.worker = worker;
 
+        public          int      Id              { get => worker.Id;              set => worker.Id = value; }
         public override string   FirstName       { get => worker.FirstName;       set => worker.FirstName       = value; }
         public override string   LastName        { get => worker.LastName;        set => worker.LastName        = value; }
         public override DateTime StartOfContract { get => worker.StartOfContract; set => worker.StartOfContract = value; }
