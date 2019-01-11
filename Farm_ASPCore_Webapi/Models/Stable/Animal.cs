@@ -2,38 +2,31 @@
 using Farm_ASPCore_Webapi.Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public class Animal
+    public class Animals
     {
+        public int     Id      { get; set; }
         public Species Species { get; set; }
-        public Gender Sex { get; set; }
+        public Gender  Sex     { get; set; }
 
-        public void AddAnimal(Gender sex, Species species)
-        {
-            try   { animals.Add(new Animal(sex, species)); }
-            catch { throw new ArgumentOutOfRangeException(); }
-        }
+        public static Animals GetAnimal(int id) => animals.SingleOrDefault(a => a.Id == id);
+        public static List<Animals> GetAll() => animals;
 
-        public Animal GetAnimal(int id) => animals[id];
-        public List<Animal> GetAll() => animals;
-
-        private static List<Animal> animals = Fill();
-        private static List<Animal> Fill()
+        private static List<Animals> animals = Fill();
+        private static List<Animals> Fill()
         {
             Random random = new Random();
             Array genders = Enum.GetValues(typeof(Gender));
             Array species = Enum.GetValues(typeof(Species));
-            var animals = new List<Animal>(Capacity.Stable);
+            var animals = new List<Animals>(Capacity.Stable);
             
             for(int i = 0; i < Capacity.Stable; i++)
             {
-                animals.Add(new Animal(
+                animals.Add(new Animals(
+                    i + 1,
                     (Gender)genders.GetValue(random.Next(genders.Length)),
                     (Species)species.GetValue(random.Next(genders.Length))
                     ));
@@ -41,8 +34,9 @@ namespace Farm_ASPCore_Webapi.Models
             return animals;
         }
 
-        private Animal(Gender sex, Species species)
+        private Animals(int id, Gender sex, Species species)
         {
+            Id = id;
             Sex = sex;
             Species = species;
         }

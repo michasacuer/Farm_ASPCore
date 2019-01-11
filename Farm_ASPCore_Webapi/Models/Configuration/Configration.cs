@@ -19,6 +19,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
 
             modelBuilder.Entity<Farm>().HasData(Farm.GetFarm());
 
+            //Drivers
             for (int i = 0; i < countOfWorkers; i++)
             {
                 var driver = new Driver
@@ -37,6 +38,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                 modelBuilder.Entity<Driver>().HasData(driver);
             }
 
+            //Farmers
             for (int i = countOfWorkers; i < countOfWorkers + countOfWorkers; i++)
             {
 
@@ -55,7 +57,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                 farmer.BaseSalary = farmer.CountBaseSalary();
                 modelBuilder.Entity<Farmer>().HasData(farmer);
             }
-
+            
+            //Stable
+            modelBuilder.Entity<Stable>().HasData(new Stable { Id = 1, FarmId = 1 });
         }
     }
 }

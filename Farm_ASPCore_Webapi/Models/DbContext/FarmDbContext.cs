@@ -9,10 +9,10 @@ namespace Farm_ASPCore_Webapi.Models
     {
         public FarmDbContext(DbContextOptions<FarmDbContext> options) : base(options) { }
 
-        public DbSet<Farm> Farms { get; set; }
-        public DbSet<Machine> Machines { get; set; }
-        public DbSet<Stable> Stables { get; set; }
-        public DbSet<Worker> Workers { get; set; }
+        public DbSet<Farm>        Farms        { get; set; }
+        public DbSet<Machine>     Machines     { get; set; }
+        public DbSet<Stable>      Stables      { get; set; }
+        public DbSet<Worker>      Workers      { get; set; }
         public DbSet<Cultivation> Cultivations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
