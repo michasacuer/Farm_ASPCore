@@ -34,23 +34,23 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(response);
         }
 
-        // GET: api/Cultivation/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCultivation([FromRoute] int id)
+        // GET: api/Cultivation/Split/ratio idk co to ma byc xD /5
+        [HttpGet("Split/{ratio}/{id}")]
+        public IActionResult GetCultivation(int ratio, int id)
         {
-            if (!ModelState.IsValid)
+            var leaf = _context.Cultivations.Find(id);
+            try
             {
-                return BadRequest(ModelState);
+                leaf.Split(ratio);
             }
 
-            var cultivation = await _context.Cultivations.FindAsync(id);
-
-            if (cultivation == null)
+            catch
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            return Ok(cultivation);
+            return Ok();
+
         }
 
         // PUT: api/Cultivation/5

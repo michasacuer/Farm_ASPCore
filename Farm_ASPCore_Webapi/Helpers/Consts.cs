@@ -4,4 +4,9 @@
     {
         public const int Stable = 30;
     }
+
+    public static class Size
+    {
+        public const double Acreage  = 5D;
+    }
 }

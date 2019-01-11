@@ -45,24 +45,10 @@ namespace Farm_ASPCore_Webapi.Models
             // TODO: Wywalić thisa z bazy jeżeli trzeba i się da 
         }
 
-        public override void Harvest()
-        {
-            Grain = Grain.None;
-        }
+        public override void Harvest()        => Grain = Grain.None;
+        public override void Sow(Grain grain) => Grain = grain;
 
-        public override void Sow(Grain grain)
-        {
-            Grain = grain;
-        }
-
-        public override void Remove(Cultivation cultivation)
-        {
-            throw new InvalidOperationException("Can't remove child components from leaf cultivation");
-        }
-
-        public override void Add(Cultivation cultivation)
-        {
-            throw new InvalidOperationException("Can't add child components to leaf cultivation");
-        }
+        public override void Remove(Cultivation cultivation) => throw new InvalidOperationException("Can't remove child components from leaf cultivation");
+        public override void Add(Cultivation cultivation)    => throw new InvalidOperationException("Can't add child components to leaf cultivation");
     }
 }
