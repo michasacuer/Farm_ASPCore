@@ -9,7 +9,7 @@ using Farm_ASPCore_Webapi.Models;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Stable")]
     [ApiController]
     public class StableController : ControllerBase
     {

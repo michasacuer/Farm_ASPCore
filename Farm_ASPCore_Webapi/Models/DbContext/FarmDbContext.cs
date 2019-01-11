@@ -13,15 +13,17 @@ namespace Farm_ASPCore_Webapi.Models
         public DbSet<Machine>     Machines     { get; set; }
         public DbSet<Stable>      Stables      { get; set; }
         public DbSet<Worker>      Workers      { get; set; }
-        public DbSet<Cultivation> Cultivations { get; set; }
+
+        public DbSet<Cultivation> Cultivations   { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Driver>();
             builder.Entity<Farmer>();
 
-            builder.Entity<CultivationComposite>();
-            builder.Entity<CultivationLeaf>();
+            builder.Entity<CultivationLeaf>().ToTable("CultivationLeafs");
+            builder.Entity<CultivationComposite>().ToTable("CultivationComposites");
 
             builder.Seed();
             base.OnModelCreating(builder);

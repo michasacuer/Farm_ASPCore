@@ -12,17 +12,13 @@ namespace Farm_ASPCore_Webapi.Models
     public abstract class Cultivation
     {
         [Key]
-        public int Id { get; set; }
+        public abstract int Id { get; set; }
 
         [ForeignKey("Farm")]
         public int FarmId { get; }
-        public Farm Farm { get; }
+        public Farm Farm  { get; }
+
         public Grain Grain { get; private set; }
-
-        //[ForeignKey("Grain")]
-        //public int GrainId { get; private set; }
-        //public Grain Grain { get; private set; }
-
 
         public abstract void Sow(Grain grain);
         public abstract void Harvest();

@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
+    [Table("CultivationLeafs")]
     public class CultivationLeaf : Cultivation
     {
+        [Key]
+        public override int Id { get; set; }
+
         public Cultivation Parent { get; set; }
 
         public CultivationLeaf() { }
         public CultivationLeaf(Cultivation parent)
         {
-            //Id = Farm.GetFarm().Cultivations.Count;
-            //farm = Farm.GetFarm();
             grain = Grain.None;
             this.Parent = parent;
         }
