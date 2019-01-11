@@ -42,9 +42,5 @@ namespace Farm_ASPCore_Webapi.Models
         {
             throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         }
-        
-        //[ForeignKey("Farm")]
-        //private Farm farm { get => Farm; set => this.farm = value; }
-        //private Grain grain { get => Grain; set => this.grain = value; }
     }
 }
