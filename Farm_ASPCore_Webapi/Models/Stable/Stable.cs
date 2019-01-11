@@ -18,5 +18,7 @@ namespace Farm_ASPCore_Webapi.Models
 
         [NotMapped]
         public Animal Animals { get; set; }
+
+
     }
 }
