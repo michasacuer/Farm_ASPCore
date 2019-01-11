@@ -32,9 +32,13 @@ namespace Farm_ASPCore_Webapi.Models
        //     Console.WriteLine("Powrot do wersji poprzedniej");
        //     Console.WriteLine(state);
        // }
+       public void RestoreWorkers(Memento empFarm)
+        {
+            this.Workers = empFarm.Workers;
+        }
 
         private Farm() { }
         private static readonly Farm farm = new Farm {  Name = "Farm" };
-        private Farm state;
+       
     }
 }

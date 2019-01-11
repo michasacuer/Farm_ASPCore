@@ -7,8 +7,9 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Memento
     {
-        private List<Worker> Workers { get; set; }
-
+        //na przykladzie jest private, jakim cudem
+        public List<Worker> Workers { get; set; }
+        
         public Memento(Farm state)
         {
             this.Workers = state.Workers;
