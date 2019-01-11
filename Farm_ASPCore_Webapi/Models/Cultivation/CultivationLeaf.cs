@@ -16,9 +16,7 @@ namespace Farm_ASPCore_Webapi.Models
         public CultivationLeaf() { }
         public CultivationLeaf(Cultivation parent)
         {
-            //Id = Farm.GetFarm().Cultivations.Count;
-            //farm = Farm.GetFarm();
-            grain = Grain.None;
+            Grain = Grain.None;
             this.Parent = parent;
         }
 
@@ -32,20 +30,17 @@ namespace Farm_ASPCore_Webapi.Models
 
         public override void Harvest()
         {
-            grain = Grain.None;
+            Grain = Grain.None;
         }
 
         public override void Sow(Grain grain)
         {
-            this.grain = grain;
+            this.Grain = grain;
         }
 
         public override void Remove(Cultivation cultivation)
         {
             throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         }
-        
-        private Farm farm { get => Farm; set => this.farm = value; }
-        private Grain grain { get => Grain; set => this.grain = value; }
     }
 }
