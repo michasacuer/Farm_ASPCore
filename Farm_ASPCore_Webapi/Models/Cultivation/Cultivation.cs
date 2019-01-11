@@ -1,4 +1,5 @@
-﻿using Farm_ASPCore_Webapi.Models.Interfaces;
+﻿using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,10 +17,12 @@ namespace Farm_ASPCore_Webapi.Models
         [ForeignKey("Farm")]
         public int FarmId { get; }
         public Farm Farm { get; }
-
-        [ForeignKey("Grain")]
-        public int GrainId { get; private set; }
         public Grain Grain { get; private set; }
+
+        //[ForeignKey("Grain")]
+        //public int GrainId { get; private set; }
+        //public Grain Grain { get; private set; }
+
 
         public abstract void Sow(Grain grain);
         public abstract void Harvest();
