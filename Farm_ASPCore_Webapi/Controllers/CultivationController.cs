@@ -1,0 +1,125 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Farm_ASPCore_Webapi.Models;
+
+namespace Farm_ASPCore_Webapi.Controllers
+{
+    [Route("api/Cultivation")]
+    [ApiController]
+    public class CultivationController : ControllerBase
+    {
+        private readonly FarmDbContext _context;
+
+        public CultivationController(FarmDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Cultivation
+        [HttpGet]
+        public IActionResult GetCultivations()
+        {
+            return Ok( _context.Cultivations.OfType<CultivationLeaf>());
+        }
+
+        // GET: api/Cultivation/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCultivation([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var cultivation = await _context.Cultivations.FindAsync(id);
+
+            if (cultivation == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(cultivation);
+        }
+
+        // PUT: api/Cultivation/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCultivation([FromRoute] int id, [FromBody] Cultivation cultivation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != cultivation.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(cultivation).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CultivationExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Cultivation
+        [HttpPost]
+        public async Task<IActionResult> PostCultivation([FromBody] Cultivation cultivation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Cultivations.Add(cultivation);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCultivation", new { id = cultivation.Id }, cultivation);
+        }
+
+        // DELETE: api/Cultivation/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCultivation([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var cultivation = await _context.Cultivations.FindAsync(id);
+            if (cultivation == null)
+            {
+                return NotFound();
+            }
+
+            _context.Cultivations.Remove(cultivation);
+            await _context.SaveChangesAsync();
+
+            return Ok(cultivation);
+        }
+
+        private bool CultivationExists(int id)
+        {
+            return _context.Cultivations.Any(e => e.Id == id);
+        }
+    }
+}

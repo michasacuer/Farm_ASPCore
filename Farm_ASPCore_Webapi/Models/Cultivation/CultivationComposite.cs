@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    [Table("CultivationComposites")]
     public class CultivationComposite : Cultivation
     {
-        [Key]
-        public override int Id { get; set; }
-
         public CultivationComposite() => cultivations = new List<Cultivation>();
 
         public override void Add(Cultivation cultivation)        => cultivations.Add(cultivation);

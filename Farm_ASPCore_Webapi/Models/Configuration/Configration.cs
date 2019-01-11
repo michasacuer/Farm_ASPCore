@@ -62,6 +62,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             modelBuilder.Entity<Stable>().HasData(new Stable { Id = 1, FarmId = 1 });
 
             //Cultivations
+            //modelBuilder.Entity<CultivationLeaf>().HasData(new CultivationLeaf { Id = 1 });
         }
     }
 }

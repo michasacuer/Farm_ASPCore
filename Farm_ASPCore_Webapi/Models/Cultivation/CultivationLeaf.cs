@@ -9,18 +9,14 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    [Table("CultivationLeafs")]
     public class CultivationLeaf : Cultivation
     {
-        [Key]
-        public override int Id { get; set; }
-
         public Cultivation Parent { get; set; }
 
         public CultivationLeaf() { }
         public CultivationLeaf(Cultivation parent)
         {
-            grain = Grain.None;
+            Grain = Grain.None;
             this.Parent = parent;
         }
 
@@ -34,12 +30,12 @@ namespace Farm_ASPCore_Webapi.Models
 
         public override void Harvest()
         {
-            grain = Grain.None;
+            Grain = Grain.None;
         }
 
         public override void Sow(Grain grain)
         {
-            this.grain = grain;
+            this.Grain = grain;
         }
 
         public override void Remove(Cultivation cultivation)
@@ -47,7 +43,8 @@ namespace Farm_ASPCore_Webapi.Models
             throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         }
         
-        private Farm farm { get => Farm; set => this.farm = value; }
-        private Grain grain { get => Grain; set => this.grain = value; }
+        //[ForeignKey("Farm")]
+        //private Farm farm { get => Farm; set => this.farm = value; }
+        //private Grain grain { get => Grain; set => this.grain = value; }
     }
 }
