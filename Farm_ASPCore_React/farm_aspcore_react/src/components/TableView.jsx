@@ -3,7 +3,11 @@ import FarmTable from "./FarmTable";
 
 class TableView extends Component {
   render() {
-    return <FarmTable data={this.props.data} />;
+    return (
+      <div className="table-view">
+        <FarmTable data={this.props.data} />
+      </div>
+    );
   }
 }
 
