@@ -12,6 +12,7 @@ namespace Farm_ASPCore_Webapi.Models
     public class CultivationLeaf : Cultivation
     {
         public Cultivation Parent { get; set; }
+        [NotMapped]
         public double Acreage { get; private set; } = 5D;
 
         public CultivationLeaf() { }
@@ -21,9 +22,9 @@ namespace Farm_ASPCore_Webapi.Models
             Parent = parent;
         }
 
-        public override void Split(double ratio)
+        public override (Cultivation, Cultivation, Cultivation) Split(double ratio)
         {
-            if(Parent != null)
+            if (Parent != null)
             {
                 CultivationLeaf leaf1 = new CultivationLeaf(Parent), leaf2 = new CultivationLeaf(Parent);
                 leaf1.Acreage = Acreage * ratio;
@@ -31,6 +32,7 @@ namespace Farm_ASPCore_Webapi.Models
                 Parent.Add(leaf1);
                 Parent.Add(leaf2);
                 Parent.Remove(this);
+                return (leaf1, leaf2, Parent);
             }
             else
             {
@@ -40,9 +42,8 @@ namespace Farm_ASPCore_Webapi.Models
                 leaf2.Acreage = Acreage * (1 - ratio);
                 cultivationComposite.Add(leaf1);
                 cultivationComposite.Add(leaf2);
+                return (leaf1, leaf2, cultivationComposite);
             }
-
-            // TODO: Wywalić thisa z bazy jeżeli trzeba i się da 
         }
 
         public override void Harvest()        => Grain = Grain.None;
