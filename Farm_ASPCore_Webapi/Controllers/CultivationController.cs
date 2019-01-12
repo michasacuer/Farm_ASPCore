@@ -38,6 +38,7 @@ namespace Farm_ASPCore_Webapi.Controllers
             {
                 Cultivation leaf1, leaf2, composite;
                 (leaf1, leaf2, composite) = leaf.Split(ratio);
+
                 composite.Id = leaf.Id;
                 _context.Cultivations.Remove(leaf);
                 _context.Cultivations.Add(leaf1);
