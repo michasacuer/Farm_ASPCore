@@ -15,14 +15,14 @@ namespace Farm_ASPCore_Webapi.Models
         public int Id { get; set; }
 
         [ForeignKey("Farm")]
-        public int  FarmId { get; set; }
+        public int  FarmId { get => 1; set { } }
         public Farm Farm   { get; set; }
 
         public virtual Grain Grain { get; set; }
 
         public abstract void Sow(Grain grain);
         public abstract void Harvest();
-        public abstract void Split(double ratio);
+        public abstract (Cultivation, Cultivation, Cultivation) Split(double ratio);
         public abstract void Add(Cultivation cultivation);
         public abstract void Remove(Cultivation cultivation);
     }

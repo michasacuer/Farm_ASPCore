@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
-using Farm_ASPCore_Webapi.Models.Bonus;
 
 namespace Farm_ASPCore_Webapi.Models.Configuration
 {
@@ -14,8 +13,11 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
         {
             Random random = new Random();
             int doubleRange = 20; // for doubles
+            FarmStrategy farmStrategy = new FarmStrategy();
+            CultivationStrategy cultivationStrategy = new CultivationStrategy();
 
             int countOfWorkers = 10;
+            int countOfMachines = 5;
 
             modelBuilder.Entity<Farm>().HasData(Farm.GetFarm());
 
@@ -41,7 +43,6 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             //Farmers
             for (int i = countOfWorkers; i < countOfWorkers + countOfWorkers; i++)
             {
-
                 var farmer = new Farmer
                 {
                     Id = i + 1,
@@ -62,7 +63,32 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             modelBuilder.Entity<Stable>().HasData(new Stable { Id = 1, FarmId = 1 });
 
             //Cultivations
-            //modelBuilder.Entity<CultivationLeaf>().HasData(new CultivationLeaf { Id = 1 });
+            modelBuilder.Entity<CultivationLeaf>().HasData(new CultivationLeaf { Id = 1, FarmId = 1 });
+
+            //Machines
+            for(int i = 0; i < countOfMachines; i++)
+            {
+                Machine machine = new Machine
+                {
+                    Id = i + 1,
+                    FarmId = 1,
+                    HoursPerDay = Math.Round((random.NextDouble() * doubleRange), 2),
+                    DaysOfWork = random.Next(1, 31)
+                };
+                modelBuilder.Entity<Machine>().HasData(machine);
+            }
+
+            for (int i = 0; i < countOfMachines; i++)
+            {
+                Machine machine = new Machine
+                {
+                    Id = i + countOfMachines + 1,
+                    FarmId = 1,
+                    HoursPerDay = Math.Round((random.NextDouble() * doubleRange), 2),
+                    DaysOfWork = random.Next(1, 31)
+                };
+                modelBuilder.Entity<Machine>().HasData(machine);
+            }
         }
     }
 }

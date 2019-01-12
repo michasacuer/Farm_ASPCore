@@ -1,12 +1,13 @@
 ﻿using Farm_ASPCore_Webapi.Helpers;
 using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public class Animals
+    public class Animals : ISummary
     {
         public int     Id      { get; set; }
         public Species Species { get; set; }
@@ -14,6 +15,21 @@ namespace Farm_ASPCore_Webapi.Models
 
         public static Animals GetAnimal(int id) => animals.SingleOrDefault(a => a.Id == id);
         public static List<Animals> GetAll() => animals;
+        public static double GetAnimalsCost() => animals[0].GetCost();
+
+        public double GetCost()
+        {
+            double cost = 0, income = 0;
+            foreach (Animals animal in animals)
+            {
+                cost = animal.Sex == Gender.Female ? costFemale : costMale;
+
+                income = animal.Sex == Gender.Male ? 0 :
+                         animal.Species == Species.Black ? (milkPrice * 20) : (milkPrice * 15);
+            }
+
+            return (cost + income);
+        }
 
         private static List<Animals> animals = Fill();
         private static List<Animals> Fill()
@@ -21,7 +37,7 @@ namespace Farm_ASPCore_Webapi.Models
             Random random = new Random();
             Array genders = Enum.GetValues(typeof(Gender));
             Array species = Enum.GetValues(typeof(Species));
-            var animals = new List<Animals>(Capacity.Stable);
+            var animals   = new List<Animals>(Capacity.Stable);
             
             for(int i = 0; i < Capacity.Stable; i++)
             {
@@ -31,6 +47,7 @@ namespace Farm_ASPCore_Webapi.Models
                     (Species)species.GetValue(random.Next(genders.Length))
                     ));
             }
+            
             return animals;
         }
 
@@ -39,6 +56,11 @@ namespace Farm_ASPCore_Webapi.Models
             Id = id;
             Sex = sex;
             Species = species;
+            
         }
+
+        private double milkPrice  = 0.80 * 31;
+        private double costMale   = 100 * 31;
+        private double costFemale = 200 * 31;
     }
 }

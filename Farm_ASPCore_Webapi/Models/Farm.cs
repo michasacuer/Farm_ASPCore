@@ -10,7 +10,7 @@ namespace Farm_ASPCore_Webapi.Models
     public class Farm
     {
         [Key]
-        public int Id { get; set; } = 1;
+        public int Id { get => 1; set { } }
         public string Name { get; set; }
 
         public virtual List<Stable> Stables { get; set; }
@@ -19,26 +19,26 @@ namespace Farm_ASPCore_Webapi.Models
         public virtual List<Cultivation> Cultivations { get; set; }
 
         public static Farm GetFarm() => farm;
-       public Memento SaveWorkers()
+        public Memento SaveWorkers()
         {
             return new Memento(Workers);
         }
-       // public Memento Save() => new Memento(state);
-
-
-       // public void restore(Memento m)
-       // {
-       //     state = m.getState();
-       //     Console.WriteLine("Powrot do wersji poprzedniej");
-       //     Console.WriteLine(state);
-       // }
-       public void RestoreWorkers(Memento empFarm)
+        // public Memento Save() => new Memento(state);
+        
+        
+        // public void restore(Memento m)
+        // {
+        //     state = m.getState();
+        //     Console.WriteLine("Powrot do wersji poprzedniej");
+        //     Console.WriteLine(state);
+        // }
+        public void RestoreWorkers(Memento empFarm)
         {
             this.Workers = empFarm.Workers;
         }
 
         private Farm() { }
-        private static readonly Farm farm = new Farm {  Name = "Farm" };
+        private static Farm farm = new Farm {  Name = "Farm" };
        
     }
 }

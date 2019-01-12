@@ -3,7 +3,6 @@
     public enum Species
     {
         Black,
-        White, 
-        Mixed
+        White
     }
 }

@@ -2,10 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Models.Interfaces;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public abstract class Worker
+    public abstract class Worker : ISummary
     {
         [Key]
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace Farm_ASPCore_Webapi.Models
         public abstract double   GetTaxes();
 
         public double CountBaseSalary() => Math.Round(BaseSalary = Salary = UsdPerHour * HoursPerDay * DaysOfWork - GetTaxes(), 2);
+        public double GetCost() => Salary;
     }
 }

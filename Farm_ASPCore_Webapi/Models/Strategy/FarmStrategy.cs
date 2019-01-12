@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    [NotMapped]
-    public class FarmStrategy : IWorkStrategy
+    public class FarmStrategy : WorkStrategy
     {
-        public double TimeOfWork(int hours) => hours * hours - serviceTime;
+        public override double TimeOfWork(double hours) => hours * hours - serviceTime;
 
         private int serviceTime = 2;
     }
