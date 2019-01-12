@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./TableRow.css";
 import { Glyphicon } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import EditForm from "./EditForm.jsx";
 
 class TableRow extends Component {
   state = {
@@ -26,12 +29,38 @@ class TableRow extends Component {
           {/* eslint-disable-next-line */}
           <Glyphicon glyph="glyphicon glyphicon-pencil" />
         </td>
-        {/* FORM */}
+        <EditForm visible={this.state.showEditForm} />
         <td>
           {/* eslint-disable-next-line */}
-          <Glyphicon glyph="glyphicon glyphicon-trash" />
+          <Glyphicon
+            glyph="glyphicon glyphicon-trash"
+            onClick={() => {
+              this.setState({ showDeleteForm: true });
+            }}
+          />
         </td>
-        {/* FORM */}
+        {this.state.showDeleteForm
+          ? confirmAlert({
+              title: "Potwierdzenie usunięcia",
+              message: "Czy na pewno chcesz usunąć rekord?",
+              buttons: [
+                {
+                  label: "Tak",
+                  onClick: () => {
+                    alert("Yes");
+                    this.setState({ showDeleteForm: false });
+                  }
+                },
+                {
+                  label: "Nie",
+                  onClick: () => {
+                    alert("No");
+                    this.setState({ showDeleteForm: false });
+                  }
+                }
+              ]
+            })
+          : ""}
       </tr>
     );
   }

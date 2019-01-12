@@ -6,3 +6,18 @@ span {
 span:hover {
   cursor: pointer;
 }
+
+.react-confirm-alert-body {
+  text-align: center !important;
+}
+
+.react-confirm-alert-button-group {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: space-around !important;
+}
+
+.react-confirm-alert-button-group > button {
+  width: 8em;
+}
