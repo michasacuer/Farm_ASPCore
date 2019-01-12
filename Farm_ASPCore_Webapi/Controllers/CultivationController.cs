@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
 using Microsoft.EntityFrameworkCore.Query;
+using Farm_ASPCore_Webapi.Models.Enums;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -31,76 +32,62 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // GET: api/Cultivation/Split/1/5
         [HttpGet("Split/{ratio}/{id}")]
-        public IActionResult GetCultivation(double ratio, int id)
+        public IActionResult SplitCultivation(double ratio, int id)
         {
             var leaf = _context.Cultivations.Find(id);
             try
             {
-                Cultivation leaf1, leaf2, composite;
-                (leaf1, leaf2, composite) = leaf.Split(ratio);
+                if (leaf.GetType() == typeof(CultivationLeaf))
+                {
+                    Cultivation leaf1, leaf2, composite;
+                    (leaf1, leaf2, composite) = leaf.Split(ratio);
 
-                composite.Id = leaf.Id;
-                _context.Cultivations.Remove(leaf);
-                _context.Cultivations.Add(leaf1);
-                _context.Cultivations.Add(leaf2);
-                _context.Cultivations.Add(composite);
+                    composite.Id = leaf.Id;
+                    _context.Cultivations.Remove(leaf);
+                    _context.Cultivations.Add(leaf1);
+                    _context.Cultivations.Add(leaf2);
+                    _context.Cultivations.Add(composite);
+                }
             }
             catch { return BadRequest(); }
 
             _context.SaveChanges();
             var leafs = _context.Cultivations.OfType<CultivationLeaf>().Include(c => c.Parent);
             return Ok(GetAllCultivationsFromDb(leafs));
-
         }
 
-        // PUT: api/Cultivation/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCultivation([FromRoute] int id, [FromBody] Cultivation cultivation)
+        // GET: api/Cultivation/Harvest/5
+        [HttpGet("Harvest/{id}")]
+        public IActionResult Harvest(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var leaf = _context.Cultivations.Find(id);
 
-            if (id != cultivation.Id)
-            {
+            if (leaf.GetType() == typeof(CultivationLeaf))
+                leaf.Harvest();
+
+            else
                 return BadRequest();
-            }
 
-            _context.Entry(cultivation).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CultivationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(leaf);
         }
 
-        // POST: api/Cultivation
-        [HttpPost]
-        public async Task<IActionResult> PostCultivation([FromBody] Cultivation cultivation)
+        // POST: api/Cultivation/Sow/Grain.Kind/5
+        [HttpGet("Sow/{grain}/{id}")]
+        public IActionResult Sow(int grain, int id)
         {
-            if (!ModelState.IsValid)
+            var leaf = _context.Cultivations.Find(id);
+            if (leaf.GetType() == typeof(CultivationLeaf))
             {
-                return BadRequest(ModelState);
+                if (leaf.Grain == Grain.None)
+                    leaf.Sow((Grain)grain);
+                else
+                    return BadRequest();
             }
 
-            _context.Cultivations.Add(cultivation);
-            await _context.SaveChangesAsync();
+            else
+                return BadRequest();
 
-            return CreatedAtAction("GetCultivation", new { id = cultivation.Id }, cultivation);
+            return Ok(leaf);
         }
 
         // DELETE: api/Cultivation/5
@@ -132,10 +119,9 @@ namespace Farm_ASPCore_Webapi.Controllers
         private List<CultivationViewModel> GetAllCultivationsFromDb(IIncludableQueryable<CultivationLeaf, Cultivation> leafs)
         {
             var result = new List<CultivationViewModel>();
+
             foreach (CultivationLeaf item in leafs)
-            {
                 result.Add(new CultivationViewModel { Id = item.Id, CompositeId = item.Parent.Id, Grain = item.Grain.ToString() });
-            }
 
             return result;
         }

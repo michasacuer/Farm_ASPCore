@@ -15,7 +15,7 @@ namespace Farm_ASPCore_Webapi.Models
         public int Id { get; set; }
 
         [ForeignKey("Farm")]
-        public int FarmId { get => 1; set { } }
+        public int  FarmId { get => 1; set { } }
         public Farm Farm   { get; set; }
 
         public virtual Grain Grain { get; set; }
