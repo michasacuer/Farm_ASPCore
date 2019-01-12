@@ -21,15 +21,31 @@ class TableRow extends Component {
     return cells;
   }
 
+  setEditFromVisible = value => {
+    this.setState({ showEditForm: value });
+  };
+
   render() {
     return (
       <tr>
         {this.renderRow()}
         <td>
           {/* eslint-disable-next-line */}
-          <Glyphicon glyph="glyphicon glyphicon-pencil" />
+          <Glyphicon
+            glyph="glyphicon glyphicon-pencil"
+            onClick={() => {
+              this.setState({ showEditForm: true });
+            }}
+          />
+          <EditForm
+            visible={this.state.showEditForm}
+            data={this.props.rowData}
+            onClick={() => {
+              this.setState({ showEditForm: true });
+            }}
+            setEditFromVisible={this.setEditFromVisible}
+          />
         </td>
-        <EditForm visible={this.state.showEditForm} />
         <td>
           {/* eslint-disable-next-line */}
           <Glyphicon
@@ -38,29 +54,29 @@ class TableRow extends Component {
               this.setState({ showDeleteForm: true });
             }}
           />
+          {this.state.showDeleteForm
+            ? confirmAlert({
+                title: "Potwierdzenie usunięcia",
+                message: "Czy na pewno chcesz usunąć rekord?",
+                buttons: [
+                  {
+                    label: "Tak",
+                    onClick: () => {
+                      alert("Yes");
+                      this.setState({ showDeleteForm: false });
+                    }
+                  },
+                  {
+                    label: "Nie",
+                    onClick: () => {
+                      alert("No");
+                      this.setState({ showDeleteForm: false });
+                    }
+                  }
+                ]
+              })
+            : ""}
         </td>
-        {this.state.showDeleteForm
-          ? confirmAlert({
-              title: "Potwierdzenie usunięcia",
-              message: "Czy na pewno chcesz usunąć rekord?",
-              buttons: [
-                {
-                  label: "Tak",
-                  onClick: () => {
-                    alert("Yes");
-                    this.setState({ showDeleteForm: false });
-                  }
-                },
-                {
-                  label: "Nie",
-                  onClick: () => {
-                    alert("No");
-                    this.setState({ showDeleteForm: false });
-                  }
-                }
-              ]
-            })
-          : ""}
       </tr>
     );
   }
