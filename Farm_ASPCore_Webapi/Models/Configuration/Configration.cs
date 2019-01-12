@@ -16,6 +16,7 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             int doubleRange = 20; // for doubles
 
             int countOfWorkers = 10;
+            int countOfMachines = 5;
 
             modelBuilder.Entity<Farm>().HasData(Farm.GetFarm());
 
@@ -41,7 +42,6 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             //Farmers
             for (int i = countOfWorkers; i < countOfWorkers + countOfWorkers; i++)
             {
-
                 var farmer = new Farmer
                 {
                     Id = i + 1,
@@ -65,6 +65,34 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             modelBuilder.Entity<CultivationLeaf>().HasData(new CultivationLeaf { Id = 1, FarmId = 1 });
 
             //Summaries
+
+            //Machines
+            for(int i = 0; i < countOfMachines; i++)
+            {
+                Machine machine = new Machine
+                {
+                    Id = i + 1,
+                    FarmId = 1,
+                    HoursPerDay = random.Next(1, 23),
+                    DaysOfWork = random.Next(1, 31)
+                };
+                machine.Strategy = new FarmStrategy();
+                modelBuilder.Entity<Machine>().HasData(machine);
+            }
+
+            for (int i = 0; i < countOfMachines; i++)
+            {
+                Machine machine = new Machine
+                {
+                    Id = i + countOfMachines + 1,
+                    FarmId = 1,
+                    HoursPerDay = random.Next(1, 23),
+                    DaysOfWork = random.Next(1, 31)
+                };
+                machine.Strategy = new CultivationStrategy();
+                modelBuilder.Entity<Machine>().HasData(machine);
+            }
+
         }
     }
 }
