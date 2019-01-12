@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
-using Farm_ASPCore_Webapi.Models.Bonus;
 
 namespace Farm_ASPCore_Webapi.Models.Configuration
 {
@@ -66,8 +65,6 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             //Cultivations
             modelBuilder.Entity<CultivationLeaf>().HasData(new CultivationLeaf { Id = 1, FarmId = 1 });
 
-            //Summaries
-
             //Machines
             for(int i = 0; i < countOfMachines; i++)
             {
@@ -92,7 +89,6 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                 };
                 modelBuilder.Entity<Machine>().HasData(machine);
             }
-
         }
     }
 }

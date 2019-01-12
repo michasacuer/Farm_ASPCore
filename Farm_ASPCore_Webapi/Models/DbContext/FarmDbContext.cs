@@ -14,7 +14,6 @@ namespace Farm_ASPCore_Webapi.Models
         public DbSet<Stable>      Stables      { get; set; }
         public DbSet<Worker>      Workers      { get; set; }
         public DbSet<Cultivation> Cultivations { get; set; }
-        public DbSet<Summary>     Summaries    { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

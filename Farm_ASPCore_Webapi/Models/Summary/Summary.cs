@@ -9,12 +9,7 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Summary
     {
-        [Key]
         public int Id { get; set; }
-
-        [ForeignKey("Farm")]
-        public int  FarmId { get => 1; set { } }
-        public Farm Farm   { get; set; }
 
         public double Budget           { get; set; } = 0;
         public double MachinesCost     { get; set; } = 0;

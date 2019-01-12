@@ -24,7 +24,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IActionResult GetSummary()
         {
-            Populate();
+            StrategyPopulate();
             var farm = _context.Farms.Include(w => w.Workers)
                                      .Include(m => m.Machines)
                                      //.Include(c => c.Cultivations)
@@ -33,8 +33,6 @@ namespace Farm_ASPCore_Webapi.Controllers
 
             var summary = new Summary();
             summary.GetSummary(farm);
-            _context.Summaries.Add(summary);
-            _context.SaveChanges();
 
             return Ok(new SummaryViewModel
             {
@@ -52,23 +50,24 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetSummary([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            var summary =  _context.Summaries.Find(id);
+            //var summary =  _context.Summaries.Find(id);
 
-            if (summary == null)
-            {
-                return NotFound();
-            }
+            //if (summary == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(summary);
+            //return Ok(summary);
+            throw new NotImplementedException();
         }
 
 
-        private void Populate()
+        private void StrategyPopulate()
         {
             int i = 0;
             foreach (Machine machine in _context.Machines)
