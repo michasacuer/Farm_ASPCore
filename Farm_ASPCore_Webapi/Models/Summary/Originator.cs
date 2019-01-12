@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Farm_ASPCore_Webapi.Models.Summary
+namespace Farm_ASPCore_Webapi.Models
 {
     public class Originator
     {
+        public static Originator Instance { get; } = new Originator(); 
+
         public void SetState(Summary state) => this.state = state;
         public Summary GetState() => state;
         public Memento Save() => new Memento(state);

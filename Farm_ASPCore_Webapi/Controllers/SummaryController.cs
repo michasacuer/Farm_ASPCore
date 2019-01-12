@@ -34,36 +34,16 @@ namespace Farm_ASPCore_Webapi.Controllers
             var summary = new Summary();
             summary.GetSummary(farm);
 
-            return Ok(new SummaryViewModel
-            {
-                Budget = summary.Budget,
-                AnimalsCost = summary.AnimalsCost,
-                CultivationsCost = summary.CultivationsCost,
-                MachinesCost = summary.MachinesCost,
-                WorkersCost = summary.WorkersCost,
-                SummaryCost = summary.SummaryCost,
-                Balance = summary.Budget - summary.SummaryCost
-            });
+            return Ok(summary);
         }
 
-        // GET: api/Summary/5
-        [HttpGet("{id}")]
-        public IActionResult GetSummary([FromRoute] int id)
+        // POST: api/Summary
+        [HttpPost]
+        public IActionResult SaveSummary([FromBody] Summary summary)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            var originator = Originator.Instance;
 
-            //var summary =  _context.Summaries.Find(id);
-
-            //if (summary == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return Ok(summary);
-            throw new NotImplementedException();
+            return Ok();
         }
 
 
