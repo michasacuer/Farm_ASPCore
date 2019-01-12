@@ -15,6 +15,8 @@ namespace Farm_ASPCore_Webapi.Models
 
         public static Animals GetAnimal(int id) => animals.SingleOrDefault(a => a.Id == id);
         public static List<Animals> GetAll() => animals;
+        public static double GetAnimalsCost() => animals[0].GetCost();
+
         public double GetCost()
         {
             double cost = 0, income = 0;
@@ -22,7 +24,7 @@ namespace Farm_ASPCore_Webapi.Models
             {
                 cost = animal.Sex == Gender.Female ? costFemale : costMale;
 
-                income = animal.Sex == Gender.Male ? 0 : 
+                income = animal.Sex == Gender.Male ? 0 :
                          animal.Species == Species.Black ? (milkPrice * 20) : (milkPrice * 15);
             }
 
@@ -45,6 +47,7 @@ namespace Farm_ASPCore_Webapi.Models
                     (Species)species.GetValue(random.Next(genders.Length))
                     ));
             }
+            
             return animals;
         }
 
@@ -53,6 +56,7 @@ namespace Farm_ASPCore_Webapi.Models
             Id = id;
             Sex = sex;
             Species = species;
+            
         }
 
         private double milkPrice  = 0.80 * 31;

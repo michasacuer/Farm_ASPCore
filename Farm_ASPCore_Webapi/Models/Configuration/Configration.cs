@@ -63,6 +63,8 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
 
             //Cultivations
             modelBuilder.Entity<CultivationLeaf>().HasData(new CultivationLeaf { Id = 1, FarmId = 1 });
+
+            //Summaries
         }
     }
 }

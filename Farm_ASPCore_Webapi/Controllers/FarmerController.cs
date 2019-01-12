@@ -18,7 +18,6 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         public FarmerController(FarmDbContext context)
         {
-            
             _context = context;
         }
 
