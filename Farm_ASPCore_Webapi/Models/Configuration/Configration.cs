@@ -14,6 +14,8 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
         {
             Random random = new Random();
             int doubleRange = 20; // for doubles
+            FarmStrategy farmStrategy = new FarmStrategy();
+            CultivationStrategy cultivationStrategy = new CultivationStrategy();
 
             int countOfWorkers = 10;
             int countOfMachines = 5;
@@ -73,10 +75,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                 {
                     Id = i + 1,
                     FarmId = 1,
-                    HoursPerDay = random.Next(1, 23),
+                    HoursPerDay = Math.Round((random.NextDouble() * doubleRange), 2),
                     DaysOfWork = random.Next(1, 31)
                 };
-                machine.Strategy = new FarmStrategy();
                 modelBuilder.Entity<Machine>().HasData(machine);
             }
 
@@ -86,10 +87,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
                 {
                     Id = i + countOfMachines + 1,
                     FarmId = 1,
-                    HoursPerDay = random.Next(1, 23),
+                    HoursPerDay = Math.Round((random.NextDouble() * doubleRange), 2),
                     DaysOfWork = random.Next(1, 31)
                 };
-                machine.Strategy = new CultivationStrategy();
                 modelBuilder.Entity<Machine>().HasData(machine);
             }
 

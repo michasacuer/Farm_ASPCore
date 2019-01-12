@@ -24,6 +24,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IActionResult GetSummary()
         {
+            Populate();
             var farm = _context.Farms.Include(w => w.Workers)
                                      .Include(m => m.Machines)
                                      //.Include(c => c.Cultivations)
@@ -34,19 +35,29 @@ namespace Farm_ASPCore_Webapi.Controllers
             summary.GetSummary(farm);
             _context.Summaries.Add(summary);
             _context.SaveChanges();
-            return Ok(summary);
+
+            return Ok(new SummaryViewModel
+            {
+                Budget = summary.Budget,
+                AnimalsCost = summary.AnimalsCost,
+                CultivationsCost = summary.CultivationsCost,
+                MachinesCost = summary.MachinesCost,
+                WorkersCost = summary.WorkersCost,
+                SummaryCost = summary.SummaryCost,
+                Balance = summary.Budget - summary.SummaryCost
+            });
         }
 
         // GET: api/Summary/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSummary([FromRoute] int id)
+        public IActionResult GetSummary([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var summary = await _context.Summaries.FindAsync(id);
+            var summary =  _context.Summaries.Find(id);
 
             if (summary == null)
             {
@@ -56,11 +67,18 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(summary);
         }
 
-       
 
-        private bool SummaryExists(int id)
+        private void Populate()
         {
-            return _context.Summaries.Any(e => e.Id == id);
+            int i = 0;
+            foreach (Machine machine in _context.Machines)
+            {
+                i++;
+                if (i % 2 == 0)
+                    machine.Strategy = new FarmStrategy();
+                else
+                    machine.Strategy = new CultivationStrategy();
+            }
         }
     }
 }

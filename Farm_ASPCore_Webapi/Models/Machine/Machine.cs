@@ -8,7 +8,7 @@ using Farm_ASPCore_Webapi.Models.Interfaces;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public class Machine
+    public class Machine : ISummary
     {
         [Key]
         public int Id { get; set; }
@@ -17,12 +17,13 @@ namespace Farm_ASPCore_Webapi.Models
         public int FarmId { get; set; }
         public Farm Farm  { get; set; }
 
-        public int HoursPerDay { get; set; }
-        public int DaysOfWork  { get; set; }
+        public double HoursPerDay { get; set; }
+        public int    DaysOfWork  { get; set; }
 
         [NotMapped]
-        public IWorkStrategy Strategy { get; set; }
+        public WorkStrategy Strategy { get; set; }
 
         public double GetManHours() => DaysOfWork * Strategy.TimeOfWork(HoursPerDay);
+        public double GetCost()     => GetManHours() * 100;
     }
 }
