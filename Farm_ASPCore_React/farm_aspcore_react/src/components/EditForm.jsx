@@ -37,11 +37,11 @@ class EditForm extends Component {
     const keys = Object.keys(data);
     return (
       <Modal show={this.props.visible}>
-        <Modal.Header>
-          <Modal.Title>EDYTUJ</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
+          <Modal.Header>
+            <Modal.Title>EDYTUJ</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             {keys.map(key => (
               <FormGroup controlId={key} key={key}>
                 <ControlLabel>{translate(key)}</ControlLabel>
@@ -52,9 +52,13 @@ class EditForm extends Component {
                 />
               </FormGroup>
             ))}
-            <Button type="submit">ZATWIERDŹ</Button>
-          </Form>
-        </Modal.Body>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" bsStyle="success">
+              ZATWIERDŹ
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     );
   }

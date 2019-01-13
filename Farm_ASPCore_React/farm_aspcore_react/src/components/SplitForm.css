@@ -1,0 +1,12 @@
+.row {
+  display: flex;
+  height: 36px;
+}
+
+.row col-sm-8 {
+  margin: auto auto;
+}
+
+.row col-sm-8 rc-slider {
+  margin: auto auto;
+}
