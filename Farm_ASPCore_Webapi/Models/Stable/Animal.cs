@@ -37,7 +37,7 @@ namespace Farm_ASPCore_Webapi.Models
             Random random = new Random();
             Array genders = Enum.GetValues(typeof(Gender));
             Array species = Enum.GetValues(typeof(Species));
-            var animals   = new List<Animals>(Capacity.Stable);
+            var   animals = new List<Animals>(Capacity.Stable);
             
             for(int i = 0; i < Capacity.Stable; i++)
             {
