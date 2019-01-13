@@ -1,4 +1,4 @@
-﻿namespace Farm_ASPCore_Webapi.Models.Interfaces
+﻿namespace Farm_ASPCore_Webapi.Models
 {   
     public abstract class WorkStrategy
     {

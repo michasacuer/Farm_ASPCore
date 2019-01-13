@@ -107,10 +107,10 @@ namespace Farm_ASPCore_Webapi.Controllers
             foreach (CultivationLeaf item in leafs)
             {
                 if (!(item.Parent == null))
-                    result.Add(new CultivationViewModel { Id = item.Id, CompositeId = item.Parent.Id, Grain = item.Grain.ToString() });
+                    result.Add(new CultivationViewModel { Id = item.Id, CompositeId = item.Parent.Id, Grain = item.Grain.ToString(), Acregae = item.Acreage });
 
                 else
-                    result.Add(new CultivationViewModel { Id = item.Id, Grain = item.Grain.ToString() });
+                    result.Add(new CultivationViewModel { Id = item.Id, Grain = item.Grain.ToString(), Acregae = item.Acreage });
             }
 
             return result;

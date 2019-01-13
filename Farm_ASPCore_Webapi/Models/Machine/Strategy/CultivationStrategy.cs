@@ -1,6 +1,4 @@
-﻿using Farm_ASPCore_Webapi.Models.Interfaces;
-
-namespace Farm_ASPCore_Webapi.Models
+﻿namespace Farm_ASPCore_Webapi.Models
 {
     public class CultivationStrategy : WorkStrategy
     {

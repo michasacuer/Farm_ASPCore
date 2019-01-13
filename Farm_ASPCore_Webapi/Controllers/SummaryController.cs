@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
+using Farm_ASPCore_Webapi.Models.Enums;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -69,14 +70,13 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// </summary>
         private void StrategyPopulate()
         {
-            int i = 0;
             foreach (Machine machine in _context.Machines)
             {
-                i++;
-                if (i % 2 == 0)
-                    machine.Strategy = new FarmStrategy();
-                else
+                if (machine.MappedStrategy == Strategy.Cultivation)
                     machine.Strategy = new CultivationStrategy();
+
+                else
+                    machine.Strategy = new FarmStrategy();
             }
         }
     }

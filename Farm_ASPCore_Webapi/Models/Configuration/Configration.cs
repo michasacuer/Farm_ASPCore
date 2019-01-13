@@ -1,4 +1,5 @@
 ﻿using System;
+using Farm_ASPCore_Webapi.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Farm_ASPCore_Webapi.Models.Configuration
@@ -17,8 +18,8 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             CultivationStrategy cultivationStrategy = new CultivationStrategy();
 
             int countOfWorkers = 10;
-            int countOfMachines = 5;
-            double budgetValue = 200000;
+            int countOfMachines = 10;
+            double budgetValue = 20000000;
 
             //Farm
             modelBuilder.Entity<Farm>().HasData(Farm.GetFarm());
@@ -75,24 +76,14 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             //Machines
             for(int i = 0; i < countOfMachines; i++)
             {
+                Array strategies = Enum.GetValues(typeof(Strategy));
                 Machine machine = new Machine
                 {
                     Id = i + 1,
                     FarmId = 1,
                     HoursPerDay = Math.Round((random.NextDouble() * doubleRange), 2),
-                    DaysOfWork = random.Next(1, 31)
-                };
-                modelBuilder.Entity<Machine>().HasData(machine);
-            }
-
-            for (int i = 0; i < countOfMachines; i++)
-            {
-                Machine machine = new Machine
-                {
-                    Id = i + countOfMachines + 1,
-                    FarmId = 1,
-                    HoursPerDay = Math.Round((random.NextDouble() * doubleRange), 2),
-                    DaysOfWork = random.Next(1, 31)
+                    DaysOfWork = random.Next(1, 31),
+                    MappedStrategy = (Strategy)strategies.GetValue(random.Next(strategies.Length))
                 };
                 modelBuilder.Entity<Machine>().HasData(machine);
             }

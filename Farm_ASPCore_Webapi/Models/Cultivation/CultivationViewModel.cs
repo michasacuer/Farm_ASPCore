@@ -5,5 +5,6 @@
         public int    Id           { get; set; }
         public string Grain        { get; set; }
         public int?   CompositeId  { get; set; }
+        public double Acregae      { get; set; }
     }
 }
