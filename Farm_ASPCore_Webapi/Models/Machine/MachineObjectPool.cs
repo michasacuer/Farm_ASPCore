@@ -8,7 +8,7 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class MachineObjectPool
     {
-        public MachineObjectPool Instance { get; } = new MachineObjectPool(); 
+        public MachineObjectPool Instance { get; } = new MachineObjectPool();
 
         public Machine AcquireMachine()
         {
