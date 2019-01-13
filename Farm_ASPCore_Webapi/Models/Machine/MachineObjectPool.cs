@@ -8,7 +8,7 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class MachineObjectPool
     {
-        public MachineObjectPool Instance { get; } = new MachineObjectPool();
+        public static MachineObjectPool Instance { get; } = new MachineObjectPool();
 
         public Machine AcquireMachine()
         {
@@ -29,7 +29,7 @@ namespace Farm_ASPCore_Webapi.Models
             pool = MachineHelper.GetPool(maxPoolSize);
         }
 
-        private readonly List<Machine> pool;
+        private volatile List<Machine> pool;
         private readonly int maxPoolSize = 10;
     }
 }
