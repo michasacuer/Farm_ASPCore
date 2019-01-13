@@ -22,7 +22,7 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // GET: api/Machine
         [HttpGet]
-        public IActionResult GetMachines()
+        public IActionResult AcquireMachines()
         {
             try
             {
@@ -36,82 +36,16 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // GET: api/Machine/5
         [HttpGet("{id}")]
-        public IActionResult GetMachine(int id) => Ok(_context.Machines.FindAsync(id));
-
-        // PUT: api/Machine/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMachine([FromRoute] int id, [FromBody] Machine machine)
+        public IActionResult ReleaseMachine(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != machine.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(machine).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MachineExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                var machine = _context.Machines.Find(id);
+                MachineObjectPool.Instance.ReleaseMachine(machine);
+                return Ok(machine);
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Machine
-        [HttpPost]
-        public async Task<IActionResult> PostMachine([FromBody] Machine machine)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Machines.Add(machine);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMachine", new { id = machine.Id }, machine);
-        }
-
-        // DELETE: api/Machine/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMachine([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var machine = await _context.Machines.FindAsync(id);
-            if (machine == null)
-            {
-                return NotFound();
-            }
-
-            _context.Machines.Remove(machine);
-            await _context.SaveChangesAsync();
-
-            return Ok(machine);
-        }
-
-        private bool MachineExists(int id)
-        {
-            return _context.Machines.Any(e => e.Id == id);
+            catch { return BadRequest("Pool full, PANIC"); }
         }
     }
 }
