@@ -9,8 +9,6 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Summary
     {
-        public int Id { get; set; }
-
         public double Budget           { get; set; } = 0;
         public double MachinesCost     { get; set; } = 0;
         public double WorkersCost      { get; set; } = 0;
