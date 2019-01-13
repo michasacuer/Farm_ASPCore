@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
+using Farm_ASPCore_Webapi.Models.Enums;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -46,6 +47,16 @@ namespace Farm_ASPCore_Webapi.Controllers
             }
 
             catch { return BadRequest("Pool full, PANIC"); }
+        }
+
+        //POST: api/Machine/5/Strategy/0
+        [HttpPost("{id}/Strategy/{strategy}")]
+        public IActionResult ChangeStrategy(int id, int strategy)
+        {
+            var machine = _context.Machines.Find(id);
+            machine.MappedStrategy = (Strategy)strategy;
+            _context.SaveChanges();
+            return Ok(machine);
         }
     }
 }

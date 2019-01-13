@@ -20,8 +20,8 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// <summary>
         /// Attach Bonus on worker's salary
         /// </summary>
-        // PUT: api/Bonus/Amount/5
-        [HttpPut("{kind}/{id}")]
+        // POST: api/Bonus/Amount/5
+        [HttpPost("{kind}/{id}")]
         public IActionResult PutBonus(int id, string kind)
         {
             var worker = _context.Workers.Find(id);
@@ -58,8 +58,8 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// <summary>
         /// Reset bonuses for all workers
         /// </summary>
-        //PUT api/Bonus/Reset
-        [HttpPut("Reset")]
+        //POST api/Bonus/Reset
+        [HttpPost("Reset")]
         public IActionResult ResetAllBonuses()
         {
             var workers = _context.Workers;
@@ -83,7 +83,8 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// <summary>
         /// Reset Bonus for Worker where id = worker.Id
         /// </summary>
-        [HttpPut("Reset/{id}")]
+        // POST: api/Reset/5
+        [HttpPost("Reset/{id}")]
         public IActionResult ResetBonus(int id)
         {
             var worker = _context.Workers.Find(id);

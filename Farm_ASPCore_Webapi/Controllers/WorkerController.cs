@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Farm_ASPCore_Webapi.Models;
+using Farm_ASPCore_Webapi.Models.Enums;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -26,6 +27,17 @@ namespace Farm_ASPCore_Webapi.Controllers
         {
             return _context.Workers;
         }
+
+        // GET: api/Worker/5/job/0
+        [HttpPost("{id}/Job/{job}")]
+        public IActionResult ChangeJob(int id, int job)
+        {
+            var worker = _context.Workers.Find(id);
+            worker.Kind = (Job)job;
+            _context.SaveChanges();
+            return Ok(worker);
+        }
+
 
         // GET: api/Worker/5
         [HttpGet("{id}")]

@@ -81,7 +81,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// <summary>
         /// Sow leaf by id
         /// </summary>
-        // POST: api/Cultivation/Sow/Grain.Kind/5
+        // GET: api/Cultivation/Sow/Grain.Kind/5
         [HttpGet("Sow/{grain}/{id}")]
         public IActionResult Sow(int grain, int id)
         {
@@ -98,6 +98,15 @@ namespace Farm_ASPCore_Webapi.Controllers
                 return BadRequest();
 
             return Ok(leaf);
+        }
+
+        //POST: api/Cultivation
+        [HttpPost]
+        public IActionResult CreateLeaf(CultivationLeaf cultivation)
+        {
+            _context.Cultivations.Add(cultivation);
+            _context.SaveChanges();
+            return Ok(cultivation);
         }
 
         private List<CultivationViewModel> GetAllCultivationsFromDb(IIncludableQueryable<CultivationLeaf, Cultivation> leafs)
