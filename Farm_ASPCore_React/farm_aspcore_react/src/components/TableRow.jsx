@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./TableRow.css";
 import { Glyphicon } from "react-bootstrap";
+import { cellDataTranslate } from "../services/TranslationService";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import EditForm from "./EditForm.jsx";
@@ -18,7 +19,11 @@ class TableRow extends Component {
     const rowKeys = Object.keys(rowData);
     const cells = [];
     rowKeys.forEach(key => {
-      cells.push(<td key={rowKeys.indexOf(key)}>{rowData[key]}</td>);
+      cells.push(
+        <td key={rowKeys.indexOf(key)}>
+          {cellDataTranslate(key, rowData[key])}
+        </td>
+      );
     });
     return cells;
   }
@@ -43,6 +48,7 @@ class TableRow extends Component {
         <SplitForm
           visible={this.state.showSplitForm}
           setSplitFormVisible={this.setSplitFormVisible}
+          acreage={this.props.rowData["acreage"]}
         />
       </td>
     ) : null;

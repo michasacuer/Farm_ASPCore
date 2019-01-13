@@ -42,16 +42,18 @@ class EditForm extends Component {
             <Modal.Title>EDYTUJ</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {keys.map(key => (
-              <FormGroup controlId={key} key={key}>
-                <ControlLabel>{translate(key)}</ControlLabel>
-                <FormControl
-                  defaultValue={data[key]}
-                  onChange={this.handleChange}
-                  name={key}
-                />
-              </FormGroup>
-            ))}
+            {keys
+              .filter(key => key !== "id")
+              .map(key => (
+                <FormGroup controlId={key} key={key}>
+                  <ControlLabel>{translate(key)}</ControlLabel>
+                  <FormControl
+                    defaultValue={data[key]}
+                    onChange={this.handleChange}
+                    name={key}
+                  />
+                </FormGroup>
+              ))}
           </Modal.Body>
           <Modal.Footer>
             <Button type="submit" bsStyle="success">

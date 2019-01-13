@@ -1,4 +1,4 @@
-export default function translate(key) {
+function translate(key) {
   switch (key) {
     case "salary":
       return "Płaca";
@@ -32,3 +32,12 @@ export default function translate(key) {
       return key;
   }
 }
+export function cellDataTranslate(key, value) {
+  switch (key) {
+    case "sex":
+      return value === 0 ? "Samica" : "Samiec";
+    default:
+      return value;
+  }
+}
+export default translate;
