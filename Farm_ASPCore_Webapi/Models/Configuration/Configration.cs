@@ -17,9 +17,9 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
             FarmStrategy farmStrategy = new FarmStrategy();
             CultivationStrategy cultivationStrategy = new CultivationStrategy();
 
-            int countOfWorkers = 10;
-            int countOfMachines = 10;
-            double budgetValue = 20000000;
+            int countOfWorkers = 6;
+            int countOfMachines = MachineObjectPool.MaxPoolSize;
+            double budgetValue = 100000;
 
             //Farm
             modelBuilder.Entity<Farm>().HasData(Farm.GetFarm());

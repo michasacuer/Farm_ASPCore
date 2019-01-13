@@ -22,29 +22,21 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // GET: api/Machine
         [HttpGet]
-        public IEnumerable<Machine> GetMachines()
+        public IActionResult GetMachines()
         {
-            return _context.Machines;
+            try
+            {
+                if (!MachineObjectPool.Instance.IsPoolPopulated())
+                    MachineObjectPool.Instance.PopulatePool(_context.Machines);
+
+                return Ok(MachineObjectPool.Instance.AcquireMachine());
+            }
+            catch { return NotFound("Pool Empty"); }
         }
 
         // GET: api/Machine/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMachine([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var machine = await _context.Machines.FindAsync(id);
-
-            if (machine == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(machine);
-        }
+        public IActionResult GetMachine(int id) => Ok(_context.Machines.FindAsync(id));
 
         // PUT: api/Machine/5
         [HttpPut("{id}")]

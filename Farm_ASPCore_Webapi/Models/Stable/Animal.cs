@@ -25,7 +25,7 @@ namespace Farm_ASPCore_Webapi.Models
                 cost = animal.Sex == Gender.Female ? costFemale : costMale;
 
                 income = animal.Sex == Gender.Male ? 0 :
-                         animal.Species == Species.Black ? (milkPrice * 20) : (milkPrice * 15);
+                         animal.Species == Species.Black ? (milkPrice * 30) : (milkPrice * 20);
             }
 
             return (cost + income);
@@ -59,8 +59,8 @@ namespace Farm_ASPCore_Webapi.Models
             
         }
 
-        private double milkPrice  = 0.80 * 31;
-        private double costMale   = 100 * 31;
-        private double costFemale = 200 * 31;
+        private double milkPrice  = 50 * 31;
+        private double costMale   = 10 * 31;
+        private double costFemale = 20 * 31;
     }
 }

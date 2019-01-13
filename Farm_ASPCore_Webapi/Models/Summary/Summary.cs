@@ -15,12 +15,13 @@
         {
             foreach (Worker worker in farm.Workers)
                 WorkersCost -= worker.GetCost();
-            AnimalsCost -= Animals.GetAnimalsCost();
+
+            AnimalsCost = Animals.GetAnimalsCost();
 
             foreach (Machine machine in farm.Machines)
                 MachinesCost -= machine.GetCost();
 
-            SummaryCost = AnimalsCost + WorkersCost + MachinesCost;
+            SummaryCost = Budget - ( AnimalsCost + WorkersCost + MachinesCost);
         }
 
         //Originator
