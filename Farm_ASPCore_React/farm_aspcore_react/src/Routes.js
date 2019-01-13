@@ -9,7 +9,13 @@ class Routes extends Component {
         <Route
           exact
           path="/"
-          render={props => <TableView {...props} data={this.props.data} />}
+          render={props => (
+            <TableView
+              {...props}
+              data={this.props.data}
+              currentlyLoaded={this.props.currentlyLoaded}
+            />
+          )}
         />
       </Switch>
     );

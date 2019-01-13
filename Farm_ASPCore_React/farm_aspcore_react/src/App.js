@@ -33,7 +33,7 @@ class App extends Component {
     fetch("http://localhost:62573/api/" + param)
       .then(response => response.json())
       .then(data => {
-        if ((param = "Worker"))
+        if (param === "Worker")
           data.forEach(worker => {
             delete worker["salary"];
             delete worker["farmId"];
@@ -54,7 +54,10 @@ class App extends Component {
     return (
       <div className="App">
         <FarmNavbar fetchNewData={this.fetchNewData} />
-        <Routes data={this.state.data} />
+        <Routes
+          data={this.state.data}
+          currentlyLoaded={this.state.currentlyLoaded}
+        />
       </div>
     );
   }

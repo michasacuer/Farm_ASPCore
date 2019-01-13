@@ -20,10 +20,10 @@ class EditForm extends Component {
     });
   }
 
-  handleSubmit = () => {
+  handleSubmit = e => {
     console.log(this.state.fieldsData);
     this.props.setEditFromVisible(false);
-    return false;
+    e.preventDefault();
   };
 
   handleChange = e => {

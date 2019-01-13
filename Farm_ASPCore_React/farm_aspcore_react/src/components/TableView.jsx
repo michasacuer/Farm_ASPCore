@@ -6,7 +6,10 @@ class TableView extends Component {
   render() {
     return (
       <div className="table-view">
-        <FarmTable data={this.props.data} />
+        <FarmTable
+          data={this.props.data}
+          currentlyLoaded={this.props.currentlyLoaded}
+        />
       </div>
     );
   }

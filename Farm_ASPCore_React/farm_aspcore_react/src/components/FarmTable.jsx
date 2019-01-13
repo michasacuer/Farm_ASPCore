@@ -26,13 +26,18 @@ class FarmTable extends Component {
           <thead>
             <tr>
               {this.renderHeaders()}
+              {this.props.currentlyLoaded === "Cultivation" ? <th /> : null}
               <th />
               <th />
             </tr>
           </thead>
           <tbody>
             {this.props.data.map(rowData => (
-              <TableRow key={rowData.id} rowData={rowData} />
+              <TableRow
+                key={rowData.id}
+                rowData={rowData}
+                currentlyLoaded={this.props.currentlyLoaded}
+              />
             ))}
           </tbody>
         </Table>

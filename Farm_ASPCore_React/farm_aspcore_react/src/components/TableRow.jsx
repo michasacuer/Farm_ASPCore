@@ -4,11 +4,13 @@ import { Glyphicon } from "react-bootstrap";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import EditForm from "./EditForm.jsx";
+import SplitForm from "./SplitForm.jsx";
 
 class TableRow extends Component {
   state = {
     showDeleteForm: false,
-    showEditForm: false
+    showEditForm: false,
+    showSplitForm: false
   };
 
   renderRow() {
@@ -25,12 +27,33 @@ class TableRow extends Component {
     this.setState({ showEditForm: value });
   };
 
+  setSplitFormVisible = value => {
+    this.setState({ showSplitForm: value });
+  };
+
+  renderSplitComposite = () => {
+    return this.props.currentlyLoaded === "Cultivation" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-scissors"
+          onClick={() => {
+            this.setState({ showSplitForm: true });
+          }}
+        />
+        <SplitForm
+          visible={this.state.showSplitForm}
+          setSplitFormVisible={this.setSplitFormVisible}
+        />
+      </td>
+    ) : null;
+  };
+
   render() {
     return (
       <tr>
         {this.renderRow()}
+        {this.renderSplitComposite()}
         <td>
-          {/* eslint-disable-next-line */}
           <Glyphicon
             glyph="glyphicon glyphicon-pencil"
             onClick={() => {
@@ -47,7 +70,6 @@ class TableRow extends Component {
           />
         </td>
         <td>
-          {/* eslint-disable-next-line */}
           <Glyphicon
             glyph="glyphicon glyphicon-trash"
             onClick={() => {
@@ -62,14 +84,12 @@ class TableRow extends Component {
                   {
                     label: "Tak",
                     onClick: () => {
-                      alert("Yes");
                       this.setState({ showDeleteForm: false });
                     }
                   },
                   {
                     label: "Nie",
                     onClick: () => {
-                      alert("No");
                       this.setState({ showDeleteForm: false });
                     }
                   }
