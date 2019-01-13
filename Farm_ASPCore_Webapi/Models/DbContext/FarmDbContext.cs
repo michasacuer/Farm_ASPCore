@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Configuration;
-using Farm_ASPCore_Webapi.Models.Bonus;
 
 namespace Farm_ASPCore_Webapi.Models
 {

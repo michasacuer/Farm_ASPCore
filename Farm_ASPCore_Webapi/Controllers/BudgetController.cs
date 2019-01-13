@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Farm_ASPCore_Webapi.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Farm_ASPCore_Webapi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Farm_ASPCore_Webapi.Controllers
@@ -19,6 +14,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Sets budget for whole farm
+        /// </summary>
         // POST: api/Budget/value
         [HttpPost("{value}")]
         public IActionResult SetBudget(double value)

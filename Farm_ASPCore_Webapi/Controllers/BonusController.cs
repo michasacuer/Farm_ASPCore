@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Farm_ASPCore_Webapi.Helpers;
+﻿using Farm_ASPCore_Webapi.Helpers;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Bonus;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +17,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Attach Bonus on worker's salary
+        /// </summary>
         // PUT: api/Bonus/Amount/5
         [HttpPut("{kind}/{id}")]
         public IActionResult PutBonus(int id, string kind)
@@ -57,6 +55,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(worker);
         }
 
+        /// <summary>
+        /// Reset bonuses for all workers
+        /// </summary>
         //PUT api/Bonus/Reset
         [HttpPut("Reset")]
         public IActionResult ResetAllBonuses()
@@ -78,6 +79,10 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(workers);
         }
 
+
+        /// <summary>
+        /// Reset Bonus for Worker where id = worker.Id
+        /// </summary>
         [HttpPut("Reset/{id}")]
         public IActionResult ResetBonus(int id)
         {

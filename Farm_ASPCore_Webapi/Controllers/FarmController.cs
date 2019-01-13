@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
@@ -17,10 +16,16 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get info of farm
+        /// </summary>
         // GET: api/Farm
         [HttpGet]
         public IActionResult GetFarms() => Ok(_context.Farms.SingleOrDefault());
 
+        /// <summary>
+        /// Get Farm with lists from database
+        /// </summary>
         //Get: api//Farm/All
         [HttpGet("All")]
         public IActionResult GetFarmsAll() => Ok(_context.Farms.Include(w => w.Workers)
@@ -28,26 +33,5 @@ namespace Farm_ASPCore_Webapi.Controllers
                                                                //.Include(c => c.Cultivations)
                                                                .Include(s => s.Stables)
                                                                .SingleOrDefault());
-
-        // PUT: api/Farm/5
-        [HttpPut]
-        public async Task<IActionResult> PutFarm([FromBody] Farm farm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if(!await _context.Farms.AnyAsync(f => f.Id == farm.Id))
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Entry(farm).State = EntityState.Modified;
-
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
-
     }
 }

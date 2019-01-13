@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
 
 namespace Farm_ASPCore_Webapi.Controllers
@@ -20,6 +17,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get all workers
+        /// </summary>
         // GET: api/Worker
         [HttpGet]
         public IEnumerable<Worker> GetWorkers()

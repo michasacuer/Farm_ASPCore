@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
@@ -20,6 +16,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get summary cost of managing Farm
+        /// </summary>
         // GET: api/Summary
         [HttpGet]
         public IActionResult GetSummary()
@@ -38,6 +37,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(summary);
         }
 
+        /// <summary>
+        /// Saving summary to Memento
+        /// </summary>
         // POST: api/Summary
         [HttpPost]
         public IActionResult SaveSummary(Summary summary)
@@ -51,6 +53,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(summary);
         }
 
+        /// <summary>
+        /// Restore summary raport from Memento by id
+        /// </summary>
         // GET: api/Summary/1
         [HttpGet("{id}")]
         public IActionResult RestoreSummary(int id)
@@ -59,7 +64,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(Originator.Instance.GetState());
         }
 
-
+        /// <summary>
+        /// Populating machines with strategy
+        /// </summary>
         private void StrategyPopulate()
         {
             int i = 0;

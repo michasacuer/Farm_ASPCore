@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
@@ -22,6 +19,10 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context = context;
         }
 
+
+        /// <summary>
+        /// Get all leafs from farm
+        /// </summary>
         // GET: api/Cultivation
         [HttpGet]
         public IActionResult GetCultivations()
@@ -30,6 +31,10 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(GetAllCultivationsFromDb(leafs));
         }
 
+
+        /// <summary>
+        /// Splitting leaf in two parts
+        /// </summary>
         // GET: api/Cultivation/Split/1/5
         [HttpGet("Split/{ratio}/{id}")]
         public IActionResult SplitCultivation(double ratio, int id)
@@ -56,12 +61,14 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(GetAllCultivationsFromDb(leafs));
         }
 
+        /// <summary>
+        /// Harvest leaf by id
+        /// </summary>
         // GET: api/Cultivation/Harvest/5
         [HttpGet("Harvest/{id}")]
         public IActionResult Harvest(int id)
         {
             var leaf = _context.Cultivations.Find(id);
-
             if (leaf.GetType() == typeof(CultivationLeaf))
                 leaf.Harvest();
 
@@ -71,6 +78,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(leaf);
         }
 
+        /// <summary>
+        /// Sow leaf by id
+        /// </summary>
         // POST: api/Cultivation/Sow/Grain.Kind/5
         [HttpGet("Sow/{grain}/{id}")]
         public IActionResult Sow(int grain, int id)
@@ -88,32 +98,6 @@ namespace Farm_ASPCore_Webapi.Controllers
                 return BadRequest();
 
             return Ok(leaf);
-        }
-
-        // DELETE: api/Cultivation/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCultivation([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var cultivation = await _context.Cultivations.FindAsync(id);
-            if (cultivation == null)
-            {
-                return NotFound();
-            }
-
-            _context.Cultivations.Remove(cultivation);
-            await _context.SaveChangesAsync();
-
-            return Ok(cultivation);
-        }
-
-        private bool CultivationExists(int id)
-        {
-            return _context.Cultivations.Any(e => e.Id == id);
         }
 
         private List<CultivationViewModel> GetAllCultivationsFromDb(IIncludableQueryable<CultivationLeaf, Cultivation> leafs)
