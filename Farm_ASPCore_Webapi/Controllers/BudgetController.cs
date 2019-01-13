@@ -26,6 +26,5 @@ namespace Farm_ASPCore_Webapi.Controllers
             _context.SaveChanges();
             return Ok(budget);
         }
-
     }
 }
