@@ -44,7 +44,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost]
         public IActionResult SaveSummary(Summary summary)
         {
-            var originator = Originator.Instance;
+            var originator = Summary.Instance;
             var caretaker = Caretaker.Instance;
 
             originator.SetState(summary);
@@ -60,8 +60,8 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("{id}")]
         public IActionResult RestoreSummary(int id)
         {
-            Originator.Instance.GetStateFromMemento(Caretaker.Instance.Get(id - 1));
-            return Ok(Originator.Instance.GetState());
+            Summary.Instance.GetStateFromMemento(Caretaker.Instance.Get(id - 1));
+            return Ok(Summary.Instance.GetState());
         }
 
         /// <summary>

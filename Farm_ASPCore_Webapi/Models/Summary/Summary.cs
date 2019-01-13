@@ -2,6 +2,8 @@
 {
     public class Summary
     {
+        public static Summary Instance { get; } = new Summary();
+
         public double Budget           { get; set; } = 0;
         public double MachinesCost     { get; set; } = 0;
         public double WorkersCost      { get; set; } = 0;
@@ -20,5 +22,15 @@
 
             SummaryCost = AnimalsCost + WorkersCost + MachinesCost;
         }
+
+        //Originator
+        public void SetState(Summary state)              => this.state = state;
+        public Summary GetState()                        => state;
+        public Memento Save()                            => new Memento(state, ++indexer);
+        public void GetStateFromMemento(Memento memento) => state = memento.GetState();
+
+        private Summary state;
+        private int indexer = -1;
+
     }
 }
