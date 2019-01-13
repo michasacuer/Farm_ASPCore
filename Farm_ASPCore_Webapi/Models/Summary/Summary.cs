@@ -21,10 +21,11 @@ namespace Farm_ASPCore_Webapi.Models
             foreach (Worker worker in farm.Workers)
                 WorkersCost -= worker.GetCost();
             AnimalsCost -= Animals.GetAnimalsCost();
-            SummaryCost = AnimalsCost + WorkersCost;
 
             foreach (Machine machine in farm.Machines)
                 MachinesCost -= machine.GetCost();
+
+            SummaryCost = AnimalsCost + WorkersCost + MachinesCost;
         }
     }
 }

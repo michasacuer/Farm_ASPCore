@@ -9,6 +9,10 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
 {
     public static class Configration
     {
+        /// <summary>
+        /// Method for seeding DataBase. Seed populate new DB in values
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         public static void Seed(this ModelBuilder modelBuilder)
         {
             Random random = new Random();
@@ -18,8 +22,15 @@ namespace Farm_ASPCore_Webapi.Models.Configuration
 
             int countOfWorkers = 10;
             int countOfMachines = 5;
+            double budgetValue = 200000;
 
+            //Farm
             modelBuilder.Entity<Farm>().HasData(Farm.GetFarm());
+
+            //Budget
+            var budget = Budget.GetBudget();
+            budget.Value = budgetValue;
+            modelBuilder.Entity<Budget>().HasData(Budget.GetBudget());
 
             //Drivers
             for (int i = 0; i < countOfWorkers; i++)

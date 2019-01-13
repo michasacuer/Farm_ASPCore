@@ -32,6 +32,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                                      .SingleOrDefault();
 
             var summary = new Summary();
+            summary.Budget = _context.Budgets.SingleOrDefault().Value;
             summary.GetSummary(farm);
 
             return Ok(summary);
