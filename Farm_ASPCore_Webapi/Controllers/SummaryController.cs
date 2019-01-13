@@ -39,11 +39,23 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // POST: api/Summary
         [HttpPost]
-        public IActionResult SaveSummary([FromBody] Summary summary)
+        public IActionResult SaveSummary(Summary summary)
         {
             var originator = Originator.Instance;
+            var caretaker = Caretaker.Instance;
 
-            return Ok();
+            originator.SetState(summary);
+            caretaker.Add(originator.Save());
+
+            return Ok(summary);
+        }
+
+        // GET: api/Summary/1
+        [HttpGet("{id}")]
+        public IActionResult RestoreSummary(int id)
+        {
+            Originator.Instance.GetStateFromMemento(Caretaker.Instance.Get(id - 1));
+            return Ok(Originator.Instance.GetState());
         }
 
 
