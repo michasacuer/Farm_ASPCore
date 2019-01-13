@@ -15,11 +15,9 @@ namespace Farm_ASPCore_Webapi.Models
         public int  FarmId { get; set; }
         public Farm Farm   { get; set; }
 
-        public          Job      Kind            { get; set; }
+        public virtual  Job      Kind            { get; set; }
         public virtual  string   FirstName       { get; set; }
         public virtual  string   LastName        { get; set; }
-        public virtual  DateTime StartOfContract { get; set; }
-        public virtual  DateTime EndOfContract   { get; set; }
         public virtual  double   UsdPerHour      { get; set; }
         public virtual  int      HoursPerDay     { get; set; }
         public virtual  int      DaysOfWork      { get; set; }

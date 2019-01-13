@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Farm_ASPCore_Webapi.Models.Enums;
+using System;
 
 namespace Farm_ASPCore_Webapi.Models.Bonus
 {
@@ -6,11 +7,10 @@ namespace Farm_ASPCore_Webapi.Models.Bonus
     {
         public Bonus(Worker worker) => this.worker = worker;
 
-        public          int      Id              { get => worker.Id;              set => worker.Id = value; }
+        public          int      Id              { get => worker.Id;              set => worker.Id              = value; }
+        public override Job      Kind            { get => worker.Kind;            set => worker.Kind            = value; }
         public override string   FirstName       { get => worker.FirstName;       set => worker.FirstName       = value; }
-        public override string   LastName        { get => worker.LastName;        set => worker.LastName        = value; }
-        public override DateTime StartOfContract { get => worker.StartOfContract; set => worker.StartOfContract = value; }
-        public override DateTime EndOfContract   { get => worker.EndOfContract;   set => worker.EndOfContract   = value; }
+        public override string   LastName        { get => worker.LastName;        set => worker.LastName        = value; }   
         public override double   UsdPerHour      { get => worker.UsdPerHour;      set => worker.UsdPerHour      = value; }
         public override int      HoursPerDay     { get => worker.HoursPerDay;     set => worker.HoursPerDay     = value; }
         public override int      DaysOfWork      { get => worker.DaysOfWork;      set => worker.DaysOfWork      = value; }
