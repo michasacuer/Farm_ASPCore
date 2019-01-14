@@ -27,7 +27,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IActionResult GetCultivations()
         {
-            var leafs = _context.Cultivations.OfType<CultivationLeaf>().Include(c => c.Parent);
+            var leafs = Farm.GetInstance(_context).Cultivations.OfType<CultivationLeaf>();
             return Ok(GetAllCultivationsFromDb(leafs));
         }
 
@@ -109,7 +109,7 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Ok(cultivation);
         }
 
-        private List<CultivationViewModel> GetAllCultivationsFromDb(IIncludableQueryable<CultivationLeaf, Cultivation> leafs)
+        private List<CultivationViewModel> GetAllCultivationsFromDb(IEnumerable<CultivationLeaf> leafs)
         {
             var result = new List<CultivationViewModel>();
 
