@@ -37,24 +37,24 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("Split/{ratio}/{id}")]
         public IActionResult SplitCultivation(double ratio, int id)
         {
-            var farm = Farm.GetInstance(_context);
-            var leaf = farm.Cultivations.Find(c => c.Id == id);
-
+            var leaf = _context.Cultivations.Find(id);
             try
             {
                 if (leaf.GetType() == typeof(CultivationLeaf))
                 {
                     var (leaf1, leaf2, composite) = leaf.Split(ratio);
-                    composite.Id = leaf.Id;   
+
+                    composite.Id = leaf.Id;
                     _context.Cultivations.Remove(leaf);
                     _context.Cultivations.Add(leaf1);
                     _context.Cultivations.Add(leaf2);
                     _context.Cultivations.Add(composite);
-                }   
+                }
             }
             catch { return BadRequest(); }
 
             _context.SaveChanges();
+            var farm = Farm.GetInstance(_context);
             farm.Cultivations = _context.Cultivations.ToList();
             return Ok(GetAllCultivationsFromDb(farm.Cultivations.OfType<CultivationLeaf>()));
         }
@@ -72,13 +72,12 @@ namespace Farm_ASPCore_Webapi.Controllers
                 leaf.Harvest();
 
             else
-                return BadRequest();
+                return BadRequest("Nothing to harvest here");
 
-            var contextLeaf = _context.Cultivations.Find(leaf.Id);
-            contextLeaf.Id = leaf.Id;
+            _context.Entry(leaf).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return Ok(leaf);
+            return Ok(new CultivationViewModel { Id = leaf.Id, Grain = leaf.Grain.ToString() });
         }
 
         /// <summary>
@@ -95,17 +94,16 @@ namespace Farm_ASPCore_Webapi.Controllers
                 if (leaf.Grain == Grain.None)
                     leaf.Sow((Grain)grain);
                 else
-                    return BadRequest();
+                    return BadRequest("Leaf is sowed");
             }
 
             else
                 return BadRequest();
 
-            var contextLeaf = _context.Cultivations.Find(leaf.Id);
-            contextLeaf.Id = leaf.Id;
+            _context.Entry(leaf).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return Ok(leaf);
+            return Ok(new CultivationViewModel { Id = leaf.Id, Grain = leaf.Grain.ToString() });
         }
 
         //POST: api/Cultivation
