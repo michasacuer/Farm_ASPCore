@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Helpers;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -32,7 +33,7 @@ namespace Farm_ASPCore_Webapi.Controllers
 
                 return Ok(MachineObjectPool.Instance.AcquireMachine());
             }
-            catch { return NotFound("Pool Empty"); }
+            catch { return NotFound(new NotFoundViewModel { Message = "Pool Empty!" }); }
         }
 
         // GET: api/Machine/5
@@ -46,7 +47,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                 return Ok(machine);
             }
 
-            catch { return BadRequest("Pool full, PANIC"); }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Pool full, PANIC" }); }
         }
 
         //POST: api/Machine/5/Strategy/0
