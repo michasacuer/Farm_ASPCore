@@ -48,7 +48,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                         break;
                 }
             }
-            catch { return BadRequest(); }
+            catch { return BadRequest(new BadRequestViewModel { Message = $"Error while attach {kind} bonus!" }); } 
 
             _context.Entry(worker).State = EntityState.Modified;
             _context.SaveChanges();
@@ -73,7 +73,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                     _context.Entry(worker).State = EntityState.Modified;
                 }
             }
-            catch { return BadRequest(); }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Error while reset bonuses!" }); }
 
             _context.SaveChanges();
 
@@ -95,7 +95,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                 worker.Salary = worker.BaseSalary;
                 _context.Entry(worker).State = EntityState.Modified;
             }
-            catch { return BadRequest(); }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Error while reset bonus!" }); }
 
             _context.SaveChanges();
 

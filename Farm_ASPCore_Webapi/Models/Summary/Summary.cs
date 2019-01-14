@@ -21,7 +21,7 @@
             foreach (Machine machine in farm.Machines)
                 MachinesCost -= machine.GetCost();
 
-            SummaryCost = Budget - ( AnimalsCost + WorkersCost + MachinesCost);
+            SummaryCost = ( AnimalsCost + WorkersCost + MachinesCost) + Budget;
         }
 
         //Originator
