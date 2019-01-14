@@ -4,12 +4,12 @@
     {
         public static Summary Instance { get; } = new Summary();
 
-        public double Budget           { get; set; } = 0;
-        public double MachinesCost     { get; set; } = 0;
-        public double WorkersCost      { get; set; } = 0;
-        public double AnimalsCost      { get; set; } = 0;
-        public double CultivationsCost { get; set; } = 0;
-        public double SummaryCost      { get; set; } = 0;
+        public double Budget           { get; set; }
+        public double MachinesCost     { get; set; }
+        public double WorkersCost      { get; set; }
+        public double AnimalsCost      { get; set; }
+        public double CultivationsCost { get; set; }
+        public double SummaryCost      { get; set; }
 
         public void GetSummary(Farm farm)
         {
@@ -32,6 +32,5 @@
 
         private Summary state;
         private int indexer = -1;
-
     }
 }

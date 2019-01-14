@@ -21,6 +21,7 @@ namespace Farm_ASPCore_Webapi.Models
         {
             if (Parent != null)
             {
+                Cultivation.Indexer--;
                 CultivationLeaf leaf1 = new CultivationLeaf(Parent), leaf2 = new CultivationLeaf(Parent);
                 leaf1.Acreage = Acreage * ratio;
                 leaf2.Acreage = Acreage * (1 - ratio);
@@ -29,8 +30,10 @@ namespace Farm_ASPCore_Webapi.Models
                 Parent.Remove(this);
                 return (leaf1, leaf2, Parent);
             }
+
             else
             {
+                Cultivation.Indexer--;
                 var cultivationComposite = new CultivationComposite();
                 CultivationLeaf leaf1 = new CultivationLeaf(cultivationComposite), leaf2 = new CultivationLeaf(cultivationComposite);
                 leaf1.Acreage = Acreage * ratio;

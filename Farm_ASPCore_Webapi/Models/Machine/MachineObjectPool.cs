@@ -16,8 +16,7 @@ namespace Farm_ASPCore_Webapi.Models
                 isInitialized = true;
                 return false;
             }
-            else
-                return true;
+            return true;
         }
 
         public List<Machine> PopulatePool(DbSet<Machine> machines) => pool = machines.ToList();

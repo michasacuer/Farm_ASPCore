@@ -22,9 +22,10 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// </summary>
         // POST: api/Bonus/Amount/5
         [HttpPost("{kind}/{id}")]
-        public IActionResult PutBonus(int id, string kind)
+        public IActionResult PostBonus(string kind, int id)
         {
-            var worker = _context.Workers.Find(id);
+            var farm = Farm.GetInstance(_context);
+            var worker = farm.Workers.Find(w => w.Id == id);
 
             try
             {
