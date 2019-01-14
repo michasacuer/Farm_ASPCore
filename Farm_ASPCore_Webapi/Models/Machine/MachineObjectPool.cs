@@ -19,7 +19,7 @@ namespace Farm_ASPCore_Webapi.Models
             return true;
         }
 
-        public List<Machine> PopulatePool(DbSet<Machine> machines) => pool = machines.ToList();
+        public List<Machine> PopulatePool(List<Machine> machines) => pool = machines;
 
         public Machine AcquireMachine()
         {

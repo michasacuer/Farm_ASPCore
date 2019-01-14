@@ -25,7 +25,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IEnumerable<Driver> GetDriver()
         {
-            return _context.Workers.OfType<Driver>().ToList(); ;
+            return Farm.GetInstance(_context).Workers.OfType<Driver>().ToList(); ;
         }
 
         // GET: api/Driver/5

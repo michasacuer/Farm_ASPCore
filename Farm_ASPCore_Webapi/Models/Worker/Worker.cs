@@ -15,6 +15,9 @@ namespace Farm_ASPCore_Webapi.Models
         public int  FarmId { get; set; }
         public Farm Farm   { get; set; }
 
+        [NotMapped]
+        public static   int      Indexer         { get; set; }
+
         public virtual  Job      Kind            { get; set; }
         public virtual  string   FirstName       { get; set; }
         public virtual  string   LastName        { get; set; }
@@ -27,5 +30,6 @@ namespace Farm_ASPCore_Webapi.Models
 
         public double CountBaseSalary() => Math.Round(BaseSalary = Salary = UsdPerHour * HoursPerDay * DaysOfWork - GetTaxes(), 2);
         public double GetCost() => Salary;
+
     }
 }

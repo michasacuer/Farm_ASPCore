@@ -63,7 +63,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("Reset")]
         public IActionResult ResetAllBonuses()
         {
-            var workers = _context.Workers;
+            var workers = Farm.GetInstance(_context).Workers;
 
             try
             {
@@ -84,11 +84,11 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// <summary>
         /// Reset Bonus for Worker where id = worker.Id
         /// </summary>
-        // POST: api/Reset/5
+        // POST: api/Bonus/Reset/5
         [HttpPost("Reset/{id}")]
         public IActionResult ResetBonus(int id)
         {
-            var worker = _context.Workers.Find(id);
+            var worker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
 
             try
             {
