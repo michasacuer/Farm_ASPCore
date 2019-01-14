@@ -39,7 +39,9 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("Split/{ratio}/{id}")]
         public IActionResult SplitCultivation(double ratio, int id)
         {
-            var leaf = _context.Cultivations.Find(id);
+            var farm = Farm.GetInstance(_context);
+            var leaf = farm.Cultivations.Find(c => c.Id == id);
+
             try
             {
                 if (leaf.GetType() == typeof(CultivationLeaf))
@@ -48,16 +50,17 @@ namespace Farm_ASPCore_Webapi.Controllers
                     (leaf1, leaf2, composite) = leaf.Split(ratio);
 
                     composite.Id = leaf.Id;
-                    _context.Cultivations.Remove(leaf);
-                    _context.Cultivations.Add(leaf1);
-                    _context.Cultivations.Add(leaf2);
-                    _context.Cultivations.Add(composite);
+                    farm.Cultivations.Remove(leaf);
+                    farm.Cultivations.Add(leaf1);
+                    farm.Cultivations.Add(leaf2);
+                    farm.Cultivations.Add(composite);
                 }
             }
             catch { return BadRequest(); }
 
             _context.SaveChanges();
-            var leafs = _context.Cultivations.OfType<CultivationLeaf>().Include(c => c.Parent);
+            //farm.Cultivations = _context.Cultivations.ToList();
+            var leafs = farm.Cultivations.OfType<CultivationLeaf>();
             return Ok(GetAllCultivationsFromDb(leafs));
         }
 
