@@ -41,9 +41,10 @@ namespace Farm_ASPCore_Webapi.Controllers
         {
             try
             {
-              var machine = Farm.GetInstance(_context).Machines.Find(m => m.Id == id);
-              MachineObjectPool.Instance.ReleaseMachine(machine);
-              return Ok(machine);
+                var farm = Farm.GetInstance(_context);
+                var machine = farm.Machines.Find(m => m.Id == id);
+                MachineObjectPool.Instance.ReleaseMachine(machine);
+                return Ok(machine);
             }
 
             catch { return BadRequest("Pool full, PANIC"); }
@@ -53,6 +54,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("{id}/Strategy/{strategy}")]
         public IActionResult ChangeStrategy(int id, int strategy)
         {
+            var farm = Farm.GetInstance(_context);
             var machine = Farm.GetInstance(_context).Machines.Find(m => m.Id == id);
             machine.MappedStrategy = (Strategy)strategy;
             _context.SaveChanges();

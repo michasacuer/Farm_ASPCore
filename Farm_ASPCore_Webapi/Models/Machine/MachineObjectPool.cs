@@ -19,7 +19,7 @@ namespace Farm_ASPCore_Webapi.Models
             return true;
         }
 
-        public List<Machine> PopulatePool(List<Machine> machines) => pool = machines;
+        public List<Machine> PopulatePool(List<Machine> machines) => pool = new List<Machine>(machines);
 
         public Machine AcquireMachine()
         {
@@ -37,7 +37,7 @@ namespace Farm_ASPCore_Webapi.Models
 
         private MachineObjectPool() { }
 
-        private volatile List<Machine> pool = new List<Machine>(MaxPoolSize);
+        private volatile List<Machine> pool;
         private bool isInitialized = false;
     }
 }
