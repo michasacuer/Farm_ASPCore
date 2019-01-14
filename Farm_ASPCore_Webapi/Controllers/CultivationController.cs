@@ -74,6 +74,8 @@ namespace Farm_ASPCore_Webapi.Controllers
             else
                 return BadRequest();
 
+            _context.Entry(leaf).State = EntityState.Modified;
+
             return Ok(leaf);
         }
 
@@ -95,6 +97,8 @@ namespace Farm_ASPCore_Webapi.Controllers
 
             else
                 return BadRequest();
+
+            _context.Entry(leaf).State = EntityState.Modified;
 
             return Ok(leaf);
         }
