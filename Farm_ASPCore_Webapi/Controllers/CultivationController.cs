@@ -27,8 +27,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IActionResult GetCultivations()
         {
-            var leafs = Farm.GetInstance(_context).Cultivations.OfType<CultivationLeaf>();
-            return Ok(GetAllCultivationsFromDb(leafs));
+            return Ok(GetAllCultivationsFromDb(Farm.GetInstance(_context).Cultivations.OfType<CultivationLeaf>()));
         }
 
         /// <summary>
@@ -46,20 +45,19 @@ namespace Farm_ASPCore_Webapi.Controllers
                 if (leaf.GetType() == typeof(CultivationLeaf))
                 {
                     var (leaf1, leaf2, composite) = leaf.Split(ratio);
-
+                    
                     composite.Id = leaf.Id;   
                     farm.Cultivations.Remove(leaf);
                     farm.Cultivations.Add(leaf1);
                     farm.Cultivations.Add(leaf2);
                     farm.Cultivations.Add(composite);
-                }
+                }   
             }
             catch { return BadRequest(); }
 
             //_context.SaveChanges();
             //farm.Cultivations = _context.Cultivations.ToList();
-            var leafs = farm.Cultivations.OfType<CultivationLeaf>();
-            return Ok(GetAllCultivationsFromDb(leafs));
+            return Ok(GetAllCultivationsFromDb(farm.Cultivations.OfType<CultivationLeaf>()));
         }
 
         /// <summary>
@@ -69,8 +67,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("Harvest/{id}")]
         public IActionResult Harvest(int id)
         {
-            var farm = Farm.GetInstance(_context);
-            var leaf = farm.Cultivations.Find(c => c.Id == id);
+            var leaf = Farm.GetInstance(_context).Cultivations.Find(c => c.Id == id);
 
             if (leaf.GetType() == typeof(CultivationLeaf))
                 leaf.Harvest();
@@ -92,8 +89,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet("Sow/{grain}/{id}")]
         public IActionResult Sow(int grain, int id)
         {
-            var farm = Farm.GetInstance(_context);
-            var leaf = farm.Cultivations.Find(c => c.Id == id);
+            var leaf = Farm.GetInstance(_context).Cultivations.Find(c => c.Id == id);
 
             if (leaf.GetType() == typeof(CultivationLeaf))
             {
@@ -117,9 +113,14 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost]
         public IActionResult CreateLeaf(CultivationLeaf cultivation)
         {
-            _context.Cultivations.Add(cultivation);
-            _context.SaveChanges();
-            return Ok(cultivation);
+            try
+            {
+                Farm.GetInstance(_context).Cultivations.Add(cultivation);
+                _context.Cultivations.Add(cultivation);
+                _context.SaveChanges();
+                return Ok(cultivation);
+            }
+            catch { return BadRequest(); }
         }
 
         private List<CultivationViewModel> GetAllCultivationsFromDb(IEnumerable<CultivationLeaf> leafs)
