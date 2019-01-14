@@ -26,7 +26,7 @@ namespace Farm_ASPCore_Webapi.Models
                 farm.Workers = context.Workers.ToList();
                 farm.Cultivations = context.Cultivations.ToList();
 
-                Cultivation.Indexer = farm.Cultivations.Count();
+                //Cultivation.Indexer = farm.Cultivations.Count();
                 Worker.Indexer = farm.Workers.Count();
             }
             return farm;

@@ -6,7 +6,7 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public abstract class Cultivation
     {
-        public Cultivation() => Id = ++Indexer;
+        //public Cultivation() => Id = ++Indexer;
 
         [Key]
         public int Id { get; set; }
@@ -17,8 +17,8 @@ namespace Farm_ASPCore_Webapi.Models
 
         public virtual Grain Grain { get; set; }
 
-        [NotMapped]
-        public static int Indexer { get; set; }
+        //[NotMapped]
+        //public static int Indexer { get; set; }
 
         public abstract void Sow(Grain grain);
         public abstract void Harvest();

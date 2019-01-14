@@ -46,16 +46,16 @@ namespace Farm_ASPCore_Webapi.Controllers
                 {
                     var (leaf1, leaf2, composite) = leaf.Split(ratio);
                     composite.Id = leaf.Id;   
-                    farm.Cultivations.Remove(leaf);
-                    farm.Cultivations.Add(leaf1);
-                    farm.Cultivations.Add(leaf2);
-                    farm.Cultivations.Add(composite);
+                    _context.Cultivations.Remove(leaf);
+                    _context.Cultivations.Add(leaf1);
+                    _context.Cultivations.Add(leaf2);
+                    _context.Cultivations.Add(composite);
                 }   
             }
             catch { return BadRequest(); }
 
-            //_context.SaveChanges();
-            //farm.Cultivations = _context.Cultivations.ToList();
+            _context.SaveChanges();
+            farm.Cultivations = _context.Cultivations.ToList();
             return Ok(GetAllCultivationsFromDb(farm.Cultivations.OfType<CultivationLeaf>()));
         }
 

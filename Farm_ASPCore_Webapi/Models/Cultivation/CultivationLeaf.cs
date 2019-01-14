@@ -32,7 +32,7 @@ namespace Farm_ASPCore_Webapi.Models
 
             else
             {
-                Indexer--;
+                //Indexer--;
                 var cultivationComposite = new CultivationComposite();
                 CultivationLeaf leaf1 = new CultivationLeaf(cultivationComposite), leaf2 = new CultivationLeaf(cultivationComposite);
                 leaf1.Acreage = Acreage * ratio;
