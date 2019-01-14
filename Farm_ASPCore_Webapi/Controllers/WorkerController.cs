@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -40,6 +41,9 @@ namespace Farm_ASPCore_Webapi.Controllers
             if (worker.Kind == Job.Farmer)
                 workers.Add((Farmer)worker);
 
+            _context.Workers.Add(worker);
+            _context.SaveChanges();
+
             return Ok();
         }
 
@@ -55,6 +59,8 @@ namespace Farm_ASPCore_Webapi.Controllers
 
             if (worker.Kind == Job.Farmer)
                 worker = (Farmer)worker;
+
+            _context.Entry(worker).State = EntityState.Modified;
 
             _context.SaveChanges();
             return Ok(worker);
