@@ -45,7 +45,6 @@ namespace Farm_ASPCore_Webapi.Controllers
                 if (leaf.GetType() == typeof(CultivationLeaf))
                 {
                     var (leaf1, leaf2, composite) = leaf.Split(ratio);
-                    
                     composite.Id = leaf.Id;   
                     farm.Cultivations.Remove(leaf);
                     farm.Cultivations.Add(leaf1);
