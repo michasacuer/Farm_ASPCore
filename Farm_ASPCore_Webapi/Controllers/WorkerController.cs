@@ -34,6 +34,13 @@ namespace Farm_ASPCore_Webapi.Controllers
         {
             var worker = _context.Workers.Find(id);
             worker.Kind = (Job)job;
+
+            if (worker.Kind == Job.Driver)
+                worker = (Driver)worker;
+
+            if (worker.Kind == Job.Farmer)
+                worker = (Farmer)worker;
+
             _context.SaveChanges();
             return Ok(worker);
         }
@@ -41,19 +48,36 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // GET: api/Worker/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWorker([FromRoute] int id)
+        public IActionResult GetWorker([FromRoute] int id)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            var worker = await _context.Workers.FindAsync(id);
+            var worker = _context.Workers.Find(id);
 
             if (worker == null)
-            {
                 return NotFound();
+
+            return Ok(worker);
+        }
+
+        // POST: api/Worker
+        [HttpPost]
+        public IActionResult PostWorker(Worker worker)
+        {
+            var workers = _context.Workers;
+
+            try
+            {
+                if(worker.Kind == Job.Driver)
+                    worker = (Driver)worker;
+
+                if (worker.Kind == Job.Farmer)
+                    worker = (Farmer)worker;
+
+                workers.Add(worker);
             }
+            catch { BadRequest(); }
 
             return Ok(worker);
         }
