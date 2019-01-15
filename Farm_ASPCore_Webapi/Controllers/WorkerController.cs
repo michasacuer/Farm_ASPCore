@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using Farm_ASPCore_Webapi.Helpers;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -33,24 +34,32 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("0")]
         public IActionResult AddWorker(Driver worker)
         {
-            _context.Workers.Add(worker);
-            _context.SaveChanges();
+            try
+            {
+                worker.CountBaseSalary();
+                _context.Workers.Add(worker);
+                _context.SaveChanges();
 
-            Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
-
-            return Ok();
+                Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
+                return Ok(worker);
+            }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Błąd przy zapisie kierowcy!" }); };
         }
 
         //Post: api/Worker/1
         [HttpPost("1")]
         public IActionResult AddWorker(Farmer worker)
         {
-            _context.Workers.Add(worker);
-            _context.SaveChanges();
+            try
+            {
+                worker.CountBaseSalary();
+                _context.Workers.Add(worker);
+                _context.SaveChanges();
 
-            Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
-
-            return Ok();
+                Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
+                return Ok(worker);
+            }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Błąd przy zapisie farmera!" }); };
         }
 
         // POST: api/Worker/5/job/0
