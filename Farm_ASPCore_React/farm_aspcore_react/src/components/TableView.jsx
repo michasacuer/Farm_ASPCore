@@ -13,8 +13,16 @@ import translate, { cellDataTranslate } from "../services/TranslationService";
 
 class TableView extends Component {
   state = {
-    showAddWorkerForm: false
+    newWorkerData: {},
+    showAddWorkerForm: false,
+    date: new Date()
   };
+
+  componentDidMount() {
+    const newWorkerData = this.state.newWorkerData;
+    newWorkerData["farmId"] = 1;
+    this.setState({ newWorkerData });
+  }
 
   renderSummary = () => {
     const { summary, currentlyLoaded } = this.props;
@@ -39,6 +47,10 @@ class TableView extends Component {
     this.setState({ showAddWorkerForm: false });
   };
 
+  handleChange = date => {
+    this.setState({ date });
+  };
+
   renderAddWorker = () => {
     return (
       <Modal show={this.state.showAddWorkerForm}>
@@ -60,14 +72,10 @@ class TableView extends Component {
               <FormControl />
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Płaca</ControlLabel>
-              <FormControl />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Imię</ControlLabel>
+              <ControlLabel>Rola</ControlLabel>
               <FormControl componentClass="select">
-                <option>Kierowca</option>
-                <option>Farmer</option>
+                <option value="0">Kierowca</option>
+                <option value="1">Farmer</option>
               </FormControl>
             </FormGroup>
           </Modal.Body>
