@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
 using Microsoft.EntityFrameworkCore.Query;
 using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Helpers;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -72,7 +73,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                 leaf.Harvest();
 
             else
-                return BadRequest("Nothing to harvest here");
+                return BadRequest(new BadRequestViewModel { Message = "Nothing to harvest here" });
 
             _context.Entry(leaf).State = EntityState.Modified;
             _context.SaveChanges();
@@ -94,7 +95,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                 if (leaf.Grain == Grain.None)
                     leaf.Sow((Grain)grain);
                 else
-                    return BadRequest("Leaf is sowed");
+                    return BadRequest(new BadRequestViewModel { Message = "Leaf is sowed" });
             }
 
             else
