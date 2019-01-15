@@ -7,8 +7,7 @@ namespace Farm_ASPCore_Webapi.Models
     public class CultivationLeaf : Cultivation
     {
         public Cultivation Parent { get; set; }
-        [NotMapped]
-        public double Acreage { get; private set; } = 5D;
+        public double Acreage { get; set; } = 5D;
 
         public CultivationLeaf() { }
         public CultivationLeaf(Cultivation parent)

@@ -22,7 +22,6 @@ class EditForm extends Component {
   }
 
   handleSubmit = e => {
-    console.log(this.state.fieldsData);
     this.props.setEditFormVisible(false);
     e.preventDefault();
   };

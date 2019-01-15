@@ -13,10 +13,9 @@ import "rc-slider/assets/index.css";
 import "./SplitForm.css";
 
 class SplitForm extends Component {
-  state = { ratio: 0.5 };
+  state = { ratio: 0.5, firstCultivationSize: 2.5, secondCultivationSize: 2.5 };
 
-  componentDidMount() {
-    console.log(this.state.ratio);
+  componentWillReceiveProps() {
     this.setState({
       firstCultivationSize: this.state.ratio * this.props.acreage,
       secondCultivationSize: (1 - this.state.ratio) * this.props.acreage

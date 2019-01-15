@@ -67,7 +67,6 @@ class App extends Component {
     fetch("http://localhost:62573/api/Machine/" + id)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         if (data["message"]) {
           filterState = false;
           message = data["message"];
@@ -75,7 +74,6 @@ class App extends Component {
         }
       });
     if (filterState) {
-      console.log(filterState);
       let data = this.state.data;
       data = data.filter(element => element.id !== id);
       this.setState({ data });
@@ -91,6 +89,17 @@ class App extends Component {
         this.setState({ data });
         console.log(data);
       });
+  };
+
+  postWorker = worker => {
+    fetch("http://localhost:62573/api/Worker", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(worker)
+    });
   };
 
   createNotification = (type, data) => {
