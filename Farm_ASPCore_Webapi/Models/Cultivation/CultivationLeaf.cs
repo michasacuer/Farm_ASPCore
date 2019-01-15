@@ -1,10 +1,11 @@
 ﻿using Farm_ASPCore_Webapi.Models.Enums;
+using Farm_ASPCore_Webapi.Models.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Farm_ASPCore_Webapi.Models
 {
-    public class CultivationLeaf : Cultivation
+    public class CultivationLeaf : Cultivation, ISummary
     {
         public Cultivation Parent { get; set; }
         public double Acreage { get; set; } = 5D;
@@ -43,9 +44,25 @@ namespace Farm_ASPCore_Webapi.Models
         }
 
         public override void Harvest()        => Grain = Grain.None;
-        public override void Sow(Grain grain) => Grain = grain;
+        public override void Sow(Grain grain)
+        {
+            Summary.Instance.CultivationsCost += GetCost();
+            Grain = grain;
+        }
+
+        public double GetCost()
+        {
+            double price = Grain == Grain.Rice ? priceRice : 
+                           Grain == Grain.Oats ? priceOats : priceCorn;
+
+            return price * Acreage;
+        }
 
         public override void Remove(Cultivation cultivation) => throw new InvalidOperationException("Can't remove child components from leaf cultivation");
         public override void Add(Cultivation cultivation)    => throw new InvalidOperationException("Can't add child components to leaf cultivation");
+
+        private double priceRice = 100000;
+        private double priceCorn = 200000;
+        private double priceOats = 300000;
     }
 }
