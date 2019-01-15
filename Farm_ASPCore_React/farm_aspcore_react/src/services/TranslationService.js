@@ -28,6 +28,21 @@ function translate(key) {
       return "Gatunek";
     case "sex":
       return "Płeć";
+    case "budget":
+      return "Budżet";
+    case "machinesCost":
+      return "Rozliczenie maszyn";
+    case "workersCost":
+      return "Rozliczenie pracowników";
+    case "animalsCost":
+      return "Rozliczenie zwierząt";
+    case "cultivationsCost":
+      return "Rozliczenie upraw";
+    case "summaryCost":
+      return "Bilans";
+    case "summaryDate":
+      return "Data faktury";
+
     default:
       return key;
   }
@@ -55,8 +70,23 @@ export function cellDataTranslate(key, value) {
       return value.toFixed(2) + " zł";
     case "species":
       return value === 0 ? "Czarny" : "Biały";
-    case "strategia":
+    case "mappedStrategy":
       return value === 0 ? "Uprawa" : "Farma";
+    case "budget":
+      return value.toFixed(2) + " zł";
+    case "machineCost":
+      return value.toFixed(2) + " zł";
+    case "animalsCost":
+      return value.toFixed(2) + " zł";
+    case "workersCost":
+      return value.toFixed(2) + " zł";
+    case "cultivationsCost":
+      return value.toFixed(2) + " zł";
+    case "summaryCost":
+      return value.toFixed(2) + " zł";
+    case "summaryDate":
+      return Date.parse(value);
+    
     default:
       return value;
   }
