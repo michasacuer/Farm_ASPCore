@@ -24,8 +24,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("{kind}/{id}")]
         public IActionResult PostBonus(string kind, int id)
         {
-            var farm = Farm.GetInstance(_context);
-            var worker = farm.Workers.Find(w => w.Id == id);
+            var worker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
 
             try
             {
