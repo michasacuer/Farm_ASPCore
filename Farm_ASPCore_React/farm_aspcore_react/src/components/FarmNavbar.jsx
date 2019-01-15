@@ -45,12 +45,12 @@ class FarmNavbar extends Component {
           <NavItem
             eventKey={5}
             onSelect={() => {
-              this.props.fetchNewData("Memento");
+              this.props.fetchNewData("Summary");
             }}
           >
-            Zapisane stany
+            Podsumowania
           </NavItem>
-          <NavItem eventKey={6} /*dorobić*/>Rozliczenie</NavItem>
+          >
         </Nav>
       </Navbar>
     );

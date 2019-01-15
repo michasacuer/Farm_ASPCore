@@ -22,7 +22,17 @@ class EditForm extends Component {
   }
 
   handleSubmit = e => {
-    console.log(this.state.fieldsData);
+    fetch("https://mywebsite.com/endpoint/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        firstParam: "yourValue",
+        secondParam: "yourOtherValue"
+      })
+    });
     this.props.setEditFormVisible(false);
     e.preventDefault();
   };

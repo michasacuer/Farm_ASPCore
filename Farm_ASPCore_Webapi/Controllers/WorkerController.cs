@@ -12,7 +12,7 @@ namespace Farm_ASPCore_Webapi.Controllers
     public class WorkerController : ControllerBase
     {
         private readonly FarmDbContext _context;
-
+            
         public WorkerController(FarmDbContext context)
         {
             _context = context;

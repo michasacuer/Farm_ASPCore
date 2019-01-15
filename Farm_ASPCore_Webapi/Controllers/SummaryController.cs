@@ -69,7 +69,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         }
 
         // GET api/Summary/list
-        [HttpGet]
+        [HttpGet("list")]
         public IActionResult GetListOfMemento()
         {
             try
