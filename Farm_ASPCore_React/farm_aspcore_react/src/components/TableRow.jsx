@@ -12,7 +12,8 @@ class TableRow extends Component {
     showDeleteForm: false,
     showEditForm: false,
     showSplitForm: false,
-    showReleaseForm: false
+    showReleaseForm: false,
+    showBonusForm: false
   };
 
   renderRow() {
@@ -153,6 +154,14 @@ class TableRow extends Component {
     ) : null;
   };
 
+  renderBonus = () => {
+    return this.props.currentlyLoaded === "Worker" ? (
+      <td>
+        <Glyphicon glyph="glyphicon glyphicon-usd" />
+      </td>
+    ) : null;
+  };
+
   render() {
     return (
       <tr>
@@ -161,6 +170,7 @@ class TableRow extends Component {
         {this.renderSplitComposite()}
         {this.renderEditRow()}
         {this.renderDeleteRow()}
+        {this.renderBonus()}
       </tr>
     );
   }

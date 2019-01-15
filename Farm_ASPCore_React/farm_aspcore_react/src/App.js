@@ -11,7 +11,8 @@ import "react-notifications/lib/notifications.css";
 class App extends Component {
   state = {
     data: [],
-    currentlyLoaded: "Worker"
+    currentlyLoaded: "Worker",
+    summary: []
   };
 
   componentDidMount() {
@@ -82,6 +83,12 @@ class App extends Component {
     }
   };
 
+  fetchSummary = () => {
+    fetch("http://localhost:62573/api/Summary")
+      .then(response => response.json())
+      .then(data => this.setState({ summary: data }));
+  };
+
   splitCultivation = (ratio, id) => {
     fetch("http://localhost:62573/api/Cultivation/Split/" + ratio + "/" + id)
       .then(response => response.json())
@@ -91,8 +98,8 @@ class App extends Component {
       });
   };
 
-  postWorker = worker => {
-    fetch("http://localhost:62573/api/Worker", {
+  addWorker = worker => {
+    fetch("http://localhost:62573/api/Worker" + worker["kind"], {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -100,6 +107,7 @@ class App extends Component {
       },
       body: JSON.stringify(worker)
     });
+    this.fetchNewData("Worker");
   };
 
   createNotification = (type, data) => {
@@ -118,9 +126,13 @@ class App extends Component {
   };
 
   render() {
+    this.fetchSummary();
     return (
       <div className="App">
-        <FarmNavbar fetchNewData={this.fetchNewData} />
+        <FarmNavbar
+          fetchNewData={this.fetchNewData}
+          fetchSummary={this.fetchSummary}
+        />
         <NotificationContainer />
         <Routes
           data={this.state.data}
@@ -128,6 +140,8 @@ class App extends Component {
           acquireMachine={this.acquireMachine}
           releaseMachine={this.releaseMachine}
           splitCultivation={this.splitCultivation}
+          editWorker={this.editWorker}
+          summary={this.state.summary[0]}
         />
       </div>
     );

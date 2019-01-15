@@ -38,37 +38,25 @@ export function cellDataTranslate(key, value) {
       return value === 0 ? "Samica" : "Samiec";
     case "kind":
       return value === 0 ? "Kierowca" : "Farmer";
-    case "grain" :
-      switch(value){
+    case "grain":
+      switch (value) {
         case 0:
           return "brak";
-        case 1: 
-          return "ryż"
-        case 2: 
-          return"kukurydza";
+        case 1:
+          return "ryż";
+        case 2:
+          return "kukurydza";
         case 3:
           return "owies";
         default:
           return value;
-     }
-    //case "salary" :
-     // return salary.toFixed(2) + " zł";
-    case "Species" :
-     return value === 0 ? "Czarny" : "Biały";
-    case "strategia" :
-     return value === 0 ? "Uprawa" : "Farma";
-  //case "budget" : 
-    //return budget.toFixed(2) + " zł";
-  //case "machinesCost" :
-    // return machinesCost.toFixed(2) + " zł";
-    //case "animalsCost" :
-    //return animalsCost.toFixed(2) +" zł";
-     //case "cultivationsCost" :
-    //return cultivationsCost.toFixed(2) +" zł";
-     //case "summaryCost" :
-    //return summaryCost.toFixed(2) +" zł";
-    //case "summaryDate" :
-    //return DateTime.ParseExact(value,"yyyy-MM-dd",null);
+      }
+    case "salary":
+      return value.toFixed(2) + " zł";
+    case "species":
+      return value === 0 ? "Czarny" : "Biały";
+    case "strategia":
+      return value === 0 ? "Uprawa" : "Farma";
     default:
       return value;
   }

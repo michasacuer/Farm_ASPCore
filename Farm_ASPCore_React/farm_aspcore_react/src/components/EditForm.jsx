@@ -22,6 +22,11 @@ class EditForm extends Component {
   }
 
   handleSubmit = e => {
+    const fieldsData = this.state.fieldsData;
+    delete fieldsData["id"];
+    this.setState({ fieldsData });
+    console.log(this.state.fieldsData);
+    //
     this.props.setEditFormVisible(false);
     e.preventDefault();
   };
