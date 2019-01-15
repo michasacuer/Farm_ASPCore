@@ -36,6 +36,8 @@ export function cellDataTranslate(key, value) {
   switch (key) {
     case "sex":
       return value === 0 ? "Samica" : "Samiec";
+    case "kind":
+      return value === 0 ? "Driver" : "Farmer";
     default:
       return value;
   }

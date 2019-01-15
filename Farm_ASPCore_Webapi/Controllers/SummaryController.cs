@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Enums;
+using System;
+using System.Collections.Generic;
+using Farm_ASPCore_Webapi.Helpers;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -31,7 +34,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                                      .Include(s => s.Stables)
                                      .SingleOrDefault();
 
-            var summary = new Summary();
+            var summary = new Summary{ SummaryDate = DateTime.Now };
             summary.Budget = _context.Budgets.SingleOrDefault().Value;
             summary.GetSummary(farm);
 
@@ -63,6 +66,21 @@ namespace Farm_ASPCore_Webapi.Controllers
         {
             Summary.Instance.GetStateFromMemento(Caretaker.Instance.Get(id - 1));
             return Ok(Summary.Instance.GetState());
+        }
+
+        // GET api/Summary/list
+        [HttpGet]
+        public IActionResult GetListOfMemento()
+        {
+            try
+            {
+                var list = new List<SummaryViewModel>();
+                for (int i = 0; i < Caretaker.Instance.GetMementoLength; i++)
+                    list.Add(new SummaryViewModel { Id = i + 1, SummaryDate = Caretaker.Instance.GetDate(i) });
+                return Ok(list);
+            }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Error while loading memento list" }); }
+
         }
 
         /// <summary>

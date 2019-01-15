@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 import FarmTable from "./FarmTable";
 import "./TableView.css";
 
@@ -9,7 +10,14 @@ class TableView extends Component {
         <FarmTable
           data={this.props.data}
           currentlyLoaded={this.props.currentlyLoaded}
+          releaseMachine={this.props.releaseMachine}
+          splitCultivation={this.props.splitCultivation}
         />
+        {this.props.currentlyLoaded === "Machine" ? (
+          <Button bsStyle="primary" onClick={this.props.acquireMachine}>
+            Zajmij maszynę
+          </Button>
+        ) : null}
       </div>
     );
   }

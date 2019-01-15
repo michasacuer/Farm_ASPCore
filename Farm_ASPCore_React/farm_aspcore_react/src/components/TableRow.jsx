@@ -11,7 +11,8 @@ class TableRow extends Component {
   state = {
     showDeleteForm: false,
     showEditForm: false,
-    showSplitForm: false
+    showSplitForm: false,
+    showReleaseForm: false
   };
 
   renderRow() {
@@ -28,7 +29,7 @@ class TableRow extends Component {
     return cells;
   }
 
-  setEditFromVisible = value => {
+  setEditFormVisible = value => {
     this.setState({ showEditForm: value });
   };
 
@@ -37,6 +38,7 @@ class TableRow extends Component {
   };
 
   renderSplitComposite = () => {
+    console.log(this.props.rowData, this.props.rowData["acreage"]);
     return this.props.currentlyLoaded === "Cultivation" ? (
       <td>
         <Glyphicon
@@ -48,8 +50,106 @@ class TableRow extends Component {
         <SplitForm
           visible={this.state.showSplitForm}
           setSplitFormVisible={this.setSplitFormVisible}
-          acreage={this.props.rowData["acreage"]}
+          acreage={parseInt(this.props.rowData["acreage"])}
+          id={this.props.rowData["id"]}
+          splitCultivation={this.props.splitCultivation}
         />
+      </td>
+    ) : null;
+  };
+
+  renderReleaseMachine = () => {
+    return this.props.currentlyLoaded === "Machine" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-globe"
+          onClick={() => {
+            this.setState({ showReleaseForm: true });
+          }}
+        />
+        {this.state.showReleaseForm
+          ? confirmAlert({
+              title: "Potwierdzenie zwolnienia",
+              message:
+                "Czy na pewno chcesz zwolnić maszynę #" +
+                this.props.rowData["id"] +
+                "?",
+              buttons: [
+                {
+                  label: "Tak",
+                  onClick: () => {
+                    this.setState({ showReleaseForm: false });
+                    this.props.releaseMachine(this.props.rowData.id);
+                  }
+                },
+                {
+                  label: "Nie",
+                  onClick: () => {
+                    this.setState({ showReleaseForm: false });
+                  }
+                }
+              ]
+            })
+          : null}
+      </td>
+    ) : null;
+  };
+
+  renderEditRow = () => {
+    const { currentlyLoaded } = this.props;
+    return currentlyLoaded !== "Stable" &&
+      currentlyLoaded !== "Cultivation" &&
+      currentlyLoaded !== "Machine" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-pencil"
+          onClick={() => {
+            this.setState({ showEditForm: true });
+          }}
+        />
+        <EditForm
+          visible={this.state.showEditForm}
+          data={this.props.rowData}
+          currentlyLoaded={this.props.currentlyLoaded}
+          onClick={() => {
+            this.setState({ showEditForm: true });
+          }}
+          setEditFormVisible={this.setEditFormVisible}
+        />
+      </td>
+    ) : null;
+  };
+
+  renderDeleteRow = () => {
+    return this.props.currentlyLoaded !== "Cultivation" &&
+      this.props.currentlyLoaded !== "Machine" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-trash"
+          onClick={() => {
+            this.setState({ showDeleteForm: true });
+          }}
+        />
+        {this.state.showDeleteForm
+          ? confirmAlert({
+              title: "Potwierdzenie usunięcia",
+              message: "Czy na pewno chcesz usunąć rekord?",
+              buttons: [
+                {
+                  label: "Tak",
+                  onClick: () => {
+                    this.setState({ showDeleteForm: false });
+                  }
+                },
+                {
+                  label: "Nie",
+                  onClick: () => {
+                    this.setState({ showDeleteForm: false });
+                  }
+                }
+              ]
+            })
+          : null}
       </td>
     ) : null;
   };
@@ -58,51 +158,10 @@ class TableRow extends Component {
     return (
       <tr>
         {this.renderRow()}
+        {this.renderReleaseMachine()}
         {this.renderSplitComposite()}
-        <td>
-          <Glyphicon
-            glyph="glyphicon glyphicon-pencil"
-            onClick={() => {
-              this.setState({ showEditForm: true });
-            }}
-          />
-          <EditForm
-            visible={this.state.showEditForm}
-            data={this.props.rowData}
-            onClick={() => {
-              this.setState({ showEditForm: true });
-            }}
-            setEditFromVisible={this.setEditFromVisible}
-          />
-        </td>
-        <td>
-          <Glyphicon
-            glyph="glyphicon glyphicon-trash"
-            onClick={() => {
-              this.setState({ showDeleteForm: true });
-            }}
-          />
-          {this.state.showDeleteForm
-            ? confirmAlert({
-                title: "Potwierdzenie usunięcia",
-                message: "Czy na pewno chcesz usunąć rekord?",
-                buttons: [
-                  {
-                    label: "Tak",
-                    onClick: () => {
-                      this.setState({ showDeleteForm: false });
-                    }
-                  },
-                  {
-                    label: "Nie",
-                    onClick: () => {
-                      this.setState({ showDeleteForm: false });
-                    }
-                  }
-                ]
-              })
-            : ""}
-        </td>
+        {this.renderEditRow()}
+        {this.renderDeleteRow()}
       </tr>
     );
   }

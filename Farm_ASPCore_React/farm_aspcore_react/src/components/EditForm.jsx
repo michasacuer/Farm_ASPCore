@@ -18,11 +18,12 @@ class EditForm extends Component {
     keys.forEach(key => {
       fieldsData[key] = this.props.data[key];
     });
+    fieldsData["kind"] = "Farmer";
   }
 
   handleSubmit = e => {
     console.log(this.state.fieldsData);
-    this.props.setEditFromVisible(false);
+    this.props.setEditFormVisible(false);
     e.preventDefault();
   };
 
@@ -43,7 +44,7 @@ class EditForm extends Component {
           </Modal.Header>
           <Modal.Body>
             {keys
-              .filter(key => key !== "id")
+              .filter(key => key !== "id" && key !== "kind")
               .map(key => (
                 <FormGroup controlId={key} key={key}>
                   <ControlLabel>{translate(key)}</ControlLabel>
@@ -54,8 +55,31 @@ class EditForm extends Component {
                   />
                 </FormGroup>
               ))}
+            {this.props.currentlyLoaded === "Worker" ? (
+              <FormGroup controlId={"kind"} key={"kind"}>
+                <ControlLabel>{translate("kind")}</ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  placeholder="Kind"
+                  onChange={this.handleChange}
+                  name="kind"
+                >
+                  <option value="0">Driver</option>
+                  <option value="1">Farmer</option>
+                </FormControl>
+              </FormGroup>
+            ) : null}
           </Modal.Body>
           <Modal.Footer>
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.props.setEditFormVisible(false);
+                this.setState({ fieldsData: data });
+              }}
+            >
+              ANULUJ
+            </Button>
             <Button type="submit" bsStyle="success">
               ZATWIERDŹ
             </Button>
