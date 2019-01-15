@@ -16,12 +16,17 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchNewData("Worker");
+    localStorage.setItem("Machine", "[]");
   }
 
   fetchNewData = param => {
+    if (this.state.currentlyLoaded === "Machine") {
+      localStorage.setItem("Machine", JSON.stringify(this.state.data));
+    }
     this.setState({ currentlyLoaded: param });
     if (param === "Machine") {
-      this.setState({ data: [] });
+      const machines = localStorage.getItem("Machine");
+      this.setState({ data: JSON.parse(machines) });
       return;
     }
     fetch("http://localhost:62573/api/" + param)
@@ -79,6 +84,15 @@ class App extends Component {
     }
   };
 
+  splitCultivation = (ratio, id) => {
+    fetch("http://localhost:62573/api/Cultivation/Split/" + ratio + "/" + id)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ data });
+        console.log(data);
+      });
+  };
+
   createNotification = (type, data) => {
     switch (type) {
       case "info":
@@ -104,6 +118,7 @@ class App extends Component {
           currentlyLoaded={this.state.currentlyLoaded}
           acquireMachine={this.acquireMachine}
           releaseMachine={this.releaseMachine}
+          splitCultivation={this.splitCultivation}
         />
       </div>
     );

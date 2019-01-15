@@ -38,6 +38,7 @@ class TableRow extends Component {
   };
 
   renderSplitComposite = () => {
+    console.log(this.props.rowData, this.props.rowData["acreage"]);
     return this.props.currentlyLoaded === "Cultivation" ? (
       <td>
         <Glyphicon
@@ -49,7 +50,9 @@ class TableRow extends Component {
         <SplitForm
           visible={this.state.showSplitForm}
           setSplitFormVisible={this.setSplitFormVisible}
-          acreage={this.props.rowData["acreage"]}
+          acreage={parseInt(this.props.rowData["acreage"])}
+          id={this.props.rowData["id"]}
+          splitCultivation={this.props.splitCultivation}
         />
       </td>
     ) : null;

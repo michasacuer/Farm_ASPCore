@@ -11,6 +11,7 @@ class TableView extends Component {
           data={this.props.data}
           currentlyLoaded={this.props.currentlyLoaded}
           releaseMachine={this.props.releaseMachine}
+          splitCultivation={this.props.splitCultivation}
         />
         {this.props.currentlyLoaded === "Machine" ? (
           <Button bsStyle="primary" onClick={this.props.acquireMachine}>

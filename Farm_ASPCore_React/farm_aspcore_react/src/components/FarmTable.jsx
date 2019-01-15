@@ -53,6 +53,7 @@ class FarmTable extends Component {
                 rowData={rowData}
                 currentlyLoaded={this.props.currentlyLoaded}
                 releaseMachine={this.props.releaseMachine}
+                splitCultivation={this.props.splitCultivation}
               />
             ))}
           </tbody>

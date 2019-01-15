@@ -16,6 +16,7 @@ class Routes extends Component {
               currentlyLoaded={this.props.currentlyLoaded}
               acquireMachine={this.props.acquireMachine}
               releaseMachine={this.props.releaseMachine}
+              splitCultivation={this.props.splitCultivation}
             />
           )}
         />

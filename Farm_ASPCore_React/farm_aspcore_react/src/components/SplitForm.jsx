@@ -13,9 +13,10 @@ import "rc-slider/assets/index.css";
 import "./SplitForm.css";
 
 class SplitForm extends Component {
-  state = { ratio: 0.5, firstCultivationSize: 0, secondCultivationSize: 0 };
+  state = { ratio: 0.5 };
 
   componentDidMount() {
+    console.log(this.state.ratio);
     this.setState({
       firstCultivationSize: this.state.ratio * this.props.acreage,
       secondCultivationSize: (1 - this.state.ratio) * this.props.acreage
@@ -23,7 +24,7 @@ class SplitForm extends Component {
   }
 
   handleSubmit = e => {
-    console.log(this.state.ratio);
+    this.props.splitCultivation(this.state.ratio, this.props.id);
     this.props.setSplitFormVisible(false);
     e.preventDefault();
   };
@@ -87,6 +88,14 @@ class SplitForm extends Component {
             </FormGroup>
           </Modal.Body>
           <Modal.Footer>
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.props.setSplitFormVisible(false);
+              }}
+            >
+              ANULUJ
+            </Button>
             <Button type="submit" bsStyle="success">
               ZATWIERDŹ
             </Button>
