@@ -79,7 +79,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                     list.Add(new SummaryViewModel { Id = i + 1, SummaryDate = Caretaker.Instance.GetDate(i) });
                 return Ok(list);
             }
-            catch { return BadRequest(new BadRequestViewModel { Message ="Error while loading memento list"}) }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Error while loading memento list" }); }
 
         }
 

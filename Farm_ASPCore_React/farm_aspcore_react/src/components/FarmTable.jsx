@@ -16,6 +16,26 @@ class FarmTable extends Component {
         </th>
       );
     });
+    let addidtionalHeaders;
+    switch (this.props.currentlyLoaded) {
+      case "Worker":
+        addidtionalHeaders = 2;
+        break;
+      case "Stable":
+        addidtionalHeaders = 1;
+        break;
+      case "Cultivation":
+        addidtionalHeaders = 1;
+        break;
+      case "Machine":
+        addidtionalHeaders = 1;
+        break;
+      default:
+        console.error("Data source unrecognized", this.props.currentlyLoaded);
+        break;
+    }
+    for (let i = 0; i < addidtionalHeaders; i++)
+      heads.push(<th key={keys.length + i} />);
     return heads;
   }
 
@@ -24,12 +44,7 @@ class FarmTable extends Component {
       <div className="table">
         <Table>
           <thead>
-            <tr>
-              {this.renderHeaders()}
-              {this.props.currentlyLoaded === "Cultivation" ? <th /> : null}
-              <th />
-              <th />
-            </tr>
+            <tr>{this.renderHeaders()}</tr>
           </thead>
           <tbody>
             {this.props.data.map(rowData => (
@@ -37,6 +52,7 @@ class FarmTable extends Component {
                 key={rowData.id}
                 rowData={rowData}
                 currentlyLoaded={this.props.currentlyLoaded}
+                releaseMachine={this.props.releaseMachine}
               />
             ))}
           </tbody>
