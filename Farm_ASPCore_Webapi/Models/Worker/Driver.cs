@@ -4,11 +4,7 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Driver : Worker
     {
-        public Driver()
-        {
-            Id = ++Indexer;
-            Kind = Job.Driver;
-        }
+        public Driver() => Kind = Job.Driver;
 
         public override double Salary { get; set; }
      

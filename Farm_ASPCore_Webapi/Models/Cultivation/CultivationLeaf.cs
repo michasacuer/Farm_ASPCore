@@ -1,6 +1,7 @@
 ﻿using Farm_ASPCore_Webapi.Models.Enums;
 using Farm_ASPCore_Webapi.Models.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Farm_ASPCore_Webapi.Models
@@ -43,11 +44,25 @@ namespace Farm_ASPCore_Webapi.Models
             }
         }
 
-        public override void Harvest()        => Grain = Grain.None;
         public override void Sow(Grain grain)
         {
-            Summary.Instance.CultivationsCost += GetCost();
-            Grain = grain;
+            if (Grain == Grain.None)
+            {
+                Grain = grain;
+                Income = 0;
+            }
+
+            else
+                return;
+        }
+
+        public override void Harvest()
+        {
+            if (Grain == Grain.None)
+                return;
+
+            Income += GetCost();
+            Grain = Grain.None;
         }
 
         public double GetCost()
@@ -58,8 +73,9 @@ namespace Farm_ASPCore_Webapi.Models
             return price * Acreage;
         }
 
-        public override void Remove(Cultivation cultivation) => throw new InvalidOperationException("Can't remove child components from leaf cultivation");
-        public override void Add(Cultivation cultivation)    => throw new InvalidOperationException("Can't add child components to leaf cultivation");
+        public override void Remove(Cultivation cultivation)  => throw new InvalidOperationException("Can't remove child components from leaf cultivation");
+        public override void Add(Cultivation cultivation)     => throw new InvalidOperationException("Can't add child components to leaf cultivation");
+        public override List<Cultivation> GetCompositeLeafs() => throw new InvalidOperationException("Leaf dont have list of leafs");
 
         private double priceRice = 100000;
         private double priceCorn = 200000;

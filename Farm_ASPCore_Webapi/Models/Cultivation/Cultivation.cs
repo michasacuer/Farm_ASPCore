@@ -1,4 +1,5 @@
-﻿    using Farm_ASPCore_Webapi.Models.Enums;
+﻿using Farm_ASPCore_Webapi.Models.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,8 +7,6 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public abstract class Cultivation
     {
-        //public Cultivation() => Id = ++Indexer;
-
         [Key]
         public int Id { get; set; }
 
@@ -17,14 +16,14 @@ namespace Farm_ASPCore_Webapi.Models
 
         public virtual Grain Grain { get; set; }
 
-        //[NotMapped]
-        //public static int Indexer { get; set; }
-
         public abstract void Sow(Grain grain);
         public abstract void Harvest();
         public abstract (Cultivation, Cultivation, Cultivation) Split(double ratio);
         public abstract void Add(Cultivation cultivation);
         public abstract void Remove(Cultivation cultivation);
+        public abstract List<Cultivation> GetCompositeLeafs();
 
+        [NotMapped]
+        public static double Income { get; set; }
     }
 }

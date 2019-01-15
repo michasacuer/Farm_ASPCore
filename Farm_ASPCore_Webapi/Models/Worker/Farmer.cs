@@ -4,11 +4,8 @@ namespace Farm_ASPCore_Webapi.Models
 {
     public class Farmer : Worker
     {
-        public Farmer()
-        {
-            Id = ++Indexer;
-            Kind = Job.Farmer;
-        }
+        public Farmer() => Kind = Job.Farmer;
+
 
         public override double Salary { get; set; }
 

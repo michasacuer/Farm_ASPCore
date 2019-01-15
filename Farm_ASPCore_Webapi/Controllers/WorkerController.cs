@@ -29,20 +29,26 @@ namespace Farm_ASPCore_Webapi.Controllers
             return Farm.GetInstance(_context).Workers;
         }
 
-        // POST: api/Worker
-        [HttpPost]
-        public IActionResult AddWorker(Worker worker)
+        // POST: api/Worker/0
+        [HttpPost("0")]
+        public IActionResult AddWorker(Driver worker)
         {
-            var workers = Farm.GetInstance(_context).Workers;
-
-            if (worker.Kind == Job.Driver)
-                workers.Add((Driver)worker);
-
-            if (worker.Kind == Job.Farmer)
-                workers.Add((Farmer)worker);
-
             _context.Workers.Add(worker);
             _context.SaveChanges();
+
+            Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
+
+            return Ok();
+        }
+
+        //Post: api/Worker/1
+        [HttpPost("1")]
+        public IActionResult AddWorker(Farmer worker)
+        {
+            _context.Workers.Add(worker);
+            _context.SaveChanges();
+
+            Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
 
             return Ok();
         }
