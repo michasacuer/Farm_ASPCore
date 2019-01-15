@@ -124,7 +124,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         {
             var result = new List<CultivationViewModel>();
 
-            foreach (CultivationLeaf item in leafs)
+            foreach (CultivationLeaf item in leafs.OfType<CultivationLeaf>())
             {
                 if (item.Parent != null)
                     result.Add(new CultivationViewModel { Id = item.Id, CompositeId = item.Parent.Id, Grain = item.Grain.ToString(), Acreage = item.Acreage });
