@@ -42,7 +42,16 @@ function translate(key) {
       return "Bilans";
     case "summaryDate":
       return "Data faktury";
-
+    case "kind":
+      return "Praca";
+    case "grain":
+     return "Uprawiane zboże";
+    case "compositeId":
+      return "Id kompozytu";
+    case "acreage":
+      return "Powierzchnia";
+    case "mappedStrategy":
+      return "Strategia";
     default:
       return key;
   }
@@ -56,13 +65,13 @@ export function cellDataTranslate(key, value) {
     case "grain":
       switch (value) {
         case 0:
-          return "brak";
+          return "Brak";
         case 1:
-          return "ryż";
+          return "Ryż";
         case 2:
-          return "kukurydza";
+          return "Kukurydza";
         case 3:
-          return "owies";
+          return "Otręby";
         default:
           return value;
       }
@@ -71,7 +80,7 @@ export function cellDataTranslate(key, value) {
     case "species":
       return value === 0 ? "Czarny" : "Biały";
     case "mappedStrategy":
-      return value === 0 ? "Uprawa" : "Farma";
+      return value === 0 ? "Praca w polu" : "Praca na farmie";
     case "budget":
       return value.toFixed(2) + " zł";
     case "machineCost":
