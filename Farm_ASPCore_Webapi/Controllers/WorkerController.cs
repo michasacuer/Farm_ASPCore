@@ -39,13 +39,13 @@ namespace Farm_ASPCore_Webapi.Controllers
                 worker.CountBaseSalary();
                 _context.Workers.Add(worker);
                 _context.SaveChanges();
-
+        
                 Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
                 return Ok(worker);
             }
             catch { return BadRequest(new BadRequestViewModel { Message = "Błąd przy zapisie kierowcy!" }); };
         }
-
+        
         //Post: api/Worker/1
         [HttpPost("1")]
         public IActionResult AddWorker(Farmer worker)
@@ -55,11 +55,28 @@ namespace Farm_ASPCore_Webapi.Controllers
                 worker.CountBaseSalary();
                 _context.Workers.Add(worker);
                 _context.SaveChanges();
-
+        
                 Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
                 return Ok(worker);
             }
             catch { return BadRequest(new BadRequestViewModel { Message = "Błąd przy zapisie farmera!" }); };
+        }
+
+        // POST: api/Worker/Edit
+        [HttpPost("Edit")]
+        public IActionResult PutWorker(Worker worker)
+        {
+            try
+            {
+                var workerFromDb = _context.Workers.Find(worker.Id);
+                workerFromDb = worker;
+                _context.SaveChanges();
+
+                Farm.GetInstance(_context).Workers.Add(worker);
+            }
+            catch { return BadRequest(); }
+
+            return Ok(worker);
         }
 
         // POST: api/Worker/5/job/0
