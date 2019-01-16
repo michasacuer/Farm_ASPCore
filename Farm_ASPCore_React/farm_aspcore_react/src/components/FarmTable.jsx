@@ -62,6 +62,7 @@ class FarmTable extends Component {
                 restoreState={this.props.restoreState}
                 handleSow={this.props.handleSow}
                 handleHarvest={this.props.handleHarvest}
+                bonus={this.props.bonus}
               />
             ))}
           </tbody>

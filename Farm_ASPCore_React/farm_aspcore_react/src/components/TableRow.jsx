@@ -101,7 +101,9 @@ class TableRow extends Component {
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-fast-backward"
-          onClick={() => {this.props.restoreState(this.props.rowData["id"])}}
+          onClick={() => {
+            this.props.restoreState(this.props.rowData["id"]);
+          }}
         />
       </td>
     ) : null;
@@ -189,11 +191,7 @@ class TableRow extends Component {
               bsStyle="primary"
               onClick={() => {
                 this.setState({ showBonusForm: false });
-                fetch(
-                  "http://localhost:62573/api/Bonus/amount/" +
-                    this.props.rowData["id"],
-                  { method: "POST" }
-                );
+                this.props.bonus(this.props.rowData["id"], "amount");
               }}
             >
               Ilościowa
@@ -202,11 +200,7 @@ class TableRow extends Component {
               bsStyle="primary"
               onClick={() => {
                 this.setState({ showBonusForm: false });
-                fetch(
-                  "http://localhost:62573/api/Bonus/percent/" +
-                    this.props.rowData["id"],
-                  { method: "POST" }
-                );
+                this.props.bonus(this.props.rowData["id"], "percent");
               }}
             >
               Procentowa
@@ -215,11 +209,7 @@ class TableRow extends Component {
               bsStyle="primary"
               onClick={() => {
                 this.setState({ showBonusForm: false });
-                fetch(
-                  "http://localhost:62573/api/Bonus/discretionary/" +
-                    this.props.rowData["id"],
-                  { method: "POST" }
-                );
+                this.props.bonus(this.props.rowData["id"], "discretionary");
               }}
             >
               Uznaniowa
@@ -228,9 +218,7 @@ class TableRow extends Component {
               bsStyle="danger"
               onClick={() => {
                 this.setState({ showBonusForm: false });
-                fetch("http://localhost:62573/api/Bonus/Reset", {
-                  method: "POST"
-                });
+                this.props.bonus(this.props.rowData["id"], "Reset");
               }}
             >
               Reset

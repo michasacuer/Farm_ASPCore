@@ -74,19 +74,32 @@ class TableView extends Component {
             </FormGroup>
             <FormGroup>
               <ControlLabel>Godziny pracy dziennie</ControlLabel>
-              <FormControl name="hoursPerDay" onChange={this.handleChange} />
+              <FormControl
+                type="number"
+                name="hoursPerDay"
+                onChange={this.handleChange}
+              />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Dni pracy w miesiącu</ControlLabel>
-              <FormControl name="daysOfWork" onChange={this.handleChange} />
+              <FormControl
+                type="number"
+                name="daysOfWork"
+                onChange={this.handleChange}
+              />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Stawka godzinowa</ControlLabel>
-              <FormControl name="usdPerHour" onChange={this.handleChange} />
+              <FormControl
+                type="number"
+                name="usdPerHour"
+                onChange={this.handleChange}
+              />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Rola</ControlLabel>
               <FormControl
+                type="number"
                 name="kind"
                 onChange={this.handleChange}
                 componentClass="select"
@@ -127,6 +140,7 @@ class TableView extends Component {
           restoreState={this.props.restoreState}
           handleSow={this.props.handleSow}
           handleHarvest={this.props.handleHarvest}
+          bonus={this.props.bonus}
         />
         {this.props.currentlyLoaded === "Worker" ? (
           <Button

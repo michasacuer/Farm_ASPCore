@@ -17,7 +17,7 @@ function translate(key) {
     case "endOfContract":
       return "Koniec umowy";
     case "usdPerHour":
-      return "Płaca (USD/H)";
+      return "Płaca (PLN/H)";
     case "hoursPerDay":
       return "Godziny dziennie";
     case "daysOfWork":
@@ -45,7 +45,7 @@ function translate(key) {
     case "kind":
       return "Praca";
     case "grain":
-     return "Uprawiane zboże";
+      return "Uprawiane zboże";
     case "compositeId":
       return "Id kompozytu";
     case "acreage":
@@ -95,7 +95,7 @@ export function cellDataTranslate(key, value) {
       return value.toFixed(2) + " zł";
     case "summaryDate":
       return Date.parse(value);
-    
+
     default:
       return value;
   }
