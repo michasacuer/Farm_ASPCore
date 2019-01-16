@@ -87,12 +87,14 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("Reset/{id}")]
         public IActionResult ResetBonus(int id)
         {
-            var worker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
+            var worker = _context.Workers.Find(id);
 
             try
             {
                 worker.Salary = worker.BaseSalary;
                 _context.Entry(worker).State = EntityState.Modified;
+                var farmWorker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
+                farmWorker = worker;
             }
             catch { return BadRequest(new BadRequestViewModel { Message = "Error while reset bonus!" }); }
 

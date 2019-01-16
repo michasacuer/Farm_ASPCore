@@ -103,20 +103,23 @@ namespace Farm_ASPCore_Webapi.Controllers
 
         // DELETE: api/Worker/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteWorker([FromRoute] int id)
+        public IActionResult DeleteWorker(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var worker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
+            var worker = _context.Workers.SingleOrDefault(w => w.Id == id);
+            _context.Workers.Remove(worker);
+
+            Farm.GetInstance(_context).Workers.Remove(worker);
+
             if (worker == null)
             {
                 return NotFound();
             }
 
-            _context.Workers.Remove(worker);
             _context.SaveChanges();
 
             return Ok(worker);
