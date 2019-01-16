@@ -22,6 +22,11 @@ class EditForm extends Component {
   }
 
   handleSubmit = e => {
+    const fieldsData = this.state.fieldsData;
+    delete fieldsData["id"];
+    this.setState({ fieldsData });
+    console.log(this.state.fieldsData);
+    //
     this.props.setEditFormVisible(false);
     e.preventDefault();
   };
@@ -63,8 +68,8 @@ class EditForm extends Component {
                   onChange={this.handleChange}
                   name="kind"
                 >
-                  <option value="0">Driver</option>
-                  <option value="1">Farmer</option>
+                  <option value={0}>Driver</option>
+                  <option value={1}>Farmer</option>
                 </FormControl>
               </FormGroup>
             ) : null}

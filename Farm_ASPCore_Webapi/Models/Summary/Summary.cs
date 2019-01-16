@@ -24,7 +24,9 @@ namespace Farm_ASPCore_Webapi.Models
             foreach (Machine machine in farm.Machines)
                 MachinesCost -= machine.GetCost();
 
-            SummaryCost = Budget - ( AnimalsCost + WorkersCost + MachinesCost);
+            CultivationsCost = Cultivation.Income;
+
+            SummaryCost = ( AnimalsCost + WorkersCost + MachinesCost + CultivationsCost) + Budget;
         }
 
         //Originator
@@ -35,6 +37,5 @@ namespace Farm_ASPCore_Webapi.Models
 
         private Summary state;
         private int indexer = -1;
-
     }
 }

@@ -30,15 +30,16 @@ namespace Farm_ASPCore_Webapi.Controllers
             StrategyPopulate();
             var farm = _context.Farms.Include(w => w.Workers)
                                      .Include(m => m.Machines)
-                                     //.Include(c => c.Cultivations)
-                                     .Include(s => s.Stables)
                                      .SingleOrDefault();
 
             var summary = new Summary{ SummaryDate = DateTime.Now };
             summary.Budget = _context.Budgets.SingleOrDefault().Value;
             summary.GetSummary(farm);
 
-            return Ok(summary);
+            var response = new List<Summary>();
+            response.Add(summary);
+
+            return Ok(response);
         }
 
         /// <summary>

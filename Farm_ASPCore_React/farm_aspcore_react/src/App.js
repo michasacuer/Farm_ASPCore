@@ -7,11 +7,13 @@ import {
   NotificationContainer
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import DataServices from "./services/DataServices";
 
 class App extends Component {
   state = {
     data: [],
-    currentlyLoaded: "Worker"
+    currentlyLoaded: "Worker",
+    summary: []
   };
 
   componentDidMount() {
@@ -41,7 +43,6 @@ class App extends Component {
             delete worker["usdPerHour"];
             delete worker["hoursPerDay"];
             delete worker["daysOfWork"];
-            delete worker["baseSalary"];
           });
         this.setState({ data });
       });
@@ -82,24 +83,66 @@ class App extends Component {
     }
   };
 
+  fetchSummary = () => {
+    fetch("http://localhost:62573/api/Summary")
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ summary: data });
+      });
+  };
+
   splitCultivation = (ratio, id) => {
     fetch("http://localhost:62573/api/Cultivation/Split/" + ratio + "/" + id)
       .then(response => response.json())
       .then(data => {
         this.setState({ data });
-        console.log(data);
       });
   };
 
-  postWorker = worker => {
-    fetch("http://localhost:62573/api/Worker", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(worker)
-    });
+  addWorker = worker => {
+    DataServices.api("Worker/" + worker.kind).post(worker);
+    this.fetchNewData("Worker");
+  };
+
+  editWorker = worker => {
+    console.log(worker);
+    DataServices.api("Worker/Edit").post(worker);
+    this.fetchNewData("Worker");
+  };
+
+  delete = id => {
+    fetch(
+      "http://localhost:62573/api/" + this.state.currentlyLoaded + "/" + id,
+      {
+        method: "delete"
+      }
+    );
+    console.log(
+      "http://localhost:62573/api/" + this.state.currentlyLoaded + "/" + id
+    );
+    this.fetchNewData(this.state.currentlyLoaded);
+  };
+
+  saveState = () => {
+    DataServices.api("Summary").post(this.state.summary[0]);
+    this.fetchNewData("Summary/list");
+  };
+
+  restoreState = id => {
+    fetch("http://localhost:62573/api/Summary/" + id)
+      .then(response => response.json())
+      .then(data => alert(JSON.stringify(data)));
+    this.fetchNewData("Summary/list");
+  };
+
+  handleHarvest = id => {
+    fetch("http://localhost:62573/api/Cultivation/Harvest");
+    this.fetchNewData("Cultivation");
+  };
+
+  handleSow = id => {
+    fetch("http://localhost:62573/api/Cultivation/Sow/1/" + id);
+    this.fetchNewData("Cultivation");
   };
 
   createNotification = (type, data) => {
@@ -118,9 +161,13 @@ class App extends Component {
   };
 
   render() {
+    this.fetchSummary();
     return (
       <div className="App">
-        <FarmNavbar fetchNewData={this.fetchNewData} />
+        <FarmNavbar
+          fetchNewData={this.fetchNewData}
+          fetchSummary={this.fetchSummary}
+        />
         <NotificationContainer />
         <Routes
           data={this.state.data}
@@ -128,6 +175,14 @@ class App extends Component {
           acquireMachine={this.acquireMachine}
           releaseMachine={this.releaseMachine}
           splitCultivation={this.splitCultivation}
+          addWorker={this.addWorker}
+          editWorker={this.editWorker}
+          summary={this.state.summary[0]}
+          delete={this.delete}
+          saveState={this.saveState}
+          restoreState={this.restoreState}
+          handleSow={this.handleSow}
+          handleHarvest={this.handleHarvest}
         />
       </div>
     );

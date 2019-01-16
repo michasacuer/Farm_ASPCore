@@ -22,9 +22,9 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// </summary>
         // POST: api/Bonus/Amount/5
         [HttpPost("{kind}/{id}")]
-        public IActionResult PutBonus(int id, string kind)
+        public IActionResult PostBonus(string kind, int id)
         {
-            var worker = _context.Workers.Find(id);
+            var worker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
 
             try
             {
@@ -47,7 +47,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                         break;
                 }
             }
-            catch { return BadRequest(); }
+            catch { return BadRequest(new BadRequestViewModel { Message = $"Error while attach {kind} bonus!" }); } 
 
             _context.Entry(worker).State = EntityState.Modified;
             _context.SaveChanges();
@@ -62,7 +62,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("Reset")]
         public IActionResult ResetAllBonuses()
         {
-            var workers = _context.Workers;
+            var workers = Farm.GetInstance(_context).Workers;
 
             try
             {
@@ -72,7 +72,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                     _context.Entry(worker).State = EntityState.Modified;
                 }
             }
-            catch { return BadRequest(); }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Error while reset bonuses!" }); }
 
             _context.SaveChanges();
 
@@ -83,7 +83,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         /// <summary>
         /// Reset Bonus for Worker where id = worker.Id
         /// </summary>
-        // POST: api/Reset/5
+        // POST: api/Bonus/Reset/5
         [HttpPost("Reset/{id}")]
         public IActionResult ResetBonus(int id)
         {
@@ -93,8 +93,10 @@ namespace Farm_ASPCore_Webapi.Controllers
             {
                 worker.Salary = worker.BaseSalary;
                 _context.Entry(worker).State = EntityState.Modified;
+                var farmWorker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
+                farmWorker = worker;
             }
-            catch { return BadRequest(); }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Error while reset bonus!" }); }
 
             _context.SaveChanges();
 

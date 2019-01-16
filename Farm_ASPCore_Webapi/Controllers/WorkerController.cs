@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Farm_ASPCore_Webapi.Models;
 using Farm_ASPCore_Webapi.Models.Enums;
+using Microsoft.EntityFrameworkCore;
+using Farm_ASPCore_Webapi.Helpers;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -25,10 +27,59 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpGet]
         public IEnumerable<Worker> GetWorkers()
         {
-            return _context.Workers;
+            return Farm.GetInstance(_context).Workers;
         }
 
-        // GET: api/Worker/5/job/0
+        // POST: api/Worker/0
+        [HttpPost("0")]
+        public IActionResult AddWorker(Driver worker)
+        {
+            try
+            {
+                worker.CountBaseSalary();
+                _context.Workers.Add(worker);
+                _context.SaveChanges();
+        
+                Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
+                return Ok(worker);
+            }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Błąd przy zapisie kierowcy!" }); };
+        }
+        
+        //Post: api/Worker/1
+        [HttpPost("1")]
+        public IActionResult AddWorker(Farmer worker)
+        {
+            try
+            {
+                worker.CountBaseSalary();
+                _context.Workers.Add(worker);
+                _context.SaveChanges();
+        
+                Farm.GetInstance(_context).Workers.Add(_context.Workers.Find(worker.Id));
+                return Ok(worker);
+            }
+            catch { return BadRequest(new BadRequestViewModel { Message = "Błąd przy zapisie farmera!" }); };
+        }
+
+        // POST: api/Worker/Edit
+        [HttpPost("Edit")]
+        public IActionResult PutWorker(Worker worker)
+        {
+            try
+            {
+                var workerFromDb = _context.Workers.Find(worker.Id);
+                workerFromDb = worker;
+                _context.SaveChanges();
+
+                Farm.GetInstance(_context).Workers.Add(worker);
+            }
+            catch { return BadRequest(); }
+
+            return Ok(worker);
+        }
+
+        // POST: api/Worker/5/job/0
         [HttpPost("{id}/Job/{job}")]
         public IActionResult ChangeJob(int id, int job)
         {
@@ -41,6 +92,8 @@ namespace Farm_ASPCore_Webapi.Controllers
             if (worker.Kind == Job.Farmer)
                 worker = (Farmer)worker;
 
+            _context.Entry(worker).State = EntityState.Modified;
+
             _context.SaveChanges();
             return Ok(worker);
         }
@@ -51,54 +104,40 @@ namespace Farm_ASPCore_Webapi.Controllers
         public IActionResult GetWorker([FromRoute] int id)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
+            }
 
-            var worker = _context.Workers.Find(id);
+            var worker = Farm.GetInstance(_context).Workers.Find(w => w.Id == id);
 
             if (worker == null)
-                return NotFound();
-
-            return Ok(worker);
-        }
-
-        // POST: api/Worker
-        [HttpPost]
-        public IActionResult PostWorker(Worker worker)
-        {
-            var workers = _context.Workers;
-
-            try
             {
-                if(worker.Kind == Job.Driver)
-                    worker = (Driver)worker;
-
-                if (worker.Kind == Job.Farmer)
-                    worker = (Farmer)worker;
-
-                workers.Add(worker);
+                return NotFound();
             }
-            catch { BadRequest(); }
 
             return Ok(worker);
         }
 
         // DELETE: api/Worker/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWorker([FromRoute] int id)
+        public IActionResult DeleteWorker(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var worker = await _context.Workers.FindAsync(id);
+            var worker = _context.Workers.Find(id);
+            _context.Workers.Remove(worker);
+
+            Farm.GetInstance(_context).Workers.Remove(worker);
+
             if (worker == null)
             {
                 return NotFound();
             }
 
-            _context.Workers.Remove(worker);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return Ok(worker);
         }

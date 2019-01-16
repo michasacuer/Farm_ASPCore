@@ -1,4 +1,5 @@
 ﻿using Farm_ASPCore_Webapi.Models.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,5 +21,9 @@ namespace Farm_ASPCore_Webapi.Models
         public abstract (Cultivation, Cultivation, Cultivation) Split(double ratio);
         public abstract void Add(Cultivation cultivation);
         public abstract void Remove(Cultivation cultivation);
+        public abstract List<Cultivation> GetCompositeLeafs();
+
+        [NotMapped]
+        public static double Income { get; set; }
     }
 }

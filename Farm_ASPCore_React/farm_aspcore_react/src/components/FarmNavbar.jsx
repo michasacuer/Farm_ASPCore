@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./FarmNavbar.css";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
 
 class FarmNavbar extends Component {
@@ -45,7 +44,8 @@ class FarmNavbar extends Component {
           <NavItem
             eventKey={5}
             onSelect={() => {
-              this.props.fetchNewData("Summary");
+              this.props.fetchNewData("Summary/list");
+              this.props.fetchSummary();
             }}
           >
             Podsumowania

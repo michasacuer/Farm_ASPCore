@@ -1,5 +1,6 @@
 ﻿using Farm_ASPCore_Webapi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Farm_ASPCore_Webapi.Controllers
 {
@@ -21,7 +22,7 @@ namespace Farm_ASPCore_Webapi.Controllers
         [HttpPost("{value}")]
         public IActionResult SetBudget(double value)
         {
-            var budget = _context.Budgets.Find(1);
+            var budget = _context.Budgets.SingleOrDefault();
             budget.Value = value;
             _context.SaveChanges();
             return Ok(budget);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./TableRow.css";
-import { Glyphicon } from "react-bootstrap";
+import { Glyphicon, Modal, Button } from "react-bootstrap";
 import { cellDataTranslate } from "../services/TranslationService";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -12,7 +12,8 @@ class TableRow extends Component {
     showDeleteForm: false,
     showEditForm: false,
     showSplitForm: false,
-    showReleaseForm: false
+    showReleaseForm: false,
+    showBonusForm: false
   };
 
   renderRow() {
@@ -94,11 +95,24 @@ class TableRow extends Component {
     ) : null;
   };
 
+  renderRestore = () => {
+    const { currentlyLoaded } = this.props;
+    return currentlyLoaded === "Summary/list" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-fast-backward"
+          onClick={() => {this.props.restoreState(this.props.rowData["id"])}}
+        />
+      </td>
+    ) : null;
+  };
+
   renderEditRow = () => {
     const { currentlyLoaded } = this.props;
     return currentlyLoaded !== "Stable" &&
       currentlyLoaded !== "Cultivation" &&
-      currentlyLoaded !== "Machine" ? (
+      currentlyLoaded !== "Machine" &&
+      currentlyLoaded !== "Summary/list" ? (
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-pencil"
@@ -121,34 +135,108 @@ class TableRow extends Component {
 
   renderDeleteRow = () => {
     return this.props.currentlyLoaded !== "Cultivation" &&
-      this.props.currentlyLoaded !== "Machine" ? (
+      this.props.currentlyLoaded !== "Machine" &&
+      this.props.currentlyLoaded !== "Stable" &&
+      this.props.currentlyLoaded !== "Summary/list" ? (
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-trash"
           onClick={() => {
-            this.setState({ showDeleteForm: true });
+            this.props.delete(this.props.rowData["id"]);
           }}
         />
-        {this.state.showDeleteForm
-          ? confirmAlert({
-              title: "Potwierdzenie usunięcia",
-              message: "Czy na pewno chcesz usunąć rekord?",
-              buttons: [
-                {
-                  label: "Tak",
-                  onClick: () => {
-                    this.setState({ showDeleteForm: false });
-                  }
-                },
-                {
-                  label: "Nie",
-                  onClick: () => {
-                    this.setState({ showDeleteForm: false });
-                  }
-                }
-              ]
-            })
-          : null}
+      </td>
+    ) : null;
+  };
+
+  renderSow = () => {
+    return this.props.currentlyLoaded === "Cultivation" ? (
+      <td>
+        <Glyphicon
+          glyph={"glyphicon glyphicon-grain"}
+          onClick={() => this.props.handleSow(this.props.rowData["id"])}
+        />
+      </td>
+    ) : null;
+  };
+
+  renderHarvest = () => {
+    return this.props.currentlyLoaded === "Cultivation" ? (
+      <td>
+        <Glyphicon
+          glyph={"glyphicon glyphicon-remove"}
+          onClick={() => this.props.handleHarvest(this.props.rowData["id"])}
+        />
+      </td>
+    ) : null;
+  };
+
+  renderBonus = () => {
+    return this.props.currentlyLoaded === "Worker" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-usd"
+          onClick={() => {
+            this.setState({ showBonusForm: true });
+          }}
+        />
+        <Modal show={this.state.showBonusForm}>
+          <Modal.Header>
+            <Modal.Title>Przydziel premię</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch(
+                  "http://localhost:62573/api/Bonus/amount/" +
+                    this.props.rowData["id"],
+                  { method: "POST" }
+                );
+              }}
+            >
+              Ilościowa
+            </Button>{" "}
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch(
+                  "http://localhost:62573/api/Bonus/percent/" +
+                    this.props.rowData["id"],
+                  { method: "POST" }
+                );
+              }}
+            >
+              Procentowa
+            </Button>{" "}
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch(
+                  "http://localhost:62573/api/Bonus/discretionary/" +
+                    this.props.rowData["id"],
+                  { method: "POST" }
+                );
+              }}
+            >
+              Uznaniowa
+            </Button>{" "}
+            <Button
+              bsStyle="danger"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch("http://localhost:62573/api/Bonus/Reset", {
+                  method: "POST"
+                });
+              }}
+            >
+              Reset
+            </Button>
+          </Modal.Body>
+        </Modal>
       </td>
     ) : null;
   };
@@ -159,8 +247,12 @@ class TableRow extends Component {
         {this.renderRow()}
         {this.renderReleaseMachine()}
         {this.renderSplitComposite()}
+        {this.renderHarvest()}
+        {this.renderSow()}
         {this.renderEditRow()}
         {this.renderDeleteRow()}
+        {this.renderBonus()}
+        {this.renderRestore()}
       </tr>
     );
   }

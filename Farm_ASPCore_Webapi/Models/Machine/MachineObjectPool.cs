@@ -16,11 +16,10 @@ namespace Farm_ASPCore_Webapi.Models
                 isInitialized = true;
                 return false;
             }
-            else
-                return true;
+            return true;
         }
 
-        public List<Machine> PopulatePool(DbSet<Machine> machines) => pool = machines.ToList();
+        public List<Machine> PopulatePool(List<Machine> machines) => pool = new List<Machine>(machines);
 
         public Machine AcquireMachine()
         {
@@ -38,7 +37,7 @@ namespace Farm_ASPCore_Webapi.Models
 
         private MachineObjectPool() { }
 
-        private volatile List<Machine> pool = new List<Machine>(MaxPoolSize);
+        private volatile List<Machine> pool;
         private bool isInitialized = false;
     }
 }

@@ -16,25 +16,28 @@ class FarmTable extends Component {
         </th>
       );
     });
-    let addidtionalHeaders;
+    let additionalHeaders;
     switch (this.props.currentlyLoaded) {
       case "Worker":
-        addidtionalHeaders = 2;
+        additionalHeaders = 3;
         break;
       case "Stable":
-        addidtionalHeaders = 1;
+        additionalHeaders = 0;
         break;
       case "Cultivation":
-        addidtionalHeaders = 1;
+        additionalHeaders = 3;
         break;
       case "Machine":
-        addidtionalHeaders = 1;
+        additionalHeaders = 1;
+        break;
+      case "Summary/list":
+        additionalHeaders = 1;
         break;
       default:
-        console.error("Data source unrecognized", this.props.currentlyLoaded);
+        additionalHeaders = 0;
         break;
     }
-    for (let i = 0; i < addidtionalHeaders; i++)
+    for (let i = 0; i < additionalHeaders; i++)
       heads.push(<th key={keys.length + i} />);
     return heads;
   }
@@ -54,6 +57,11 @@ class FarmTable extends Component {
                 currentlyLoaded={this.props.currentlyLoaded}
                 releaseMachine={this.props.releaseMachine}
                 splitCultivation={this.props.splitCultivation}
+                editWorker={this.props.editWorker}
+                delete={this.props.delete}
+                restoreState={this.props.restoreState}
+                handleSow={this.props.handleSow}
+                handleHarvest={this.props.handleHarvest}
               />
             ))}
           </tbody>
