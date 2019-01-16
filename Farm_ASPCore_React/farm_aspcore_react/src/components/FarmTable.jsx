@@ -59,6 +59,7 @@ class FarmTable extends Component {
                 splitCultivation={this.props.splitCultivation}
                 editWorker={this.props.editWorker}
                 delete={this.props.delete}
+                restoreState={this.props.restoreState}
               />
             ))}
           </tbody>

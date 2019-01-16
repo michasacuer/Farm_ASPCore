@@ -110,7 +110,7 @@ namespace Farm_ASPCore_Webapi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var worker = _context.Workers.SingleOrDefault(w => w.Id == id);
+            var worker = _context.Workers.Find(id);
             _context.Workers.Remove(worker);
 
             Farm.GetInstance(_context).Workers.Remove(worker);

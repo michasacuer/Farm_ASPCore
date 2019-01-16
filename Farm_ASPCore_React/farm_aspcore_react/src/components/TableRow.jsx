@@ -95,6 +95,18 @@ class TableRow extends Component {
     ) : null;
   };
 
+  renderRestore = () => {
+    const { currentlyLoaded } = this.props;
+    return currentlyLoaded === "Summary/list" ? (
+      <td>
+        <Glyphicon
+          glyph="glyphicon glyphicon-fast-backward"
+          onClick={this.props.restoreState}
+        />
+      </td>
+    ) : null;
+  };
+
   renderEditRow = () => {
     const { currentlyLoaded } = this.props;
     return currentlyLoaded !== "Stable" &&
@@ -124,35 +136,15 @@ class TableRow extends Component {
   renderDeleteRow = () => {
     return this.props.currentlyLoaded !== "Cultivation" &&
       this.props.currentlyLoaded !== "Machine" &&
-      this.props.currentlyLoaded !== "Stable" ? (
+      this.props.currentlyLoaded !== "Stable" &&
+      this.props.currentlyLoaded !== "Summary/list" ? (
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-trash"
           onClick={() => {
-            this.setState({ showDeleteForm: true });
+            this.props.delete(this.props.rowData["id"]);
           }}
         />
-        {this.state.showDeleteForm
-          ? confirmAlert({
-              title: "Potwierdzenie usunięcia",
-              message: "Czy na pewno chcesz usunąć rekord?",
-              buttons: [
-                {
-                  label: "Tak",
-                  onClick: () => {
-                    this.setState({ showDeleteForm: false });
-                    this.props.delete(this.props.rowData["id"]);
-                  }
-                },
-                {
-                  label: "Nie",
-                  onClick: () => {
-                    this.setState({ showDeleteForm: false });
-                  }
-                }
-              ]
-            })
-          : null}
       </td>
     ) : null;
   };
@@ -236,6 +228,7 @@ class TableRow extends Component {
         {this.renderEditRow()}
         {this.renderDeleteRow()}
         {this.renderBonus()}
+        {this.renderRestore()}
       </tr>
     );
   }

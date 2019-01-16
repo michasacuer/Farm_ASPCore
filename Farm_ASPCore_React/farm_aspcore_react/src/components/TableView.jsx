@@ -20,6 +20,7 @@ class TableView extends Component {
   componentDidMount() {
     const newWorkerData = this.state.newWorkerData;
     newWorkerData["farmId"] = 1;
+    newWorkerData["kind"] = 0;
     this.setState({ newWorkerData });
   }
 
@@ -42,9 +43,11 @@ class TableView extends Component {
     );
   };
 
-  handleAddWorkerSubmit = () => {
-    this.setState({ showAddWorkerForm: false });
+  handleAddWorkerSubmit = e => {
     console.log(this.state.newWorkerData);
+    this.props.addWorker(this.state.newWorkerData);
+    this.setState({ showAddWorkerForm: false });
+    e.preventDefault();
   };
 
   handleChange = e => {
@@ -121,6 +124,7 @@ class TableView extends Component {
           splitCultivation={this.props.splitCultivation}
           editWorker={this.props.editWorker}
           delete={this.props.delete}
+          restoreState={this.props.restoreState}
         />
         {this.props.currentlyLoaded === "Worker" ? (
           <Button

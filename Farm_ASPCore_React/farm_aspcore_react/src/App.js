@@ -7,6 +7,7 @@ import {
   NotificationContainer
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import DataServices from "./services/DataServices";
 
 class App extends Component {
   state = {
@@ -87,7 +88,6 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ summary: data });
-        console.log(data);
       });
   };
 
@@ -96,19 +96,16 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ data });
-        console.log(data);
       });
   };
 
   addWorker = worker => {
-    fetch("http://localhost:62573/api/Worker" + worker["kind"], {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(worker)
-    });
+    DataServices.api("Worker/" + worker.kind).post(worker);
+    this.fetchNewData("Worker");
+  };
+
+  editWorker = worker => {
+    DataServices.api("Worker").post(worker);
     this.fetchNewData("Worker");
   };
 
@@ -119,15 +116,19 @@ class App extends Component {
         method: "delete"
       }
     );
+    console.log(
+      "http://localhost:62573/api/" + this.state.currentlyLoaded + "/" + id
+    );
     this.fetchNewData(this.state.currentlyLoaded);
   };
 
   saveState = () => {
-    console.log(this.state.summary[0]);
-    fetch("http://localhost:62573/api/Summary", {
-      method: "POST",
-      body: JSON.stringify(this.state.summary[0])
-    });
+    DataServices.api("Summary").post(this.state.summary[0]);
+  };
+
+  restoreState = id => {
+    fetch("http://localhost:62573/api/Summary/" + id);
+    this.fetchNewData("Summary/list");
   };
 
   createNotification = (type, data) => {
@@ -160,10 +161,12 @@ class App extends Component {
           acquireMachine={this.acquireMachine}
           releaseMachine={this.releaseMachine}
           splitCultivation={this.splitCultivation}
+          addWorker={this.addWorker}
           editWorker={this.editWorker}
           summary={this.state.summary[0]}
           delete={this.delete}
           saveState={this.saveState}
+          restoreState={this.restoreState}
         />
       </div>
     );
