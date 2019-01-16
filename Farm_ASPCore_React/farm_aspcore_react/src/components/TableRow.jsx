@@ -101,7 +101,7 @@ class TableRow extends Component {
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-fast-backward"
-          onClick={this.props.restoreState}
+          onClick={() => {this.props.restoreState(this.props.rowData["id"])}}
         />
       </td>
     ) : null;
@@ -144,6 +144,28 @@ class TableRow extends Component {
           onClick={() => {
             this.props.delete(this.props.rowData["id"]);
           }}
+        />
+      </td>
+    ) : null;
+  };
+
+  renderSow = () => {
+    return this.props.currentlyLoaded === "Cultivation" ? (
+      <td>
+        <Glyphicon
+          glyph={"glyphicon glyphicon-grain"}
+          onClick={() => this.props.handleSow(this.props.rowData["id"])}
+        />
+      </td>
+    ) : null;
+  };
+
+  renderHarvest = () => {
+    return this.props.currentlyLoaded === "Cultivation" ? (
+      <td>
+        <Glyphicon
+          glyph={"glyphicon glyphicon-remove"}
+          onClick={() => this.props.handleHarvest(this.props.rowData["id"])}
         />
       </td>
     ) : null;
@@ -225,6 +247,8 @@ class TableRow extends Component {
         {this.renderRow()}
         {this.renderReleaseMachine()}
         {this.renderSplitComposite()}
+        {this.renderHarvest()}
+        {this.renderSow()}
         {this.renderEditRow()}
         {this.renderDeleteRow()}
         {this.renderBonus()}

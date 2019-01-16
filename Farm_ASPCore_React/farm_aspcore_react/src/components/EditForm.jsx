@@ -68,8 +68,8 @@ class EditForm extends Component {
                   onChange={this.handleChange}
                   name="kind"
                 >
-                  <option value="0">Driver</option>
-                  <option value="1">Farmer</option>
+                  <option value={0}>Driver</option>
+                  <option value={1}>Farmer</option>
                 </FormControl>
               </FormGroup>
             ) : null}

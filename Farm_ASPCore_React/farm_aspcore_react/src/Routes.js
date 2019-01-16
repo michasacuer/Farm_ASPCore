@@ -23,6 +23,8 @@ class Routes extends Component {
               delete={this.props.delete}
               saveState={this.props.saveState}
               restoreState={this.props.restoreState}
+              handleSow={this.props.handleSow}
+              handleHarvest={this.props.handleHarvest}
             />
           )}
         />

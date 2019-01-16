@@ -125,6 +125,8 @@ class TableView extends Component {
           editWorker={this.props.editWorker}
           delete={this.props.delete}
           restoreState={this.props.restoreState}
+          handleSow={this.props.handleSow}
+          handleHarvest={this.props.handleHarvest}
         />
         {this.props.currentlyLoaded === "Worker" ? (
           <Button

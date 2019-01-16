@@ -105,7 +105,8 @@ class App extends Component {
   };
 
   editWorker = worker => {
-    DataServices.api("Worker").post(worker);
+    console.log(worker);
+    DataServices.api("Worker/Edit").post(worker);
     this.fetchNewData("Worker");
   };
 
@@ -124,11 +125,24 @@ class App extends Component {
 
   saveState = () => {
     DataServices.api("Summary").post(this.state.summary[0]);
+    this.fetchNewData("Summary/list");
   };
 
   restoreState = id => {
-    fetch("http://localhost:62573/api/Summary/" + id);
+    fetch("http://localhost:62573/api/Summary/" + id)
+      .then(response => response.json())
+      .then(data => alert(JSON.stringify(data)));
     this.fetchNewData("Summary/list");
+  };
+
+  handleHarvest = id => {
+    fetch("http://localhost:62573/api/Cultivation/Harvest");
+    this.fetchNewData("Cultivation");
+  };
+
+  handleSow = id => {
+    fetch("http://localhost:62573/api/Cultivation/Sow/1/" + id);
+    this.fetchNewData("Cultivation");
   };
 
   createNotification = (type, data) => {
@@ -167,6 +181,8 @@ class App extends Component {
           delete={this.delete}
           saveState={this.saveState}
           restoreState={this.restoreState}
+          handleSow={this.handleSow}
+          handleHarvest={this.handleHarvest}
         />
       </div>
     );
