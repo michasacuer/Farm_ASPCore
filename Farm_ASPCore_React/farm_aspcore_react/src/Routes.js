@@ -19,6 +19,8 @@ class Routes extends Component {
               splitCultivation={this.props.splitCultivation}
               editWorker={this.props.editWorker}
               summary={this.props.summary}
+              delete={this.props.delete}
+              saveState={this.props.saveState}
             />
           )}
         />

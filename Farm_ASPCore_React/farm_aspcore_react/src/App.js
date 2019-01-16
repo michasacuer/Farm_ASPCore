@@ -42,7 +42,6 @@ class App extends Component {
             delete worker["usdPerHour"];
             delete worker["hoursPerDay"];
             delete worker["daysOfWork"];
-            delete worker["baseSalary"];
           });
         this.setState({ data });
       });
@@ -86,7 +85,10 @@ class App extends Component {
   fetchSummary = () => {
     fetch("http://localhost:62573/api/Summary")
       .then(response => response.json())
-      .then(data => this.setState({ summary: data }));
+      .then(data => {
+        this.setState({ summary: data });
+        console.log(data);
+      });
   };
 
   splitCultivation = (ratio, id) => {
@@ -108,6 +110,24 @@ class App extends Component {
       body: JSON.stringify(worker)
     });
     this.fetchNewData("Worker");
+  };
+
+  delete = id => {
+    fetch(
+      "http://localhost:62573/api/" + this.state.currentlyLoaded + "/" + id,
+      {
+        method: "delete"
+      }
+    );
+    this.fetchNewData(this.state.currentlyLoaded);
+  };
+
+  saveState = () => {
+    console.log(this.state.summary[0]);
+    fetch("http://localhost:62573/api/Summary", {
+      method: "POST",
+      body: JSON.stringify(this.state.summary[0])
+    });
   };
 
   createNotification = (type, data) => {
@@ -142,6 +162,8 @@ class App extends Component {
           splitCultivation={this.splitCultivation}
           editWorker={this.editWorker}
           summary={this.state.summary[0]}
+          delete={this.delete}
+          saveState={this.saveState}
         />
       </div>
     );

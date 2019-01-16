@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./TableRow.css";
-import { Glyphicon } from "react-bootstrap";
+import { Glyphicon, Modal, Button } from "react-bootstrap";
 import { cellDataTranslate } from "../services/TranslationService";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -99,7 +99,8 @@ class TableRow extends Component {
     const { currentlyLoaded } = this.props;
     return currentlyLoaded !== "Stable" &&
       currentlyLoaded !== "Cultivation" &&
-      currentlyLoaded !== "Machine" ? (
+      currentlyLoaded !== "Machine" &&
+      currentlyLoaded !== "Summary/list" ? (
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-pencil"
@@ -122,7 +123,8 @@ class TableRow extends Component {
 
   renderDeleteRow = () => {
     return this.props.currentlyLoaded !== "Cultivation" &&
-      this.props.currentlyLoaded !== "Machine" ? (
+      this.props.currentlyLoaded !== "Machine" &&
+      this.props.currentlyLoaded !== "Stable" ? (
       <td>
         <Glyphicon
           glyph="glyphicon glyphicon-trash"
@@ -139,6 +141,7 @@ class TableRow extends Component {
                   label: "Tak",
                   onClick: () => {
                     this.setState({ showDeleteForm: false });
+                    this.props.delete(this.props.rowData["id"]);
                   }
                 },
                 {
@@ -157,7 +160,69 @@ class TableRow extends Component {
   renderBonus = () => {
     return this.props.currentlyLoaded === "Worker" ? (
       <td>
-        <Glyphicon glyph="glyphicon glyphicon-usd" />
+        <Glyphicon
+          glyph="glyphicon glyphicon-usd"
+          onClick={() => {
+            this.setState({ showBonusForm: true });
+          }}
+        />
+        <Modal show={this.state.showBonusForm}>
+          <Modal.Header>
+            <Modal.Title>Przydziel premię</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch(
+                  "http://localhost:62573/api/Bonus/amount/" +
+                    this.props.rowData["id"],
+                  { method: "POST" }
+                );
+              }}
+            >
+              Ilościowa
+            </Button>{" "}
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch(
+                  "http://localhost:62573/api/Bonus/percent/" +
+                    this.props.rowData["id"],
+                  { method: "POST" }
+                );
+              }}
+            >
+              Procentowa
+            </Button>{" "}
+            <Button
+              bsStyle="primary"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch(
+                  "http://localhost:62573/api/Bonus/discretionary/" +
+                    this.props.rowData["id"],
+                  { method: "POST" }
+                );
+              }}
+            >
+              Uznaniowa
+            </Button>{" "}
+            <Button
+              bsStyle="danger"
+              onClick={() => {
+                this.setState({ showBonusForm: false });
+                fetch("http://localhost:62573/api/Bonus/Reset", {
+                  method: "POST"
+                });
+              }}
+            >
+              Reset
+            </Button>
+          </Modal.Body>
+        </Modal>
       </td>
     ) : null;
   };

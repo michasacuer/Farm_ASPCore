@@ -14,8 +14,7 @@ import translate, { cellDataTranslate } from "../services/TranslationService";
 class TableView extends Component {
   state = {
     newWorkerData: {},
-    showAddWorkerForm: false,
-    date: new Date()
+    showAddWorkerForm: false
   };
 
   componentDidMount() {
@@ -45,10 +44,13 @@ class TableView extends Component {
 
   handleAddWorkerSubmit = () => {
     this.setState({ showAddWorkerForm: false });
+    console.log(this.state.newWorkerData);
   };
 
-  handleChange = date => {
-    this.setState({ date });
+  handleChange = e => {
+    const newWorkerData = this.state.newWorkerData;
+    newWorkerData[e.target.name] = e.target.value;
+    this.setState({ newWorkerData });
   };
 
   renderAddWorker = () => {
@@ -61,19 +63,31 @@ class TableView extends Component {
           <Modal.Body>
             <FormGroup>
               <ControlLabel>Imię</ControlLabel>
-              <FormControl />
+              <FormControl name="firstName" onChange={this.handleChange} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Nazwisko</ControlLabel>
-              <FormControl />
+              <FormControl name="lastName" onChange={this.handleChange} />
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Płaca</ControlLabel>
-              <FormControl />
+              <ControlLabel>Godziny pracy dziennie</ControlLabel>
+              <FormControl name="hoursPerDay" onChange={this.handleChange} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Dni pracy w miesiącu</ControlLabel>
+              <FormControl name="daysOfWork" onChange={this.handleChange} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Stawka godzinowa</ControlLabel>
+              <FormControl name="usdPerHour" onChange={this.handleChange} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Rola</ControlLabel>
-              <FormControl componentClass="select">
+              <FormControl
+                name="kind"
+                onChange={this.handleChange}
+                componentClass="select"
+              >
                 <option value="0">Kierowca</option>
                 <option value="1">Farmer</option>
               </FormControl>
@@ -106,6 +120,7 @@ class TableView extends Component {
           releaseMachine={this.props.releaseMachine}
           splitCultivation={this.props.splitCultivation}
           editWorker={this.props.editWorker}
+          delete={this.props.delete}
         />
         {this.props.currentlyLoaded === "Worker" ? (
           <Button

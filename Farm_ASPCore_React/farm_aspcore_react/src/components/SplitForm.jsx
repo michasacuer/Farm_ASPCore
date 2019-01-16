@@ -10,7 +10,6 @@ import {
 } from "react-bootstrap";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import "./SplitForm.css";
 
 class SplitForm extends Component {
   state = { ratio: 0.5, firstCultivationSize: 2.5, secondCultivationSize: 2.5 };

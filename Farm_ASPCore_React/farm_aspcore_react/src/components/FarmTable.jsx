@@ -22,7 +22,7 @@ class FarmTable extends Component {
         additionalHeaders = 3;
         break;
       case "Stable":
-        additionalHeaders = 1;
+        additionalHeaders = 0;
         break;
       case "Cultivation":
         additionalHeaders = 1;
@@ -58,6 +58,7 @@ class FarmTable extends Component {
                 releaseMachine={this.props.releaseMachine}
                 splitCultivation={this.props.splitCultivation}
                 editWorker={this.props.editWorker}
+                delete={this.props.delete}
               />
             ))}
           </tbody>
