@@ -18,7 +18,9 @@ class EditForm extends Component {
     keys.forEach(key => {
       fieldsData[key] = this.props.data[key];
     });
-    fieldsData["kind"] = "Farmer";
+    fieldsData["kind"] = 0;
+    fieldsData["id"] = this.props.data["id"];
+    this.setState({ fieldsData });
   }
 
   handleSubmit = e => {
@@ -53,6 +55,16 @@ class EditForm extends Component {
                 <FormGroup controlId={key} key={key}>
                   <ControlLabel>{translate(key)}</ControlLabel>
                   <FormControl
+                    step={0.01}
+                    type={
+                      key === "salary" ||
+                      key === "usdPerHour" ||
+                      key === "hoursPerDay" ||
+                      key === "daysOfWork" ||
+                      key === "baseSalary"
+                        ? "number"
+                        : "text"
+                    }
                     defaultValue={data[key]}
                     onChange={this.handleChange}
                     name={key}

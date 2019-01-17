@@ -38,14 +38,22 @@ class App extends Component {
           data.forEach(worker => {
             delete worker["farmId"];
             delete worker["farm"];
-            delete worker["startOfContract"];
-            delete worker["endOfContract"];
-            delete worker["usdPerHour"];
-            delete worker["hoursPerDay"];
-            delete worker["daysOfWork"];
           });
         this.setState({ data });
       });
+  };
+
+  bonus = (id, type) => {
+    if (type === "Reset") {
+      fetch("http://localhost:62573/api/Bonus/Reset", {
+        method: "POST"
+      });
+    } else {
+      fetch("http://localhost:62573/api/Bonus/" + type + "/" + id, {
+        method: "POST"
+      });
+    }
+    this.fetchNewData("Worker");
   };
 
   acquireMachine = () => {
@@ -183,6 +191,7 @@ class App extends Component {
           restoreState={this.restoreState}
           handleSow={this.handleSow}
           handleHarvest={this.handleHarvest}
+          bonus={this.bonus}
         />
       </div>
     );
